@@ -1,34 +1,38 @@
 version: "3.1"
 
+slots:
+  player_hp:
+    type: float
+    initial_value: 100
+  enemy_hp:
+    type: float
+    initial_value: 100
+  player_action:
+    type: text
+  enemy_action:
+    type: text
+  combat_state:
+    type: text
+    initial_value: "ongoing"
+
 intents:
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - mood_great
-  - mood_unhappy
-  - bot_challenge
+  - attack
+  - defend
+  - use_item
+  - flee
+  - start_combat
+
+actions:
+  - action_combat_turn
 
 responses:
-  utter_greet:
-  - text: "Hey! How are you?"
-
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
-
-  utter_did_that_help:
-  - text: "Did that help you?"
-
-  utter_happy:
-  - text: "Great, carry on!"
-
-  utter_goodbye:
-  - text: "Bye"
-
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-
-session_config:
-  session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  utter_combat_start:
+    - text: "Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
+  utter_player_choice:
+    - text: "Que voulez-vous faire ? (attaquer, défendre, utiliser un objet)"
+  utter_victory:
+    - text: "Vous avez vaincu l'ennemi ! Félicitations !"
+  utter_defeat:
+    - text: "Vous avez été vaincu. Mieux vaut vous entraîner davantage !"
+  utter_enemy_turn:
+    - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."

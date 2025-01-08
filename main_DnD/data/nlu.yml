@@ -1,21 +1,31 @@
 version: "3.1"
 
 nlu:
-- intent: greet
+- intent: attack
   examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+    - attaque
+    - attaquer
+
+- intent: spell
+  examples: |
+    - lancer un sort
+    - lancer une incantation
+    - incanter
+
+- intent: speech
+  examples: |
+    - parler
+    - convaicre
+
+- intent: flee
+  examples: |
+    - fuite
+    - fuir
+
+- intent: use_item
+  examples: |
+    - utiliser un objet
+    - utiliser un item
 
 - intent: goodbye
   examples: |
