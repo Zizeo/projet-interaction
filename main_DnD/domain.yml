@@ -3,27 +3,69 @@ version: "3.1"
 slots:
   player_hp:
     type: float
+    min_value: -100.0
+    max_value:  100.0
     initial_value: 100
+    mappings:
+      - type: custom
   enemy_hp:
     type: float
+    min_value: -100.0
+    max_value:  100.0
     initial_value: 100
+    mappings:
+      - type: custom
   player_action:
     type: text
+    mappings:
+      - type: custom
   enemy_action:
     type: text
+    mappings:
+      - type: custom
+  player_force:
+    type: float
+    mappings:
+      - type: custom
+  player_intelligence:
+    type: float
+    mappings:
+      - type: custom
+  player_agility:
+    type: float
+    mappings:
+      - type: custom
+  player_level:
+    type: float
+    min_value: -100.0
+    max_value:  100.0
+    initial_value: 1
+    mappings:
+      - type: custom
   combat_state:
     type: text
-    initial_value: "ongoing"
+    initial_value: "ended"
+    mappings:
+      - type: custom
 
 intents:
-  - attack
-  - defend
-  - use_item
-  - flee
-  - start_combat
+  - attack:
+    use_entities: true
+  - use_item:
+    use_entities: true
+  - flee:
+    use_entities: true
+  - start_combat:
+    use_entities: true
+
 
 actions:
   - action_combat_turn
+  - action_combat_start
+  - action_combat_end
+  - action_player_choice
+  - action_set_player_action
+
 
 responses:
   utter_combat_start:
@@ -36,3 +78,10 @@ responses:
     - text: "Vous avez été vaincu. Mieux vaut vous entraîner davantage !"
   utter_enemy_turn:
     - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."
+
+forms:
+  combat_form:
+    required_slots:
+      - player_action
+
+

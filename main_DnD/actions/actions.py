@@ -54,29 +54,27 @@ class ActionCombatTurn(Action):
 
         # Action du joueur
         if player_action == "attack":
-            damage = random.randint(10, 30)
+            damage = random.randint(10, 20)
             enemy_hp -= damage
             dispatcher.utter_message(
                 text=f"Vous attaquez et infligez {damage} points de dégâts à l'ennemi."
             )
         elif player_action == "use_item":
-            heal = random.randint(15, 25)
+            heal = random.randint(10, 20)
             player_hp += heal
             dispatcher.utter_message(
                 text=f"Vous utilisez une potion et récupérez {heal} points de vie."
             )
         elif player_action == "flee":
-            dispatcher.utter_message(text="Vous fuyez le combat !")
             return [SlotSet("combat_state", "fled")]
 
         if enemy_hp <= 0:
-            dispatcher.utter_message(response="utter_victory")
             return [SlotSet("enemy_hp", 0), SlotSet("combat_state", "victory")]
 
         # Action de l'ennemi
-        enemy_action = random.choices(["attack", "wait"], weights=[0.7, 0.3])[0]
+        enemy_action = random.choices(["attack", "wait"], weights=[0.8, 0.2])[0]
         if enemy_action == "attack":
-            damage = random.randint(10, 25)
+            damage = random.randint(3, 12)
             player_hp -= damage
             dispatcher.utter_message(
                 text=f"L'ennemi attaque et inflige {damage} points de dégâts."
@@ -86,7 +84,6 @@ class ActionCombatTurn(Action):
 
         # Vérifier si le joueur est vaincu
         if player_hp <= 0:
-            dispatcher.utter_message(response="utter_defeat")
             return [SlotSet("player_hp", 0), SlotSet("combat_state", "defeat")]
 
         # Mise à jour des slots
@@ -130,10 +127,10 @@ class ActionCombatEnd(Action):
             dispatcher.utter_message(text="Le combat est toujours en cours.")
             return []
         elif state == "victory":
-            dispatcher.utter_message(text="Vous avez vaincu l'ennemi !")
+            dispatcher.utter_message(response="utter_victory")
             return [SlotSet("combat_state", "ended")]
         elif state == "defeat":
-            dispatcher.utter_message(text="Vous avez perdu contre l'ennemi.")
+            dispatcher.utter_message(response="utter_defeat")
             return [SlotSet("combat_state", "ended")]
         elif state == "fled":
             dispatcher.utter_message(text="Vous avez fuis le combat.")
@@ -158,3 +155,44 @@ class ActionPlayerChoice(Action):
             dispatcher.utter_message(text="Veuillez choisir une action.")
             return []
         return [SlotSet("player_action", player_action)]
+
+
+class ActionSkillCheck(Action):
+    def name(self) -> str:
+        return "action_skill_check"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        skill_check = tracker.get_slot("skill_check")
+        skill_check_result = False
+        dice_result = random.randint(1, 20)
+        if dice_result > skill_check:
+            dispatcher.utter_message(text="Le test de skill a reussi !")
+            skill_check_result = True
+        else:
+            dispatcher.utter_message(text="Le test de skill a echoué !")
+        return [
+            SlotSet("skill_check", skill_check),
+            SlotSet("skill_check_result", skill_check_result),
+        ]
+
+
+class ActionSetPlayerAction(Action):
+    def name(self) -> str:
+        return "action_set_player_action"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        # Récupérer l'intent capturé
+        player_intent = tracker.latest_message["intent"]["name"]
+
+        # Définir le slot `player_action` en fonction de l'intent
+        return [SlotSet("player_action", player_intent)]

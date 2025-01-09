@@ -6,5 +6,27 @@ rules:
       - slot_was_set:
           - combat_state: "ongoing"
     steps:
-      - action: action_combat_turn
       - action: action_player_choice
+      - intent: player_action
+      - action: action_set_player_action
+      - action: action_combat_turn
+
+  - rule: Fin du combat
+    condition:
+      - slot_was_set:
+          - combat_state: victory
+      - slot_was_set:
+          - combat_state: defeat
+      - slot_was_set:
+          - combat_state: fled
+    steps:
+      - action: action_combat_end
+
+  # - rule: Démarrer la forme de combat
+  #   condition:
+  #     - slot_was_set:
+  #         - combat_state: "ongoing"
+  #   steps:
+  #     - action: action_player_choice
+  #     - action: combat_form
+  #     - active_loop: combat_form
