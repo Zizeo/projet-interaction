@@ -12,6 +12,8 @@ import threading
 from rasa.core.run import serve_application
 
 scene = 0
+classe_personnage = 0
+pv = 0
 # (numero de l'image, x, y,sizex,sizey)
 list_objet = []
 # (string, x, y, sizex, sizey)
@@ -28,7 +30,6 @@ agent_scenario = ""
 agent_principal = ""
 
 ########## action
-
 
 class ActionPassageSecondRasa(Action):
 
@@ -65,7 +66,6 @@ class ActionFinProgramme(Action):
         running_principal = False
 
         return []
-
 
 
 ###########
@@ -133,12 +133,22 @@ def change_text_scene(text):
 def change_text_utilisateur(text):
     global text_utilisateur
     global scene
+    global pv
+    global classe_personnage
 
     text_utilisateur = text
     response = agent_principal.handle_text(text_utilisateur) #si bug passer en asynchrone
 
     tracker = agent.tracker_strore.retrieve("default")
     salle = tracker.get_slot("current_room")
+    pv = tracker.get_slot("player_hp")
+    classe = tracker.get_slot("class")
+    if classe == "rodeur":
+        classe_personnage = 0
+    elif classe == "barbare":
+        classe_personnage = 1
+    elif classe == "occultiste":
+        classe_personnage = 2
 
     change_text_scene(response)
 
@@ -168,11 +178,15 @@ def windows():
     global text_utilisateur
     global list_objet
     global list_object_scrapper
+    global classe_personnage
+    global pv
     
     list_salle = ["./image/dungeon.png","./image/dungeon_trap.png","./image/entree.png","./image/foret.png","./image/mine.png","./image/plaine.png","./image/taverne.png"]
     list_objet_path = ["./image/chat_joyeux.png","./image/chat_mefiant.png","./image/dragon.png","./image/dragon_dead.png","./image/garde.png","./image/garde_dead.png","./image/papier.png"]
+    list_classe_personnage = ["./image/rodeur.png","./image/barbare.png","./image/occutilste.png"]
 
     list_objet_path_loaded = []
+    list_avatar_path_loaded = []
     list_objet_scrapper_loaded = {}
 
     for i in list_objet_path:
@@ -182,6 +196,9 @@ def windows():
         if j[0] not in list_objet_scrapper_loaded.keys():
             list_objet_scrapper_loaded[j[0]] = scrape_image(j[0])
     
+    for i in list_classe_personnage:
+        list_avatar_path_loaded.append(pygame.image.load(i))
+
     pygame.init()
 
     screen = pygame.display.set_mode((1500,800))
@@ -236,6 +253,11 @@ def windows():
             else:
                 screen.blit(list_objet_scrapper_loaded[i[0]], (i[1], i[2]))
 
+        screen.blit(pygame.transform.smoothscale(list_avatar_path_loaded[classe_personnage],(100,100)), (50, 50))
+
+        health_text = font.render(f"Pv: {pv}", True, (255, 255, 255))
+        screen.blit(health_text,(50,160))
+
         color = (60,60,60) if active else (20,20,20)
         pygame.draw.rect(screen,color,input_box,2)
 
@@ -261,4 +283,5 @@ if __name__=="__main__":
     serve_application(agent_scenario,http_port=5006)
 
     while running_principal:
-        listen_user()
+        #listen_user()
+        classe_personnage = int(input())
