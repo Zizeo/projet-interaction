@@ -1,6 +1,27 @@
 version: "3.1"
 
+
 slots:
+  current_room:
+    type: float
+    mappings:
+      - type: custom
+  equipement:
+    type: text
+    mappings:
+      - type: custom
+  skill:
+    type: text
+    mappings:
+      - type: custom
+  stats:
+    type: text
+    mappings:
+      - type: custom
+  class:
+    type: text
+    mappings:
+      - type: custom
   player_hp:
     type: float
     min_value: -100.0
@@ -49,14 +70,10 @@ slots:
       - type: custom
 
 intents:
-  - attack:
-    use_entities: true
-  - use_item:
-    use_entities: true
-  - flee:
-    use_entities: true
-  - start_combat:
-    use_entities: true
+  - attack
+  - use_item
+  - flee
+  - start_combat
 
 
 actions:
