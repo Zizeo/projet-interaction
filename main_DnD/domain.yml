@@ -15,10 +15,18 @@ slots:
     initial_value: 100
     mappings:
       - type: custom
+
+
   player_action:
     type: text
     mappings:
-      - type: custom
+      - type: from_intent
+        intent: 
+          - attack
+          - use_item
+          - flee
+        value: "{intent}"
+
   enemy_action:
     type: text
     mappings:
@@ -49,15 +57,25 @@ slots:
       - type: custom
 
 intents:
-  - attack:
-    use_entities: true
-  - use_item:
-    use_entities: true
-  - flee:
-    use_entities: true
-  - start_combat:
-    use_entities: true
+- attack
+- use_item 
+- flee
+- start_combat
+- end_combat
 
+entities:
+  - action_player
+  - equipement
+  - skill
+  - class 
+  - actual_room
+  - player_hp
+  - enemy_hp
+  - player_force
+  - player_intelligence
+  - player_agility
+  - player_level
+  - combat_state
 
 actions:
   - action_combat_turn
@@ -65,12 +83,13 @@ actions:
   - action_combat_end
   - action_player_choice
   - action_set_player_action
+  - action_validate_combat_form
 
 
 responses:
   utter_combat_start:
     - text: "Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
-  utter_player_choice:
+  utter_player_choice_fight:
     - text: "Que voulez-vous faire ? (attaquer, défendre, utiliser un objet)"
   utter_victory:
     - text: "Vous avez vaincu l'ennemi ! Félicitations !"
@@ -82,6 +101,7 @@ responses:
 forms:
   combat_form:
     required_slots:
-      - player_action
+      - combat_state
+
 
 

@@ -6,6 +6,7 @@ stories:
   steps:
   - intent: start_combat
   - action: action_combat_start
+  - action: action_player_choice
 
 
 

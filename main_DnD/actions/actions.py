@@ -196,3 +196,20 @@ class ActionSetPlayerAction(Action):
 
         # Définir le slot `player_action` en fonction de l'intent
         return [SlotSet("player_action", player_intent)]
+
+
+class ValidateCombatForm(Action):
+    def name(self) -> str:
+        return "action_validate_combat_form"
+
+    def validate_combat_state(
+        self,
+        slot_value: Any,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> Dict[Text, Any]:
+        if slot_value == "ended":
+            return {"combat_state": "ended"}
+        else:
+            return {"combat_state": None}
