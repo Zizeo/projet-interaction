@@ -8,5 +8,11 @@ stories:
   - action: action_combat_start
   - action: action_player_choice
 
+- story: jet dé
+  steps:
+  - action: utter_setp2
+  - intent: choose_dice
+  - action: action_class_response
+
 
 
