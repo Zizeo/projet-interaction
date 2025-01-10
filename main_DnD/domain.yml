@@ -96,6 +96,34 @@ responses:
   utter_enemy_turn:
     - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."
 
+utter_lost:
+    - condition:
+      - type: slot
+        name: current_room
+        value: 0
+      text: ""
+    - condition:
+      - type: slot
+        name: current_room
+        value: 1
+      text: ""
+    - condition:
+      - type: slot
+        name: current_room
+        value: 2
+      text: "Avez vous pensé à fouiller le garde ?"
+    - condition:
+      - type: slot
+        name: current_room
+        value: 3
+      text: ""
+    - condition:
+      - type: slot
+        name: current_room
+        value: 4
+      text: ""
+
+
 forms:
   combat_form:
     required_slots:
