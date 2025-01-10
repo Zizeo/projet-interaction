@@ -33,4 +33,55 @@ nlu:
     - je vous défie
     - combat
 
+- intent: info_choosen_action
+  examples: |
+    - déplacer
+    - avancer
+    - attaquer
+    - combattre
+    - utiliser un sort
+    - jeter un sort
+    - convaincre
+    - persuader
+    - s'enfuir
+    - fuir
+
+- intent: info_status
+  examples: |
+    - je veux connaître mes statistiques
+    - rappelle moi mes stats
+    - affiche moi mes stats
+    - je veux connaître mes skills
+    - rappelle moi mes skills
+    - affiche moi mes skills
+    - je veux connaître mes PV
+    - rappelle moi mes PV
+    - affiche moi mes PV
+    - je veux connaître ma vie
+    - rappelle moi ma vie
+    - affiche moi ma vie
+    - je veux connaître mon équipement
+    - rappelle moi mon équipement
+    - affiche moi mon équipement
     
+
+- intent: quit
+  examples: |
+    - quitter
+    - arrêter
+    - stop
+
+- intent: lost
+  examples: |
+    - je veux de l'aide
+    - aide-moi
+    - je suis perdu
+    - je dois faire quoi 
+
+
+- intent: help
+  examples: |
+    - que viens tu de dire
+    - répète
+    - je n'ai pas compris
+    - redis
