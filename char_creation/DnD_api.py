@@ -79,9 +79,21 @@ def get_equipement():
       # on récupère les infos sur les armes du barbare
       equipements.append([])
       arme_1 = get_arme(url_arme_1)
+      if("axe" in arme_1.nom):
+        res=arme_1.nom.split("axe")
+        arme_1.nom=res[0]+" axe"
+      elif("bow" in arme_1.nom):
+        res=arme_1.nom.split("bow")
+        arme_1.nom=res[0]+" bow"  
       # print(arme_1) 
       equipements[i].append(arme_1)
       arme_2 = get_arme_random(url_arme_2)
+      if("axe" in arme_2.nom):
+        res=arme_2.nom.split("axe")
+        arme_2.nom=res[0]+" axe"
+      elif("hammer" in arme_2.nom):
+        res=arme_2.nom.split("hammer")
+        arme_2.nom=res[0]+" hammer"
       # print(arme_2) 
       equipements[i].append(arme_2) 
   # print(equipements)  
@@ -208,55 +220,55 @@ if __name__ == "__main__":
   # on met toutes les infos dans un JSON
   slot_values = {
       "classe_barbare": personnages[0].classe,
-      "classe_occultiste": personnages[1].classe,
-      "classe_rodeur": personnages[2].classe,
+      "classe_rodeur": personnages[1].classe,
+      "classe_occultiste": personnages[2].classe,
       "pv_barbare": personnages[0].pv,
-      "pv_occultiste": personnages[1].pv,
-      "pv_rodeur": personnages[2].classe,
+      "pv_rodeur": personnages[1].pv,
+      "pv_occultiste": personnages[2].pv,
       "force_barbare": personnages[0].force,
-      "force_occultiste": personnages[1].force,
-      "force_rodeur": personnages[2].force,
+      "force_rodeur": personnages[1].force,
+      "force_occultiste": personnages[2].force,
       "intelligence_barbare": personnages[0].intelligence,
-      "intelligence_occultiste": personnages[1].intelligence,
-      "intelligence_rodeur": personnages[2].intelligence,
+      "intelligence_rodeur": personnages[1].intelligence,
+      "intelligence_occultiste": personnages[2].intelligence,
       "agilite_barbare": personnages[0].agilite,
-      "agilite_occultiste": personnages[1].agilite,
-      "agilite_rodeur": personnages[2].agilite,
+      "agilite_rodeur": personnages[1].agilite,
+      "agilite_occultiste": personnages[2].agilite,
       "equipement_1_nom_barbare": personnages[0].equipements[0].nom,
-      "equipement_1_nom_occultiste": personnages[1].equipements[0].nom,
-      "equipement_1_nom_rodeur": personnages[2].equipements[0].nom,
+      "equipement_1_nom_rodeur": personnages[1].equipements[0].nom,
+      "equipement_1_nom_occultiste": personnages[2].equipements[0].nom,
       "equipement_2_nom_barbare": personnages[0].equipements[1].nom,
-      "equipement_2_nom_occultiste": personnages[1].equipements[1].nom,
-      "equipement_2_nom_rodeur": personnages[2].equipements[1].nom,
+      "equipement_2_nom_rodeur": personnages[1].equipements[1].nom,
+      "equipement_2_nom_occultiste": personnages[2].equipements[1].nom,
       "equipement_1_degat_barbare": personnages[0].equipements[0].degat,
-      "equipement_1_degat_occultiste": personnages[1].equipements[0].degat,
-      "equipement_1_degat_rodeur": personnages[2].equipements[0].degat,
+      "equipement_1_degat_rodeur": personnages[1].equipements[0].degat,
+      "equipement_1_degat_occultiste": personnages[2].equipements[0].degat,
       "equipement_2_degat_barbare": personnages[0].equipements[1].degat,
-      "equipement_2_degat_occultiste": personnages[1].equipements[1].degat,
-      "equipement_2_degat_rodeur": personnages[2].equipements[1].degat,
-      "equipement_1_description_occultiste": personnages[1].equipements[0].description,
-      "equipement_2_description_occultiste": personnages[1].equipements[1].description
+      "equipement_2_degat_rodeur": personnages[1].equipements[1].degat,
+      "equipement_2_degat_occultiste": personnages[2].equipements[1].degat,
+      "equipement_1_description_occultiste": personnages[2].equipements[0].description,
+      "equipement_2_description_occultiste": personnages[2].equipements[1].description
   }
 
   # Define Rasa endpoint
   rasa_url = "http://localhost:5005/conversations/user123/tracker/events"
 
+  # Initialize the Translator
+  translator = Translator()
+  
+  # print("Original:", slot_values)
+
+  for slot_name, slot_value in slot_values.items():
+    if not str(slot_value).isdigit() and "classe" not in slot_name:
+      print(slot_value)
+      translation = translator.translate(slot_value, src='en', dest='fr')
+      print(translation.text)
   # Automatically generate the "data" JSON
   data = [{"event": "slot", "name": slot_name, "value": slot_value} for slot_name, slot_value in slot_values.items()]
 
-  print(data)
-
-  # Send the events to set the slots
-  response = requests.post(rasa_url, json=data)
-  print(response.status_code, response.json())
-
-  # Initialize the Translator
-  translator = Translator()
-
-  # Translate text from English to French
-  text = "Hello, how are you?"
-  translation = translator.translate(text, src='en', dest='fr')
+  # # Send the events to set the slots
+  # response = requests.post(rasa_url, json=data)
+  # print(response.status_code, response.json())
 
   # Output the translated text
-  print("Original:", text)
-  print("Translated:", translation.text)
+  # print("Translated:", data)
