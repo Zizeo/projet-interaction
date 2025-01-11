@@ -153,7 +153,15 @@ def get_sort(url_sort,url_damage):
   # on récupère ainsi le 6
   degat = sort["damage"][url_damage]["1"].split('d')
   # print(degat) 
-  sort_1 = Arme(sort["name"], degat[1], sort["desc"][0])
+  # modification de la description car la traduction fait un truc bizarre
+  desc = ""
+  if("burning" in url_sort):
+    desc = "Lorsque vous tenez vos mains devant vous, de fines flammes puissantes s'échappent de chacun de vos doigts tendus."
+  else:
+    desc = "Vous étendez votre main et projetez une bouffée de gaz nocif de votre paume!"
+  # la traduction obtenue étant bizarre on met la description en dur  
+  # sort_1 = Arme(sort["name"], degat[1], sort["desc"][0])
+  sort_1 = Arme(sort["name"], degat[1], desc)
   return sort_1
 
 
@@ -261,8 +269,9 @@ if __name__ == "__main__":
   for slot_name, slot_value in slot_values.items():
     if not str(slot_value).isdigit() and "classe" not in slot_name:
       print(slot_value)
-      translation = translator.translate(slot_value, src='en', dest='fr')
-      print(translation.text)
+      if("description" not in slot_name):
+        translation = translator.translate(slot_value, src='en', dest='fr')
+        print(translation.text)
   # Automatically generate the "data" JSON
   data = [{"event": "slot", "name": slot_name, "value": slot_value} for slot_name, slot_value in slot_values.items()]
 
