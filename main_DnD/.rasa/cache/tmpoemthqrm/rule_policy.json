@@ -1,0 +1,25 @@
+{
+  "lookup": {
+    "rules": {
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}]": "action_set_player_action",
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}, {\"prev_action\": {\"action_name\": \"action_set_player_action\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}]": "action_combat_turn",
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}, {\"prev_action\": {\"action_name\": \"action_set_player_action\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}, {\"prev_action\": {\"action_name\": \"action_combat_turn\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}]": "action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_combat_end\"}, \"slots\": {\"combat_state\": [1.0]}}]": "action_listen"
+    },
+    "rule_only_slots": [],
+    "rule_only_loops": [],
+    "rules_for_loop_unhappy_path": {},
+    "rules_not_in_stories": [
+      "[{\"prev_action\": {\"action_name\": \"action_combat_end\"}, \"slots\": {\"combat_state\": [1.0]}}]",
+      "predicting default action with intent session_start",
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}]",
+      "handling active loops and forms - combat_form - action_listen",
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}, {\"prev_action\": {\"action_name\": \"action_set_player_action\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}]",
+      "handling active loops and forms - combat_form",
+      "[{\"prev_action\": {\"action_name\": \"action_player_choice\"}, \"slots\": {\"combat_state\": [1.0]}}, {\"prev_action\": {\"action_name\": \"action_listen\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}, {\"prev_action\": {\"action_name\": \"action_set_player_action\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}, {\"prev_action\": {\"action_name\": \"action_combat_turn\"}, \"slots\": {\"combat_state\": [1.0]}, \"user\": {\"intent\": \"player_action\"}}]",
+      "predicting default action with intent back",
+      "predicting default action with intent restart"
+    ]
+  }
+}

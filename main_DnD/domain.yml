@@ -20,14 +20,14 @@ slots:
       - type: custom
   class:
     type: text
-    initial_value: occultiste
+    initial_value: barbare
     mappings:
       - type: custom
   player_hp:
     type: float
     min_value: 0.0
-    max_value:  8.0
-    initial_value: 8
+    max_value:  12.0
+    initial_value: 12
     mappings:
       - type: custom
   enemy_hp:
@@ -37,7 +37,6 @@ slots:
     initial_value: 12
     mappings:
       - type: custom
-
 
   player_action:
     type: text
@@ -85,6 +84,13 @@ intents:
 - start_combat
 - end_combat
 - choose_dice
+- info_choosen_action
+- info_status
+- speech
+- spell
+- quit
+- help
+- lost
 
 entities:
   - action_player
@@ -129,8 +135,10 @@ responses:
                 - vous avez {player_force} en force
                 - vous avez {player_intelligence} en intelligence
                 - vous avez {player_agility} en dexterité"
+
   utter_step1:
-    - text: "Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage."
+    - text: |
+            "Bonjour, aventurier, et bienvenue dans la quête intitulée : Le Choix Impossible. Vous allez incarner un héros confronté à des décisions critiques, des épreuves intenses et des énigmes mortelles. Votre but ? Retrouver votre chat disparu, qui semble être retenu en otage au sommet d'une tour, protégé par un dragon. Préparez-vous, le chemin ne sera pas sans embûches. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage."
   
   utter_step1_fail:
     - text: "Oh non ! le garde vous a battu. vous ne retrouverez pas votre chat."

@@ -15,7 +15,7 @@ nlu:
 - intent: speech
   examples: |
     - parler
-    - convaicre
+    - convaincre
 
 - intent: flee
   examples: |
