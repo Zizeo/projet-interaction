@@ -27,7 +27,6 @@ from rasa_sdk.executor import CollectingDispatcher
 #         return []
 
 
-from rasa_sdk import Action
 from rasa_sdk.events import SlotSet
 
 import random
@@ -193,7 +192,7 @@ class ActionSetPlayerAction(Action):
     ):
         # Récupérer l'intent capturé
         player_intent = tracker.latest_message["intent"]["name"]
-
+        print(player_intent)
         # Définir le slot `player_action` en fonction de l'intent
         return [SlotSet("player_action", player_intent)]
 
@@ -213,3 +212,114 @@ class ValidateCombatForm(Action):
             return {"combat_state": "ended"}
         else:
             return {"combat_state": None}
+
+
+# class ActionSetPlayerAction(Action):
+#     def name(self) -> str:
+#         return "action_set_player_action"
+
+#     async def run(
+#         self,
+#         dispatcher: CollectingDispatcher,
+#         tracker: Tracker,
+#         domain: Dict[Text, Any],
+#     ):
+#         # Récupérer l'intent capturé
+#         player_intent = tracker.latest_message["intent"]["name"]
+
+#         # Définir le slot `player_action` en fonction de l'intent
+#         return [SlotSet("player_action", player_intent)]
+
+
+class ActionClassResponse(Action):
+    def name(self) -> Text:
+        return "action_class_response"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ) -> List[Dict[Text, Any]]:
+        # Récupérer les valeurs des slots
+        classe = tracker.get_slot("class")
+        type_de = next(tracker.get_latest_entity_values("type_dé"), None)
+
+        score = random.randint(1, 20)
+        print(type_de)
+        if type_de == "intelligence":
+            print(score)
+            # Vérifier les conditions
+            if classe == "occultiste":
+                if score > 10:
+                    dispatcher.utter_message(
+                        text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
+                    )
+                else:
+                    dispatcher.utter_message(
+                        text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ?"
+                    )
+            elif classe in ["barbare", "rodeur"]:
+                if score < 17:
+                    dispatcher.utter_message(
+                        text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ? "
+                    )
+                else:
+                    dispatcher.utter_message(
+                        text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
+                    )
+        elif type_de == "dexterité":
+            print(score)
+            # Vérifier les conditions
+            if classe == "rodeur":
+                if score > 10:
+                    dispatcher.utter_message(
+                        text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
+                    )
+                else:
+                    dispatcher.utter_message(
+                        text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 2 points de vie."
+                    )
+                    return [SlotSet("player_hp", hp - 2)]
+            elif classe in ["barbare", "occultiste"]:
+                if score < 17:
+                    dispatcher.utter_message(
+                        text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 3 points de vie."
+                    )
+                    hp = tracker.get_slot("player_hp")
+                    return [SlotSet("player_hp", hp - 3)]
+                else:
+                    dispatcher.utter_message(
+                        text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
+                    )
+
+        elif type_de == "force":
+            print(score)
+            # Vérifier les conditions
+            if classe == "barbare":
+                if score > 10:
+                    dispatcher.utter_message(
+                        text="Grace à votre force vous infligez 3 dégats de plus."
+                    )
+                    enemy_hp = tracker.get_slot("enemy_hp")
+                    return [SlotSet("enemy_hp", enemy_hp - 3)]
+                else:
+                    dispatcher.utter_message(
+                        text="Toute cette aventure vous a fatigué..."
+                    )
+            elif classe in ["rodeur", "occultiste"]:
+                if score < 17:
+                    dispatcher.utter_message(
+                        text="Toute cette aventure vous a fatigué..."
+                    )
+                else:
+                    dispatcher.utter_message(
+                        text="Grace à votre force vous infligez 2 dégats de plus."
+                    )
+                    enemy_hp = tracker.get_slot("enemy_hp")
+                    return [SlotSet("enemy_hp", enemy_hp - 2)]
+
+        else:
+            dispatcher.utter_message(text="Je ne connais pas cette compétence.")
+
+        return []

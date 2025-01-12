@@ -1,12 +1,37 @@
 version: "3.1"
 
 stories:
+  - story: Combat basique
+    steps:
+      - intent: start_combat
+      - action: action_combat_start
+      - action: combat_form
+      - action: action_player_choice
+      - or:
+        - intent: attack
+        - intent: spell
+        - intent: use_item
+        - intent: flee
+      - action: action_set_player_action
+      - action: action_combat_turn
+      - active_loop: combat_form
+      - action: action_combat_end
 
-- story: combat start
-  steps:
-  - intent: start_combat
-  - action: action_combat_start
-  - action: action_player_choice
+  - story: jet dé
+    steps:
+    - action: utter_step2
+    - intent: choose_dice
+    - action: action_class_response
 
+  - story: scénario
+    steps:
+    - intent: speech
+    - action: utter_step1
+    - action: utter_player_choice_fight
+    - intent: start_combat
+    - action: utter_combat_start
+    - intent: choose_dice
+    - action: action_class_response
+    - action: utter_victory
 
 
