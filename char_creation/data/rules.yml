@@ -2,6 +2,13 @@ version: "3.1"
 
 rules:
 
+rules:
+- rule: Set initial slots on session start
+  steps:
+    - action: action_session_start
+    - action: action_begin_chat
+    - action: utter_welcome
+
 - rule: display description of a class when user ask it
   steps:
   - intent : ask_info_classe
@@ -11,6 +18,7 @@ rules:
   steps:
   - intent :
   - action : 
+
 - rule: Activate form
   steps:
   - intent: utter_welcome

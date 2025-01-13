@@ -2,7 +2,7 @@ import requests
 import json
 from arme import Arme
 import random
-from personnage import Personnage
+from char_creation.actions.personnage import Personnage
 from googletrans import Translator
 
 # url de l'api de dnd
@@ -269,16 +269,4 @@ def traduction_slots(slots):
   data = [{"event": "slot", "name": slot_name, "value": slot_value} for slot_name, slot_value in slots.items()]
   return data
 
-if __name__ == "__main__":
-
-  slots = creation_slots_persos()
-  slots_traduit = traduction_slots(slots)
-  # print(slots_traduit)
-  
-  # # Define Rasa endpoint
-  # rasa_url = "http://localhost:5005/conversations/user123/tracker/events"
-
-  # # envoie les events pour set les slots
-  # response = requests.post(rasa_url, json=slots_traduit)
-  # print(response.status_code, response.json())
 

@@ -63,6 +63,122 @@ slots:
     mappings:
     - type: from_entity 
       entity: equipement
+  classe_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  classe_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  classe_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  pv_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  pv_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  pv_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  force_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  force_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  force_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  intelligence_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  intelligence_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  intelligence_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  agilite_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  agilite_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  agilite_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_nom_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_nom_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_nom_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_nom_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_nom_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_nom_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_degat_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_degat_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_degat_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_degat_barbare:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_degat_rodeur:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_degat_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_1_description_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
+  equipement_2_description_occultiste:
+    type: text
+    initial_value: null
+    influence_conversation: false
 
 forms: 
   creationPerso_form:
