@@ -1,7 +1,13 @@
 version: '3.1'
 slots:
+  being_in_fight:
+    type: float
+    initial_value: 0
+    mappings:
+    - type: custom
   current_room:
     type: float
+    initial_value: 0
     mappings:
     - type: custom
   equipement:

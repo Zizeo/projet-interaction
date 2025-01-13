@@ -132,6 +132,7 @@ class ActionCombatStart(Action):
             SlotSet("enemy_hp", 100),
             SlotSet("player_hp", 100),
             SlotSet("player_action", None),
+            SlotSet("being_in_fight", 1),
         ]
 
 
@@ -151,16 +152,17 @@ class ActionCombatEnd(Action):
             return []
         elif state == "victory":
             dispatcher.utter_message(response="utter_victory")
-            return [SlotSet("combat_state", "ended")]
+
         elif state == "defeat":
             dispatcher.utter_message(response="utter_defeat")
-            return [SlotSet("combat_state", "ended")]
+
         elif state == "fled":
             dispatcher.utter_message(text="Vous avez fuis le combat.")
-            return [SlotSet("combat_state", "ended")]
+
         else:
             dispatcher.utter_message(text="Le combat est terminé.")
-            return [SlotSet("combat_state", "ended")]
+
+        return [SlotSet("combat_state", "ended"), SlotSet("being_in_fight", 0)]
 
 
 class ActionPlayerChoice(Action):

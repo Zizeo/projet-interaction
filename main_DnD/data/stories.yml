@@ -21,6 +21,7 @@ stories:
 
   - story: Combat basique
     steps:
+      - checkpoint: ckp_start_combat
       - intent: start_combat
       - action: action_combat_start
       - action: combat_form
@@ -33,6 +34,8 @@ stories:
       - action: action_set_player_action
       - action: action_combat_turn
       - active_loop: combat_form
+      - checkpoint: ckp_end_combat
+
 
   - story: interactive_story_1
     steps:
