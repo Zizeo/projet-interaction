@@ -39,6 +39,7 @@ nlu:
     - persuader
     - s'enfuir
     - fuir
+
 - intent: choose_dice
   examples: |
     - faire un dé de [dexterité](type_dé)
@@ -50,6 +51,7 @@ nlu:
     - Lance le dé de [force](type_dé)
     - Peux-tu faire un jet de [dexterité](type_dé) ?
     - J'ai besoin d'un dé pour [intelligence](type_dé)
+
 - intent: info_status
   examples: |
     - je veux connaître mes statistiques
@@ -67,6 +69,7 @@ nlu:
     - je veux connaître mon équipement
     - rappelle moi mon équipement
     - affiche moi mon équipement
+    
 - intent: quit
   examples: |
     - quitter
@@ -77,7 +80,8 @@ nlu:
     - je veux de l'aide
     - aide-moi
     - je suis perdu
-    - je dois faire quoi
+    - je dois faire quoi 
+
 - intent: help
   examples: |
     - que viens tu de dire

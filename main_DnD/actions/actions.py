@@ -324,3 +324,45 @@ class ActionClassResponse(Action):
             dispatcher.utter_message(text="Je ne connais pas cette compétence.")
         
         return []
+
+class ActionHelpingPlayer(Action):
+    def name(self) -> Text:
+        return "action_helping_player"
+    
+    async def run(
+            self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        room = tracker.get_slot("current_room")
+        print(room)
+        if room== 0.0:
+            classe = tracker.get_slot("class")
+            print(classe)
+            if classe=="rodeur":
+                dispatcher.utter_message(text="Vous vous trouvez dans la salle 0. Vous êtes un maître de la nature, armé de votre arc et de votre sens de l'orientation. Vous commencez dans la forêt enchantée de “Lórien”. Votre chat, habituellement à vos côtés, est introuvable. Déterminé, vous quittez la forêt pour le chercher.")
+            elif classe=="occultiste":
+                dispatcher.utter_message(text="Vous vous trouvez dans la salle 0. Maître des arcanes, vous explorez les ombres et les secrets. Vous commencez dans une cave sous terre, perdu dans vos recherches mystiques. En sortant, vous apprenez que votre chat a été vu près d’un donjon. ")
+            elif classe=="barbare":
+                dispatcher.utter_message(text="Vous vous trouvez dans la salle 0. Puissant et impétueux, votre force brute vous mène souvent au succès. Vous commencez dans une taverne bruyante et enfumée, entouré de rires gras et de chopes de bière. Alors que vous festoyez, un homme entre en trombe et vous informe que votre chat a été vu près d’une tour. Sans attendre, vous saisissez votre arme et partez. ")
+        elif room ==1.0:
+            print("1")
+            dispatcher.utter_message(text="Vous vous trouvez dans la salle 1. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d'une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l'entrée, un garde imposant vous barre le passage. Vous avez le choix de le combattre, de tenter la diplomatie ou de fuir. ")
+        elif room == 2.0:
+            dispatcher.utter_message(text="Vous vous trouvez dans la salle 2. Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas. ")
+        elif room == 3.0:
+            being_in_fight = tracker.get_slot("being_in_fight")
+            print(being_in_fight)
+            if being_in_fight==0.0:
+                dispatcher.utter_message(text="Vous vous trouvez dans la salle 3. Vous entrez dans une vaste salle. Le plafond est haut, et au fond, un escalier mène à l’étage supérieur. Mais alors que vous vous avancez, le sol commence à trembler violemment. Une grande partie s’effondre, ne laissant que quelques plateformes éparses pour traverser.")
+            elif being_in_fight==1.0:
+                dispatcher.utter_message(text="Vous vous trouvez dans la salle 3. Vous pouvez enfin pousser la porte de la tour du donjon.")
+            elif being_in_fight==2.0:
+                dispatcher.utter_message(text="Vous vous trouvez dans la salle 3. Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant. ")
+        elif room == 4.0:
+            dispatcher.utter_message(text="Vous vous trouvez dans la salle 4. Arrivé dans le donjon, vous tombez nez à nez avec votre chat et un dragon. Ce dernier est hypnotisant et majestueux, et son regard vous envoûte. Une confusion profonde s’empare de vous : pourquoi êtes-vous là ? Est-ce pour sauver un chat ? Protéger ce dragon ? Ou simplement fuir ? Vous devez prendre une décision.")
+        print("fin")
+        return []
+        
+        

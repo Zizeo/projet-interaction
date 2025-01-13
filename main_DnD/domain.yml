@@ -1,35 +1,12 @@
 version: "3.1"
 
-intents:
-- attack
-- use_item 
-- flee
-- start_combat
-- end_combat
-- lost
-- help
-- quit
-- info_status
-- info_choosen_action
-
-entities:
-  - action_player
-  - equipement
-  - skill
-  - class 
-  - actual_room
-  - player_hp
-  - enemy_hp
-  - player_force
-  - player_intelligence
-  - player_agility
-  - player_level
-  - combat_state
-
 slots:
   being_in_fight:
     type: float
     initial_value: 0
+    #0: vient d'arriver dans une salle
+    #1: vient d'effectuer un combat
+    #2: vient d'effectuer un jet de dé
     mappings:
       - type: custom 
   current_room:
@@ -177,7 +154,8 @@ responses:
 
   utter_step2:
     - text: "Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas."
-utter_lost:
+  
+  utter_lost:
     - condition:
       - type: slot
         name: current_room
@@ -203,7 +181,6 @@ utter_lost:
         name: current_room
         value: 4
       text: "Vous avez choisi de sauver le dragon ou le chat. Combattez l'autre."
-
 
 
 
