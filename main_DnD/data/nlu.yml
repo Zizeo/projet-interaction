@@ -27,18 +27,18 @@ nlu:
     - commencer le combat
     - je vous défie
     - combat
-- intent: info_choosen_action
-  examples: |
-    - déplacer
-    - avancer
-    - attaquer
-    - combattre
-    - utiliser un sort
-    - jeter un sort
-    - convaincre
-    - persuader
-    - s'enfuir
-    - fuir
+# - intent: info_choosen_action
+#   examples: |
+#     - déplacer
+#     - avancer
+#     - attaquer
+#     - combattre
+#     - utiliser un sort
+#     - jeter un sort
+#     - convaincre
+#     - persuader
+#     - s'enfuir
+#     - fuir
 
 - intent: choose_dice
   examples: |

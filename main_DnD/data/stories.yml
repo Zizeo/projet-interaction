@@ -2,22 +2,22 @@ version: "3.1"
 
 stories:
 
-  # - story: jet dé
-  #   steps:
-  #   - action: utter_step2
-  #   - intent: choose_dice
-  #   - action: action_class_response
+  - story: jet dé
+    steps:
+    - action: utter_step2
+    - intent: choose_dice
+    - action: action_class_response
 
-  # - story: scénario
-  #   steps:
-  #   - intent: speech
-  #   - action: utter_step1
-  #   - action: utter_player_choice_fight
-  #   - intent: start_combat
-  #   - action: utter_combat_start
-  #   - intent: choose_dice
-  #   - action: action_class_response
-  #   - action: utter_victory
+  - story: scénario
+    steps:
+    - intent: speech
+    - action: utter_step1
+    - action: utter_player_choice_fight
+    - intent: start_combat
+    - action: utter_combat_start
+    - intent: choose_dice
+    - action: action_class_response
+    - action: utter_victory
 
   - story: Combat basique
     steps:
@@ -92,3 +92,13 @@ stories:
       - enemy_hp: 51
     - slot_was_set:
       - player_action: null
+
+  - story: being lost
+    steps:
+    - intent: lost
+    - action: utter_lost
+
+  - story: player help
+    steps:
+    - intent: help
+    - action: action_helping_player
