@@ -11,7 +11,9 @@ from typing import Any, Text, Dict, List
 
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-#
+from rasa_sdk.forms import FormValidationAction
+from rasa_sdk.events import FollowupAction
+# git
 #
 # class ActionHelloWorld(Action):
 #
@@ -47,7 +49,7 @@ class ActionCombatTurn(Action):
         player_action = tracker.get_slot("player_action")
         combat_state = tracker.get_slot("combat_state")
 
-        if combat_state != "ongoing":
+        if combat_state == "ended":
             dispatcher.utter_message(text="Le combat est déjà terminé.")
             return []
 
@@ -56,19 +58,32 @@ class ActionCombatTurn(Action):
             damage = random.randint(10, 20)
             enemy_hp -= damage
             dispatcher.utter_message(
-                text=f"Vous attaquez et infligez {damage} points de dégâts à l'ennemi."
+                text=f"Vous attaquez et infligez {damage} points de dégâts à l'ennemi. Il lui reste {enemy_hp} points de vie."
             )
         elif player_action == "use_item":
             heal = random.randint(10, 20)
             player_hp += heal
             dispatcher.utter_message(
-                text=f"Vous utilisez une potion et récupérez {heal} points de vie."
+                text=f"Vous utilisez une potion et récupérez {heal} points de vie. Vous avez maintenant {player_hp} points de vie."
+            )
+        elif player_action == "spell":
+            damage = random.randint(10, 20)
+            enemy_hp -= damage
+            dispatcher.utter_message(
+                text=f"Vous lancez un sort et infligez {damage} points de dégâts à l'ennemi. Il lui reste {enemy_hp} points de vie."
             )
         elif player_action == "flee":
-            return [SlotSet("combat_state", "fled")]
+            return [
+                SlotSet("combat_state", "fled"),
+                FollowupAction("action_combat_end"),
+            ]
 
         if enemy_hp <= 0:
-            return [SlotSet("enemy_hp", 0), SlotSet("combat_state", "victory")]
+            return [
+                SlotSet("enemy_hp", 0),
+                SlotSet("combat_state", "victory"),
+                FollowupAction("action_combat_end"),
+            ]
 
         # Action de l'ennemi
         enemy_action = random.choices(["attack", "wait"], weights=[0.8, 0.2])[0]
@@ -76,14 +91,18 @@ class ActionCombatTurn(Action):
             damage = random.randint(3, 12)
             player_hp -= damage
             dispatcher.utter_message(
-                text=f"L'ennemi attaque et inflige {damage} points de dégâts."
+                text=f"L'ennemi attaque et inflige {damage} points de dégâts. Il vous reste {player_hp} points de vie."
             )
         else:
-            dispatcher.utter_message(text="L'ennemi observe vos mouvements.")
+            dispatcher.utter_message(text="L'ennemi attaque mais rate.")
 
         # Vérifier si le joueur est vaincu
         if player_hp <= 0:
-            return [SlotSet("player_hp", 0), SlotSet("combat_state", "defeat")]
+            return [
+                SlotSet("player_hp", 0),
+                SlotSet("combat_state", "defeat"),
+                FollowupAction("action_combat_end"),
+            ]
 
         # Mise à jour des slots
         return [
@@ -110,8 +129,9 @@ class ActionCombatStart(Action):
         )
         return [
             SlotSet("combat_state", "ongoing"),
-            SlotSet("player_action", None),
             SlotSet("enemy_hp", 100),
+            SlotSet("player_hp", 100),
+            SlotSet("player_action", None),
         ]
 
 
@@ -201,9 +221,9 @@ class ActionSetPlayerAction(Action):
         return [SlotSet("player_action", player_intent)]
 
 
-class ValidateCombatForm(Action):
+class ValidateCombatForm(FormValidationAction):
     def name(self) -> str:
-        return "action_validate_combat_form"
+        return "validate_combat_form"
 
     def validate_combat_state(
         self,

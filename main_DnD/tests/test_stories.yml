@@ -16,4 +16,4 @@ stories:
       - action: action_set_player_action
       - action: action_combat_turn
       - active_loop: combat_form
-      - action: action_combat_end
+

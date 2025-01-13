@@ -76,6 +76,7 @@ intents:
 - choose_dice
 - end_combat
 - flee
+- info_choosen_action
 - quit
 - speech
 - spell
@@ -95,12 +96,12 @@ entities:
 - player_level
 - combat_state
 actions:
-- action_set_player_action
 - action_combat_turn
 - action_combat_start
+- action_set_player_action
 - action_player_choice
 - action_combat_end
-- action_validate_combat_form
+- validate_combat_form
 - action_class_response
 responses:
   utter_combat_start:
@@ -145,4 +146,4 @@ forms:
     - combat_state
 session_config:
   session_expiration_time: 60
-  carry_over_slots_to_new_session: true
+  carry_over_slots_to_new_session: false

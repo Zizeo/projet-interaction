@@ -2,7 +2,6 @@ version: "3.1"
 
 stories:
 
-
   # - story: jet dé
   #   steps:
   #   - action: utter_step2
@@ -34,4 +33,59 @@ stories:
       - action: action_set_player_action
       - action: action_combat_turn
       - active_loop: combat_form
-      - action: action_combat_end
+
+  - story: interactive_story_1
+    steps:
+    - intent: start_combat
+    - action: action_combat_start
+    - slot_was_set:
+      - combat_state: ongoing
+    - slot_was_set:
+      - enemy_hp: 100
+    - slot_was_set:
+      - player_hp: 100
+    - action: combat_form
+    - active_loop: combat_form
+    - slot_was_set:
+      - combat_state: null
+    - slot_was_set:
+      - requested_slot: combat_state
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 92
+    - slot_was_set:
+      - enemy_hp: 83
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 87
+    - slot_was_set:
+      - enemy_hp: 70
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 81
+    - slot_was_set:
+      - enemy_hp: 51
+    - slot_was_set:
+      - player_action: null
