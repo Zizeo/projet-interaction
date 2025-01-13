@@ -36,31 +36,31 @@ slots:
     type: float
     initial_value: 1
     mappings:
-      - type: custom
+    - type: custom
   equipement:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   skill:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   stats:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   class:
     type: text
     initial_value: barbare
     mappings:
-      - type: custom
+    - type: custom
   player_hp:
     type: float
     min_value: 0.0
     max_value:  12.0
     initial_value: 12
     mappings:
-      - type: custom
+    - type: custom
   enemy_hp:
     type: float
     min_value: 0.0
@@ -72,42 +72,40 @@ slots:
   player_action:
     type: text
     mappings:
-      - type: from_intent
-        intent: 
-          - attack
-          - use_item
-          - flee
-        value: "{intent}"
-
+    - type: from_intent
+      intent:
+      - attack
+      - use_item
+      - flee
+      value: '{intent}'
   enemy_action:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   player_force:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   player_intelligence:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   player_agility:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   player_level:
     type: float
     min_value: -100.0
-    max_value:  100.0
+    max_value: 100.0
     initial_value: 1
     mappings:
-      - type: custom
+    - type: custom
   combat_state:
     type: text
-    initial_value: "ended"
+    initial_value: ended
     mappings:
-      - type: custom
-
+    - type: custom
 intents:
 - attack
 - use_item 
@@ -151,13 +149,13 @@ actions:
 
 responses:
   utter_combat_start:
-    - text: "Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
+  - text: Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie.
   utter_player_choice_fight:
-    - text: "Que voulez-vous faire ? (attaquer, défendre, utiliser un objet)"
+  - text: Que voulez-vous faire ? (attaquer, défendre, utiliser un objet)
   utter_victory:
-    - text: "Vous avez vaincu l'ennemi ! Félicitations !"
+  - text: Vous avez vaincu l'ennemi ! Félicitations !
   utter_defeat:
-    - text: "Vous avez été vaincu. Mieux vaut vous entraîner davantage !"
+  - text: Vous avez été vaincu. Mieux vaut vous entraîner davantage !
   utter_enemy_turn:
     - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."
   utter_stats:
@@ -212,7 +210,7 @@ utter_lost:
 forms:
   combat_form:
     required_slots:
-      - combat_state
-
-
-
+    - combat_state
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false

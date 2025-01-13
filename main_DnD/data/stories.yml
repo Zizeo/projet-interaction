@@ -2,27 +2,93 @@ version: "3.1"
 
 stories:
 
-- story: combat start
-  steps:
-  - intent: start_combat
-  - action: action_combat_start
-  - action: action_player_choice
+  # - story: jet dé
+  #   steps:
+  #   - action: utter_step2
+  #   - intent: choose_dice
+  #   - action: action_class_response
 
-- story: jet dé
-  steps:
-  - action: utter_step2
-  - intent: choose_dice
-  - action: action_class_response
+  # - story: scénario
+  #   steps:
+  #   - intent: speech
+  #   - action: utter_step1
+  #   - action: utter_player_choice_fight
+  #   - intent: start_combat
+  #   - action: utter_combat_start
+  #   - intent: choose_dice
+  #   - action: action_class_response
+  #   - action: utter_victory
 
-- story: scénario
-  steps:
-  - intent: speech
-  - action: utter_step1
-  - action: utter_player_choice_fight
-  - intent: start_combat
-  - action: utter_combat_start
-  - intent: choose_dice
-  - action: action_class_response
-  - action: utter_victory
+  - story: Combat basique
+    steps:
+      - checkpoint: ckp_start_combat
+      - intent: start_combat
+      - action: action_combat_start
+      - action: combat_form
+      - action: action_player_choice
+      - or:
+        - intent: attack
+        - intent: spell
+        - intent: use_item
+        - intent: flee
+      - action: action_set_player_action
+      - action: action_combat_turn
+      - active_loop: combat_form
+      - checkpoint: ckp_end_combat
 
 
+  - story: interactive_story_1
+    steps:
+    - intent: start_combat
+    - action: action_combat_start
+    - slot_was_set:
+      - combat_state: ongoing
+    - slot_was_set:
+      - enemy_hp: 100
+    - slot_was_set:
+      - player_hp: 100
+    - action: combat_form
+    - active_loop: combat_form
+    - slot_was_set:
+      - combat_state: null
+    - slot_was_set:
+      - requested_slot: combat_state
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 92
+    - slot_was_set:
+      - enemy_hp: 83
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 87
+    - slot_was_set:
+      - enemy_hp: 70
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 81
+    - slot_was_set:
+      - enemy_hp: 51
+    - slot_was_set:
+      - player_action: null

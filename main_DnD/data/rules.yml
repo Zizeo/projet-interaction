@@ -1,15 +1,15 @@
 version: "3.1"
 
 rules:
-  - rule: Boucler sur le combat
-    condition:
-      - slot_was_set:
-          - combat_state: "ongoing"
-    steps:
-      - action: action_player_choice
-      - intent: player_action
-      - action: action_set_player_action
-      - action: action_combat_turn
+  # - rule: Boucler sur le combat
+  #   condition:
+  #     - slot_was_set:
+  #         - combat_state: "ongoing"
+  #   steps:
+  #     - action: action_player_choice
+  #     - intent: player_action
+  #     - action: action_set_player_action
+  #     - action: action_combat_turn
 
   - rule: Fin du combat
     condition:
@@ -25,10 +25,14 @@ rules:
   # - rule: Démarrer la forme de combat
   #   condition:
   #     - slot_was_set:
-  #         - combat_state: "ongoing"
+  #         - combat_state: "ended"
   #   steps:
-  #     - action: action_player_choice
+  #     - intent: start_combat
+  #     - action: action_combat_start
   #     - action: combat_form
+  #     - action: action_player_choice
+  #     - action: action_set_player_action
+  #     - action: action_combat_turn
   #     - active_loop: combat_form
 
-  
+
