@@ -2,6 +2,19 @@ version: "3.1"
 
 stories:
 
+- story: choisir classe 1
+  steps: 
+  - intent : ask_info_classe
+  - action : utter_ask_info_classe
+  - intent : choose_class
+  - action : utter_choose_class
+
+- story: choix classe par capacité 
+  steps: 
+  - intent : ask_suggest_class
+  - action : utter_ask_suggest_class
+  - intent : choose class
+
 - story: happy path
   steps:
   - intent: greet

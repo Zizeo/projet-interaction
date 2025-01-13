@@ -1,6 +1,24 @@
 version: "3.1"
 
 nlu:
+
+- intent: ask_info_classe
+  examples: |
+    - un [classe_perso](barbare) ?
+    - c'est quoi un [classe_perso] rôdeur) ?
+    - En quoi consiste le [classe_perso](occultiste) ?
+  
+- intent: ask_suggest_class
+  examples: |
+    - je dois choisir quoi pour [style_jeu]("combatre a distance")?
+    - quelle classe utilise [equipement]("des sort")?
+    - j'aimerais jouer avec [equipement]("une hache")
+
+- intent: choose_class
+  examples: |
+    - je choisis de jouer le (barbare)[classe_perso]
+    - je prends le (rôdeur)[classe_perso]
+
 - intent: greet
   examples: |
     - hey
