@@ -1,9 +1,40 @@
 version: "3.1"
 
+intents:
+- attack
+- use_item 
+- flee
+- start_combat
+- end_combat
+- lost
+- help
+- quit
+- info_status
+- info_choosen_action
+
+entities:
+  - action_player
+  - equipement
+  - skill
+  - class 
+  - actual_room
+  - player_hp
+  - enemy_hp
+  - player_force
+  - player_intelligence
+  - player_agility
+  - player_level
+  - combat_state
 
 slots:
+  being_in_fight:
+    type: float
+    initial_value: 0
+    mappings:
+      - type: custom 
   current_room:
     type: float
+    initial_value: 1
     mappings:
       - type: custom
   equipement:
@@ -77,26 +108,6 @@ slots:
     mappings:
       - type: custom
 
-intents:
-- attack
-- use_item 
-- flee
-- start_combat
-- end_combat
-
-entities:
-  - action_player
-  - equipement
-  - skill
-  - class 
-  - actual_room
-  - player_hp
-  - enemy_hp
-  - player_force
-  - player_intelligence
-  - player_agility
-  - player_level
-  - combat_state
 
 actions:
   - action_combat_turn
@@ -105,6 +116,7 @@ actions:
   - action_player_choice
   - action_set_player_action
   - action_validate_combat_form
+  - action_helping_player
 
 
 responses:
@@ -118,33 +130,29 @@ responses:
     - text: "Vous avez été vaincu. Mieux vaut vous entraîner davantage !"
   utter_enemy_turn:
     - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."
-
-utter_lost:
-    - condition:
-      - type: slot
-        name: current_room
-        value: 0
-      text: ""
+  utter_lost:
     - condition:
       - type: slot
         name: current_room
         value: 1
-      text: ""
+      text: "Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer ou fuir."
     - condition:
       - type: slot
         name: current_room
         value: 2
-      text: "Avez vous pensé à fouiller le garde ?"
+      text: "Vous pouvez utiliser votre intelligence mais avez vous pensé à fouiller le garde ?"
     - condition:
       - type: slot
         name: current_room
         value: 3
-      text: ""
+      text: "Utiliser votre dextérité pour déjouer les pièges."
     - condition:
       - type: slot
         name: current_room
         value: 4
-      text: ""
+      text: "Vous avez choisi de sauver le dragon ou le chat. Combattez l'autre."
+
+
 
 
 forms:
