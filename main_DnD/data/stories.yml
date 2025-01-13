@@ -20,6 +20,7 @@ stories:
       - intent: speech
       - action: utter_step2
       - intent: choose_dice
+      - action: action_class_response
 
   - story: Combat basique
     steps:
