@@ -13,4 +13,7 @@ rules:
   - action : 
 - rule: Activate form
   steps:
-  
+  - intent: utter_welcome
+  - action: creationPerso_form
+  - active_loop: creationPerso_form
+

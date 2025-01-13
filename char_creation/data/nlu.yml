@@ -2,13 +2,13 @@ version: "3.1"
 
 nlu:
 
-- intent: ask_info_classe
+- intent: ask_info_class
   examples: |
-    - un [classe_perso](barbare) ?
-    - c'est quoi un [classe_perso] (rôdeur) ?
-    - En quoi consiste le [classe_perso](occultiste) ?
+    - un [class](barbare) ?
+    - c'est quoi un [class] (rôdeur) ?
+    - En quoi consiste le [class](occultiste) ?
 
-- synonym: classe_perso 
+- synonym: classe 
   examples: |
   - barbare
   - occultiste
@@ -22,9 +22,14 @@ nlu:
 
 - intent: choose_class
   examples: |
-    - je choisis de jouer le (barbare)[classe_perso]
-    - je prends le (rôdeur)[classe_perso]
+    - je choisis de jouer le (barbare)[classe]
+    - je prends le (rôdeur)[class]
 
+- intent: ask_stats_class
+  examples : |
+    - quelles sont les stats du [class](barbare)
+    - il a combien de PV le [class](rodeur)
+    
 - intent: greet
   examples: |
     - hey
