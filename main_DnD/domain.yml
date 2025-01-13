@@ -51,23 +51,23 @@ slots:
       - type: custom
   class:
     type: text
+    initial_value: barbare
     mappings:
       - type: custom
   player_hp:
     type: float
-    min_value: -100.0
-    max_value:  100.0
-    initial_value: 100
+    min_value: 0.0
+    max_value:  12.0
+    initial_value: 12
     mappings:
       - type: custom
   enemy_hp:
     type: float
-    min_value: -100.0
-    max_value:  100.0
-    initial_value: 100
+    min_value: 0.0
+    max_value:  12.0
+    initial_value: 12
     mappings:
       - type: custom
-
 
   player_action:
     type: text
@@ -108,6 +108,35 @@ slots:
     mappings:
       - type: custom
 
+intents:
+- attack
+- use_item 
+- flee
+- start_combat
+- end_combat
+- choose_dice
+- info_choosen_action
+- info_status
+- speech
+- spell
+- quit
+- help
+- lost
+
+entities:
+  - action_player
+  - equipement
+  - skill
+  - class 
+  - actual_room
+  - player_hp
+  - enemy_hp
+  - player_force
+  - player_intelligence
+  - player_agility
+  - player_level
+  - combat_state
+  - type_dé
 
 actions:
   - action_combat_turn
@@ -117,6 +146,7 @@ actions:
   - action_set_player_action
   - action_validate_combat_form
   - action_helping_player
+  - action_class_response
 
 
 responses:
@@ -130,7 +160,31 @@ responses:
     - text: "Vous avez été vaincu. Mieux vaut vous entraîner davantage !"
   utter_enemy_turn:
     - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."
-  utter_lost:
+  utter_stats:
+    - text: |
+            "Voici vos statistiques :
+                - Vous avez {player_hp} points de vie
+                - vous avez {player_force} en force
+                - vous avez {player_intelligence} en intelligence
+                - vous avez {player_agility} en dexterité"
+
+  utter_step1:
+    - text: |
+            "Bonjour, aventurier, et bienvenue dans la quête intitulée : Le Choix Impossible. Vous allez incarner un héros confronté à des décisions critiques, des épreuves intenses et des énigmes mortelles. Votre but ? Retrouver votre chat disparu, qui semble être retenu en otage au sommet d'une tour, protégé par un dragon. Préparez-vous, le chemin ne sera pas sans embûches. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage."
+  
+  utter_step1_fail:
+    - text: "Oh non ! le garde vous a battu. vous ne retrouverez pas votre chat."
+  utter_step1_success:
+    - text: "Bravo! Vous avez vaincu le garde. Vous pouvez maintenant accéder à la porte du donjon."
+
+  utter_step2:
+    - text: "Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas."
+utter_lost:
+    - condition:
+      - type: slot
+        name: current_room
+        value: 0
+      text: ""
     - condition:
       - type: slot
         name: current_room

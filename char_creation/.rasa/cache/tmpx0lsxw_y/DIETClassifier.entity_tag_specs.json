@@ -1,0 +1,52 @@
+[
+  {
+    "tag_name": "entity",
+    "ids_to_tags": {
+      "1": "B-\"combatre a distance\"",
+      "2": "I-\"combatre a distance\"",
+      "3": "L-\"combatre a distance\"",
+      "4": "U-\"combatre a distance\"",
+      "5": "B-\"des sort\"",
+      "6": "I-\"des sort\"",
+      "7": "L-\"des sort\"",
+      "8": "U-\"des sort\"",
+      "9": "B-\"une hache\"",
+      "10": "I-\"une hache\"",
+      "11": "L-\"une hache\"",
+      "12": "U-\"une hache\"",
+      "13": "B-barbare",
+      "14": "I-barbare",
+      "15": "L-barbare",
+      "16": "U-barbare",
+      "17": "B-occultiste",
+      "18": "I-occultiste",
+      "19": "L-occultiste",
+      "20": "U-occultiste",
+      "0": "O"
+    },
+    "tags_to_ids": {
+      "B-\"combatre a distance\"": 1,
+      "I-\"combatre a distance\"": 2,
+      "L-\"combatre a distance\"": 3,
+      "U-\"combatre a distance\"": 4,
+      "B-\"des sort\"": 5,
+      "I-\"des sort\"": 6,
+      "L-\"des sort\"": 7,
+      "U-\"des sort\"": 8,
+      "B-\"une hache\"": 9,
+      "I-\"une hache\"": 10,
+      "L-\"une hache\"": 11,
+      "U-\"une hache\"": 12,
+      "B-barbare": 13,
+      "I-barbare": 14,
+      "L-barbare": 15,
+      "U-barbare": 16,
+      "B-occultiste": 17,
+      "I-occultiste": 18,
+      "L-occultiste": 19,
+      "U-occultiste": 20,
+      "O": 0
+    },
+    "num_tags": 21
+  }
+]
