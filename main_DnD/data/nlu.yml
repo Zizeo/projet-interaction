@@ -1,51 +1,43 @@
 version: "3.1"
-
 nlu:
 - intent: attack
   examples: |
     - attaque
     - attaquer
-
 - intent: spell
   examples: |
     - lancer un sort
     - lancer une incantation
     - incanter
-
 - intent: speech
   examples: |
     - parler
     - convaicre
-
 - intent: flee
   examples: |
     - fuite
     - fuir
-
 - intent: use_item
   examples: |
     - utiliser un objet
     - utiliser un item
-
 - intent: start_combat
   examples: |
     - commencer le combat
     - je vous défie
     - combat
-
 - intent: info_choosen_action
   examples: |
-    - déplacer
-    - avancer
-    - attaquer
-    - combattre
-    - utiliser un sort
-    - jeter un sort
-    - convaincre
-    - persuader
-    - s'enfuir
-    - fuir
-
+    - info déplacer
+    - info avancer
+    - info attaquer
+    - info combattre
+    - info utiliser un sort
+    - info jeter un sort
+    - info convaincre
+    - info persuader
+    - info s'enfuir
+    - info fuir
 - intent: info_status
   examples: |
     - je veux connaître mes statistiques
@@ -63,22 +55,17 @@ nlu:
     - je veux connaître mon équipement
     - rappelle moi mon équipement
     - affiche moi mon équipement
-    
-
 - intent: quit
   examples: |
     - quitter
     - arrêter
     - stop
-
 - intent: lost
   examples: |
     - je veux de l'aide
     - aide-moi
     - je suis perdu
-    - je dois faire quoi 
-
-
+    - je dois faire quoi
 - intent: help
   examples: |
     - que viens tu de dire

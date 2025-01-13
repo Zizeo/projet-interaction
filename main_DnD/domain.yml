@@ -1,156 +1,148 @@
-version: "3.1"
-
-
+version: '3.1'
 slots:
   current_room:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   equipement:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   skill:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   stats:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   class:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   player_hp:
     type: float
     min_value: -100.0
-    max_value:  100.0
+    max_value: 100.0
     initial_value: 100
     mappings:
-      - type: custom
+    - type: custom
   enemy_hp:
     type: float
     min_value: -100.0
-    max_value:  100.0
+    max_value: 100.0
     initial_value: 100
     mappings:
-      - type: custom
-
-
+    - type: custom
   player_action:
     type: text
     mappings:
-      - type: from_intent
-        intent: 
-          - attack
-          - use_item
-          - flee
-        value: "{intent}"
-
+    - type: from_intent
+      intent:
+      - attack
+      - use_item
+      - flee
+      value: '{intent}'
   enemy_action:
     type: text
     mappings:
-      - type: custom
+    - type: custom
   player_force:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   player_intelligence:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   player_agility:
     type: float
     mappings:
-      - type: custom
+    - type: custom
   player_level:
     type: float
     min_value: -100.0
-    max_value:  100.0
+    max_value: 100.0
     initial_value: 1
     mappings:
-      - type: custom
+    - type: custom
   combat_state:
     type: text
-    initial_value: "ended"
+    initial_value: ended
     mappings:
-      - type: custom
-
+    - type: custom
 intents:
 - attack
-- use_item 
-- flee
-- start_combat
+- choose_dice
 - end_combat
-
+- flee
+- quit
+- speech
+- spell
+- start_combat
+- use_item
 entities:
-  - action_player
-  - equipement
-  - skill
-  - class 
-  - actual_room
-  - player_hp
-  - enemy_hp
-  - player_force
-  - player_intelligence
-  - player_agility
-  - player_level
-  - combat_state
-
+- action_player
+- equipement
+- skill
+- class
+- actual_room
+- player_hp
+- enemy_hp
+- player_force
+- player_intelligence
+- player_agility
+- player_level
+- combat_state
 actions:
-  - action_combat_turn
-  - action_combat_start
-  - action_combat_end
-  - action_player_choice
-  - action_set_player_action
-  - action_validate_combat_form
-
-
+- action_set_player_action
+- action_combat_turn
+- action_combat_start
+- action_player_choice
+- action_combat_end
+- action_validate_combat_form
+- action_class_response
 responses:
   utter_combat_start:
-    - text: "Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
+  - text: Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie.
   utter_player_choice_fight:
-    - text: "Que voulez-vous faire ? (attaquer, défendre, utiliser un objet)"
+  - text: Que voulez-vous faire ? (attaquer, défendre, utiliser un objet)
   utter_victory:
-    - text: "Vous avez vaincu l'ennemi ! Félicitations !"
+  - text: Vous avez vaincu l'ennemi ! Félicitations !
   utter_defeat:
-    - text: "Vous avez été vaincu. Mieux vaut vous entraîner davantage !"
+  - text: Vous avez été vaincu. Mieux vaut vous entraîner davantage !
   utter_enemy_turn:
-    - text: "L'ennemi attaque ! Il vous reste {player_hp} points de vie."
-
+  - text: L'ennemi attaque ! Il vous reste {player_hp} points de vie.
 utter_lost:
-    - condition:
-      - type: slot
-        name: current_room
-        value: 0
-      text: ""
-    - condition:
-      - type: slot
-        name: current_room
-        value: 1
-      text: ""
-    - condition:
-      - type: slot
-        name: current_room
-        value: 2
-      text: "Avez vous pensé à fouiller le garde ?"
-    - condition:
-      - type: slot
-        name: current_room
-        value: 3
-      text: ""
-    - condition:
-      - type: slot
-        name: current_room
-        value: 4
-      text: ""
-
-
+- condition:
+  - type: slot
+    name: current_room
+    value: 0
+  text: ''
+- condition:
+  - type: slot
+    name: current_room
+    value: 1
+  text: ''
+- condition:
+  - type: slot
+    name: current_room
+    value: 2
+  text: Avez vous pensé à fouiller le garde ?
+- condition:
+  - type: slot
+    name: current_room
+    value: 3
+  text: ''
+- condition:
+  - type: slot
+    name: current_room
+    value: 4
+  text: ''
 forms:
   combat_form:
     required_slots:
-      - combat_state
-
-
-
+    - combat_state
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
