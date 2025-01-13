@@ -8,11 +8,11 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
-
   - welcome
   - ask_info_classe
   - ask_suggest_class
   - choose_class
+
 responses:
   utter_greet:
   - text: "Hey! How are you?"
@@ -44,11 +44,11 @@ responses:
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
 
-slots :
-  classe :
-    type : text
-    mappings: from_mapping
-    entity : classe
+
+
+entities:
+  - Classe 
+
 
 
 session_config:

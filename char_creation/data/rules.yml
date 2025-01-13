@@ -2,12 +2,8 @@ version: "3.1"
 
 rules:
 
-- rule: Say goodbye anytime the user says goodbye
+- rule: display description of a class when user ask it
   steps:
-  - intent: goodbye
-  - action: utter_goodbye
+  - intent : ask_info_classe
+  - action : utter_ask_info_classe
 
-- rule: Say 'I am a bot' anytime the user challenges
-  steps:
-  - intent: bot_challenge
-  - action: utter_iamabot
