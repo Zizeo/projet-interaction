@@ -86,7 +86,9 @@ class ActionBeginChat(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         slots = creation_slots_persos()
+        # print(slots)
         slots_traduit = traduction_slots(slots)
+        # print(slots_traduit)
 
         slot_events = [SlotSet(slot, value) for slot, value in slots_traduit.items()]
 
