@@ -95,12 +95,12 @@ stories:
     - slot_was_set:
       - player_action: null
 
-- story: being lost
-  steps:
-  - intent: lost
-  - action: utter_lost
+  - story: being lost
+    steps:
+      - intent: lost
+      - action: utter_lost
 
-- story: player help
-  steps:
-  - intent: help
-  - action: action_helping_player
+  - story: player help
+    steps:
+    - intent: help
+    - action: action_helping_player
