@@ -71,3 +71,15 @@ class ActionEndChat(Action):
             dispatcher.utter_message(text=f"Une erreur est apparu: {str(e)}")
 
         return []    
+
+
+class ActionBeginChat(Action):
+
+    def name(self) -> Text:
+        return "action_begin_chat"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+
+        return []    
