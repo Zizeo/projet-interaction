@@ -1,8 +1,8 @@
 import requests
 import json
-from arme import Arme
 import random
-from char_creation.actions.personnage import Personnage
+from .personnage import Personnage
+from .arme import Arme
 from googletrans import Translator
 
 # url de l'api de dnd

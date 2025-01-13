@@ -10,9 +10,9 @@ nlu:
 
 - synonym: classe 
   examples: |
-  - barbare
-  - occultiste
-  - rodeur
+    - barbare
+    - occultiste
+    - rodeur
   
 - intent: ask_suggest_class
   examples: |
