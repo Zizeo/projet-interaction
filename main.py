@@ -9,10 +9,10 @@ import speech_recognition as sr
 
 import threading
 
-from rasa.core.run import serve_application
+#from rasa.core.run import serve_application
 
-scene = 0
-classe_personnage = 0
+scene = 1
+classe_personnage = 2
 pv = 0
 # (numero de l'image, x, y,sizex,sizey)
 list_objet = []
@@ -30,23 +30,16 @@ agent_scenario = ""
 agent_principal = ""
 
 ########## action
+'''
+def change_to_second(Action):
+    global agent_scenario
+    global agent_principal
 
-class ActionPassageSecondRasa(Action):
+    agent_principal = agent_scenario
 
-    def name(self) -> Text:
-        return "action_passage_second_rasa"
+    requests.post("http://localhost:5005/shutdown")
 
-    def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        global agent_scenario
-        global agent_principal
-
-        agent_principal = agent_scenario
-
-        requests.post("http://localhost:5005/shutdown")
-
-        return []
+    return []
 
 class ActionFinProgramme(Action):
     def name(self) -> Text:
@@ -67,7 +60,7 @@ class ActionFinProgramme(Action):
 
         return []
 
-
+'''
 ###########
 
 def draw_text(surface, text, font, color, x, y, max_width):
@@ -116,6 +109,7 @@ def scrape_image(query):
 def change_text_scene(text):
     global text_scene
     global busy
+    global list_objet
     
     text_scene = text
 
@@ -126,9 +120,48 @@ def change_text_scene(text):
     tts.write_to_fp(audio_data)
     audio_data.seek(0)
 
-    pygame.mixer.music.load(audio_data,"mp3")
-    pygame.mixer.music.play()
+    #pygame.mixer.music.load(audio_data,"mp3")
+    #pygame.mixer.music.play()
     busy = False
+
+    #tracker = agent_principal.tracker_strore.retrieve("default")
+    #salle = tracker.get_slot("current_room")
+    #pv = tracker.get_slot("player_hp")
+    #classe = tracker.get_slot("class")
+    mort_scene_zero = 0
+    being_in_fight = 1
+
+    #if classe == "rodeur":
+    #    classe_personnage = 0
+    #elif classe == "barbare":
+    #    classe_personnage = 1
+    #elif classe == "occultiste":
+    #    classe_personnage = 2
+
+    list_objet = []
+    list_object_scrapper = []
+
+    if scene == 0:
+        if mort_scene_zero == 2:
+            list_objet.append((3,400,200,400,400))
+        else:
+            list_objet.append((2,400,200,400,400))
+
+        if mort_scene_zero == 1:
+            list_objet.append((11,400,400,200,200))
+        else:
+            list_objet.append((1,400,400,200,200))
+        
+        list_objet.append((8+classe_personnage,150,400,300,400))
+
+    elif scene == 1:
+        if being_in_fight == 2:
+            list_objet.append((4,400,200,400,400))
+        elif being_in_fight == 1:
+            list_objet.append((5,400,200,400,400))
+
+        list_objet.append((8+classe_personnage,150,400,300,400))
+
 
 def change_text_utilisateur(text):
     global text_utilisateur
@@ -139,16 +172,6 @@ def change_text_utilisateur(text):
     text_utilisateur = text
     response = agent_principal.handle_text(text_utilisateur) #si bug passer en asynchrone
 
-    tracker = agent.tracker_strore.retrieve("default")
-    salle = tracker.get_slot("current_room")
-    pv = tracker.get_slot("player_hp")
-    classe = tracker.get_slot("class")
-    if classe == "rodeur":
-        classe_personnage = 0
-    elif classe == "barbare":
-        classe_personnage = 1
-    elif classe == "occultiste":
-        classe_personnage = 2
 
     change_text_scene(response)
 
@@ -182,7 +205,17 @@ def windows():
     global pv
     
     list_salle = ["./image/dungeon.png","./image/dungeon_trap.png","./image/entree.png","./image/foret.png","./image/mine.png","./image/plaine.png","./image/taverne.png"]
-    list_objet_path = ["./image/chat_joyeux.png","./image/chat_mefiant.png","./image/dragon.png","./image/dragon_dead.png","./image/garde.png","./image/garde_dead.png","./image/papier.png"]
+    list_objet_path = ["./image/chat_joyeux.png", #0
+                       "./image/chat_mefiant.png", #1
+                       "./image/dragon.png", #2
+                       "./image/dragon_dead.png", #3
+                       "./image/garde.png", #4
+                       "./image/garde_dead.png", #5
+                       "./image/papier.png", #6
+                       "./image/cadenas.png", #7
+                       "./image/rodeur_jeu.png", #8
+                       "./image/barbare_jeu.png", #9
+                       "./image/occultiste_jeu.png"] #10
     list_classe_personnage = ["./image/rodeur.png","./image/barbare.png","./image/occutilste.png"]
 
     list_objet_path_loaded = []
@@ -191,6 +224,7 @@ def windows():
 
     for i in list_objet_path:
         list_objet_path_loaded.append(pygame.image.load(i))
+    list_objet_path_loaded.append(pygame.transform.flip(list_objet_path_loaded[1], False, True))
 
     for j in list_object_scrapper:
         if j[0] not in list_objet_scrapper_loaded.keys():
@@ -274,14 +308,14 @@ if __name__=="__main__":
     thread1 = threading.Thread(target=windows)
     thread1.start()
 
-    agent_create_personnage = Agent.load("modelA")
-    agent_scenario = Agent.load("modelB")
+    #agent_create_personnage = Agent.load("modelA")
+    #agent_scenario = Agent.load("modelB")
 
-    agent_principal = agent_scenario
+    #agent_principal = agent_scenario
 
-    serve_application(agent_create_personnage, http_port=5005)
-    serve_application(agent_scenario,http_port=5006)
+    #serve_application(agent_create_personnage, http_port=5005)
+    #serve_application(agent_scenario,http_port=5006)
 
     while running_principal:
         #listen_user()
-        classe_personnage = int(input())
+        change_text_scene("test")
