@@ -51,7 +51,6 @@ def get_classe(index):
     response_nos_classes = requests.request("GET", url_classe_index, headers=headers, data=payload)
     # print_json(response_nos_classes)
     nos_classes.append(response_nos_classes)
-  return response_nos_classes
 
 # récupère l'équipements de toutes les classes que l'on traite
 def get_equipement():
@@ -206,16 +205,11 @@ def print_json(response):
   else:
     print(f"Failed to retrieve data. Status code: {response.status_code}")
 
-if __name__ == "__main__":
+def creation_slots_persos():
   # les index des classes que l'on veut dans /api/classes/
   # 0:Barbarian/Barbare, 7:Ranger/Rodeur & 10:Warlock/Occultiste
-  response_nos_classes = get_classe([0,7,10])
-  # afficher les classes que l'on a récupéré et leur info
-  # print_json(response_nos_classes)
-
+  get_classe([0,7,10])
   get_PV()
-  # print(pv)
-
   get_equipement()
 
   # creation des persos dispo
@@ -257,27 +251,32 @@ if __name__ == "__main__":
       "equipement_1_description_occultiste": personnages[2].equipements[0].description,
       "equipement_2_description_occultiste": personnages[2].equipements[1].description
   }
+  return slot_values
 
+def traduction_slots(slots):
+  # initialisation du traducteur
+  translator = Translator()
+  # print("Original:", slots)
+  # pour chaque valeur de slots dans le tableau de slots
+  for slot_name, slot_value in slot_values.items():
+    # si les valeurs ne sont pas des chiffres (pv et dégât) ni ne correspondent à une classe (déjà traduite)
+    if not str(slot_value).isdigit() and "classe" not in slot_name and "description" not in slot_name:
+      # print(slot_value)
+      # alors on traduit la valeur du slot
+      slot_value = translator.translate(slot_value, src='en', dest='fr')
+      # print(translation.text)
+  # génère automatiquement le JSON de "data"
+  data = [{"event": "slot", "name": slot_name, "value": slot_value} for slot_name, slot_value in slot_values.items()]
+  return data
+
+if __name__ == "__main__":
+
+  slots = creation_slots_persos()
+  slots_traduit = traduction_slots(slots)
   # Define Rasa endpoint
   rasa_url = "http://localhost:5005/conversations/user123/tracker/events"
 
-  # Initialize the Translator
-  translator = Translator()
-  
-  # print("Original:", slot_values)
+  # envoie les events pour set les slots
+  response = requests.post(rasa_url, json=slots_traduit)
+  print(response.status_code, response.json())
 
-  for slot_name, slot_value in slot_values.items():
-    if not str(slot_value).isdigit() and "classe" not in slot_name:
-      print(slot_value)
-      if("description" not in slot_name):
-        translation = translator.translate(slot_value, src='en', dest='fr')
-        print(translation.text)
-  # Automatically generate the "data" JSON
-  data = [{"event": "slot", "name": slot_name, "value": slot_value} for slot_name, slot_value in slot_values.items()]
-
-  # # Send the events to set the slots
-  # response = requests.post(rasa_url, json=data)
-  # print(response.status_code, response.json())
-
-  # Output the translated text
-  # print("Translated:", data)
