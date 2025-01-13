@@ -120,6 +120,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+myenv/
 
 # Spyder project settings
 .spyderproject
@@ -154,3 +155,4 @@ cython_debug/
 
 char_creation/.rasa
 main_DnD/.rasa
+
