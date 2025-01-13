@@ -97,6 +97,7 @@ intents:
 - quit
 - help
 - lost
+- fouiller_garde
 
 entities:
   - action_player

@@ -27,6 +27,12 @@ nlu:
     - commencer le combat
     - je vous défie
     - combat
+
+- intent: fouiller_garde
+  examples: |
+    - je veux fouiller le garde
+    - fouiller
+
 - intent: info_choosen_action
   examples: |
     - déplacer
