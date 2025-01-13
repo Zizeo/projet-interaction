@@ -289,6 +289,7 @@ class ActionClassResponse(Action):
                     dispatcher.utter_message(
                         text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 2 points de vie."
                     )
+                    hp = tracker.get_slot("player_hp")
                     return [SlotSet("player_hp", hp - 2)]
             elif classe in ["barbare", "occultiste"]:
                 if score < 17:
