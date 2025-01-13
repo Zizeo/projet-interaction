@@ -5,7 +5,7 @@ nlu:
 - intent: ask_info_classe
   examples: |
     - un [classe_perso](barbare) ?
-    - c'est quoi un [classe_perso] rôdeur) ?
+    - c'est quoi un [classe_perso] (rôdeur) ?
     - En quoi consiste le [classe_perso](occultiste) ?
   
 - intent: ask_suggest_class
