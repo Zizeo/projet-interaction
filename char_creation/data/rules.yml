@@ -7,3 +7,10 @@ rules:
   - intent : ask_info_classe
   - action : utter_ask_info_classe
 
+- rule: suggest a class when the user for a gameplay
+  steps:
+  - intent :
+  - action : 
+- rule: Activate form
+  steps:
+  

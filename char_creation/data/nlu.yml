@@ -7,6 +7,12 @@ nlu:
     - un [classe_perso](barbare) ?
     - c'est quoi un [classe_perso] (rôdeur) ?
     - En quoi consiste le [classe_perso](occultiste) ?
+
+- synonym: classe_perso 
+  examples: |
+  - barbare
+  - occultiste
+  - rodeur
   
 - intent: ask_suggest_class
   examples: |
