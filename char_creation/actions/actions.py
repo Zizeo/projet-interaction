@@ -7,7 +7,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import json
-from DnD_api import creation_slots_persos, traduction_slots
+from .DnD_api import creation_slots_persos, traduction_slots
 
 # This is a simple example for a custom action which utters "Hello World!"
 # class ActionHelloWorld(Action):
@@ -86,7 +86,9 @@ class ActionBeginChat(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         slots = creation_slots_persos()
+        # print(slots)
         slots_traduit = traduction_slots(slots)
+        # print(slots_traduit)
 
         slot_events = [SlotSet(slot, value) for slot, value in slots_traduit.items()]
 

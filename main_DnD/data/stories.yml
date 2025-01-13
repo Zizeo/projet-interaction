@@ -8,6 +8,18 @@ stories:
     - intent: choose_dice
     - action: action_class_response
 
+  - story: etape2_fouiller
+    steps:
+      - intent: speech
+      - action: utter_step2
+      - intent: fouiller_garde
+      - action: utter_fouiller_garde
+
+  - story: etape2_casser_cadenas
+    steps:
+      - intent: speech
+      - action: utter_step2
+      - intent: choose_dice
   - story: scénario
     steps:
     - intent: speech
@@ -92,6 +104,26 @@ stories:
       - enemy_hp: 51
     - slot_was_set:
       - player_action: null
+
+  - story: being lost
+    steps:
+      - intent: lost
+      - action: utter_lost
+
+  - story: player help
+    steps:
+    - intent: help
+    - action: action_helping_player
+
+  - story: being lost
+    steps:
+      - intent: lost
+      - action: utter_lost
+
+  - story: player help
+    steps:
+    - intent: help
+    - action: action_helping_player
 
   - story: being lost
     steps:

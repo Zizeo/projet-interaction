@@ -1,8 +1,8 @@
 import requests
 import json
-from arme import Arme
 import random
-from char_creation.actions.personnage import Personnage
+from .personnage import Personnage
+from .arme import Arme
 from googletrans import Translator
 
 # url de l'api de dnd
@@ -265,8 +265,8 @@ def traduction_slots(slots):
       # alors on traduit la valeur du slot
       slot_value = translator.translate(slot_value, src='en', dest='fr')
       # print(translation.text)
-  # génère automatiquement le JSON de "data"
-  data = [{"event": "slot", "name": slot_name, "value": slot_value} for slot_name, slot_value in slots.items()]
-  return data
+  # # génère automatiquement le JSON de "data"
+  # data = [{"name": slot_name, "value": slot_value} for slot_name, slot_value in slots.items()]
+  return slots
 
 

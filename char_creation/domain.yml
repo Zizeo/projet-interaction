@@ -67,118 +67,205 @@ slots:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   classe_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   classe_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   pv_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   pv_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   pv_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   force_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   force_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   force_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   intelligence_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   intelligence_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   intelligence_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   agilite_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   agilite_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   agilite_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_nom_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_nom_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_nom_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_nom_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_nom_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_nom_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_degat_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_degat_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_degat_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_degat_barbare:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_degat_rodeur:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_degat_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_1_description_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
   equipement_2_description_occultiste:
     type: text
     initial_value: null
     influence_conversation: false
+    mappings:
+    - type: custom
+      action: action_begin_chat
 
 forms: 
   creationPerso_form:
