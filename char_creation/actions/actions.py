@@ -91,9 +91,8 @@ class ActionBeginChat(Action):
         # print(slots_traduit)
 
         slot_events = [SlotSet(slot, value) for slot, value in slots_traduit.items()]
-
-        print(domain["responses"].get("utter_welcome", [{}])[0].get("text", "Default response text"))
-        dispatcher.utter_message(text="Les slots ont été mis à jour")
+    
+        dispatcher.utter_message(text=domain["responses"].get("utter_welcome", [{}])[0].get("text", "Default response text"))
         
         return slot_events   
 
