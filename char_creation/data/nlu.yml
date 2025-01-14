@@ -4,9 +4,9 @@ nlu:
 
 - intent: ask_info_class
   examples: |
-    - un [class](barbare) ?
-    - c'est quoi un [class] (rôdeur) ?
-    - En quoi consiste le [class](occultiste) ?
+    - un [classe](barbare) ?
+    - c'est quoi un [classe] (rôdeur) ?
+    - En quoi consiste le [classe](occultiste) ?
 
 - synonym: classe 
   examples: |
@@ -16,7 +16,7 @@ nlu:
   
 - intent: ask_suggest_class
   examples: |
-    - je dois choisir quoi pour [style_jeu]("combattre a distance")?
+    - je dois choisir quoi pour [equipement]("combattre a distance")?
     - quelle classe utilise [equipement]("des sorts")?
     - j'aimerais jouer avec [equipement]("une hache")
 
@@ -28,8 +28,9 @@ nlu:
 
 - intent: ask_stats_class
   examples : |
-    - quelles sont les stats du [class](barbare)
-    - il a combien de PV le [class](rodeur)
+    - quelles sont les stats du [classe](barbare) ?
+    - il a combien de PV le [classe](rodeur) ?
+    - a quelle point [classe](occultiste) est intelligent ?
     
 - intent: greet
   examples: |
