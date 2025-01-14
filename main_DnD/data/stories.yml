@@ -1,13 +1,6 @@
 version: "3.1"
 
 stories:
-
-  - story: jet dé
-    steps:
-    - action: utter_step2
-    - intent: choose_dice
-    - action: action_class_response
-
   - story: etape2_fouiller
     steps:
       - intent: speech
@@ -21,16 +14,13 @@ stories:
       - action: utter_step2
       - intent: choose_dice
       - action: action_class_response
-  - story: scénario
+
+  - story: etape3 
     steps:
-    - intent: speech
-    - action: utter_step1
-    - action: utter_player_choice_fight
-    - intent: start_combat
-    - action: utter_combat_start
+    - intent: etape3
+    - action: utter_step3
     - intent: choose_dice
     - action: action_class_response
-    - action: utter_victory
 
   - story: Combat basique
     steps:
@@ -49,17 +39,23 @@ stories:
       - active_loop: combat_form
       - checkpoint: ckp_end_combat
 
+  - story: etape1
+    steps:
+      - intent: start_story
+      - action: utter_step1
+      - checkpoint: ckp_start_combat
+      - checkpoint: ckp_end_combat
 
-  - story: interactive_story_1
+  - story: interactive_story_2
     steps:
     - intent: start_combat
     - action: action_combat_start
     - slot_was_set:
       - combat_state: ongoing
     - slot_was_set:
-      - enemy_hp: 100
+      - enemy_hp: 12
     - slot_was_set:
-      - player_hp: 100
+      - player_hp: 12
     - action: combat_form
     - active_loop: combat_form
     - slot_was_set:
@@ -74,22 +70,9 @@ stories:
       - player_action: attack
     - action: action_combat_turn
     - slot_was_set:
-      - player_hp: 92
+      - player_hp: 10
     - slot_was_set:
-      - enemy_hp: 83
-    - slot_was_set:
-      - player_action: null
-    - intent: attack
-    - slot_was_set:
-      - player_action: '{intent}'
-    - action: action_set_player_action
-    - slot_was_set:
-      - player_action: attack
-    - action: action_combat_turn
-    - slot_was_set:
-      - player_hp: 87
-    - slot_was_set:
-      - enemy_hp: 70
+      - enemy_hp: 9
     - slot_was_set:
       - player_action: null
     - intent: attack
@@ -100,9 +83,22 @@ stories:
       - player_action: attack
     - action: action_combat_turn
     - slot_was_set:
-      - player_hp: 81
+      - player_hp: 8
     - slot_was_set:
-      - enemy_hp: 51
+      - enemy_hp: 6
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 8
+    - slot_was_set:
+      - enemy_hp: 1
     - slot_was_set:
       - player_action: null
 
@@ -120,3 +116,50 @@ stories:
     steps:
     - intent: quit
     - action: action_quitter
+
+  - story: interactive_story_1
+    steps:
+    - intent: start_combat
+    - action: action_combat_start
+    - slot_was_set:
+      - combat_state: ongoing
+    - slot_was_set:
+      - enemy_hp: 12
+    - slot_was_set:
+      - player_hp: 12
+    - slot_was_set:
+      - player_action: null
+    - slot_was_set:
+      - being_in_fight: 1
+    - action: combat_form
+    - active_loop: combat_form
+    - slot_was_set:
+      - requested_slot: null
+    - active_loop: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 12
+    - slot_was_set:
+      - enemy_hp: 9
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 8
+    - slot_was_set:
+      - enemy_hp: 5
+    - slot_was_set:
+      - player_action: null
+

@@ -116,4 +116,46 @@ class ActionSetClass(Action):
         else:
             # si la classe n'est pas dans celle dispo 
             dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir une classe disponible parmis celles ennoncés.")
+       
+class ActionDisplayStats(Action):
+    def name(self)->Text:
+        return "action_display_stats"
+
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain : Dict[Text,Any]) -> List[Dict[Text, Any]]:
+        # on récupère la valeur de l'entité classe pour laquelle on veut savoir les stats
+        classe = next(tracker.get_latest_entity_values("classe"), None)
+
+        match classe:
+            case "rodeur":
+                
+                pv = tracker.get_slot("pv_rodeur")
+                force = tracker.get_slot("force_rodeur")
+                intel = tracker.get_slot("intelligence_rodeur")
+                agilite = tracker.get_slot("agilite_rodeur")
+                dispatcher.utter_message(text="Les stats du rôdeur sont :")
+        
+            case "barbare":
+                pv = tracker.get_slot("pv_barbare")
+                force = tracker.get_slot("force_rodeur")
+                intel = tracker.get_slot("intelligence_rodeur")
+                agilite = tracker.get_slot("agilite_rodeur")
+                dispatcher.utter_message(text="Les stats du barbare sont :")
+
+            case "occultiste":
+                
+                pv = tracker.get_slot("pv_rodeur")
+                force = tracker.get_slot("force_rodeur")
+                intel = tracker.get_slot("intelligence_rodeur")
+                agilite = tracker.get_slot("agilite_rodeur")
+                dispatcher.utter_message(text="Les stats de l'occultiste sont : ")
+            case _:
+                dispatcher.utter_message(text="je ne vois pas de quelle classe vous parlez donc je ne peux pas vous afficher ses statss")
+        
+        dispatcher.utter_message(text=f"points de vie : {pv}")
+        dispatcher.utter_message(text=f"force : {force}")
+        dispatcher.utter_message(text=f"intelligence : {intel}")
+        dispatcher.utter_message(text=f"agilite: {agilite}")
+        
         return []

@@ -277,3 +277,4 @@ actions:
   - action_end_chat
   - action_begin_chat
   - action_set_class
+  - action_display_stats 
