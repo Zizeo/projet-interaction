@@ -179,7 +179,7 @@ responses:
     - type: slot
       name: current_room
       value: 1
-    text: Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer ou fuir.
+    text: Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer, lancer un sort, utiliser un objet ou fuir.
   - condition:
     - type: slot
       name: current_room
