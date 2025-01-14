@@ -6,14 +6,14 @@ rules:
     - intent: greet
     - action: action_begin_chat
 
-- rule: display description of a class when user ask it
+- rule: Save slots of the personna
   steps:
-  - intent : ask_info_classe
-  - action : utter_ask_info_classe
+    - intent: goodbye
+    - action: action_end_chat
 
-- rule: Activate form
+- rule: Give classes available 
   steps:
-  - intent: utter_welcome
-  - action: creationPerso_form
-  - active_loop: creationPerso_form
+    - intent: ask_classes
+    - action: utter_classes_available
+    - action: utter_which_class
 

@@ -13,6 +13,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import FollowupAction
+import json
 # git
 #
 # class ActionHelloWorld(Action):
@@ -32,6 +33,7 @@ from rasa_sdk.events import FollowupAction
 from rasa_sdk.events import SlotSet
 
 import random
+
 
 class ActionCombatTurn(Action):
     def name(self) -> str:
@@ -107,6 +109,7 @@ class ActionCombatTurn(Action):
             SlotSet("player_hp", player_hp),
             SlotSet("enemy_hp", enemy_hp),
             SlotSet("player_action", None),
+            FollowupAction("action_player_choice"),
         ]
 
 
@@ -122,15 +125,18 @@ class ActionCombatStart(Action):
     ):
         player_hp = tracker.get_slot("player_hp")
         enemy_hp = tracker.get_slot("enemy_hp")
+        if enemy_hp <= 0:
+            enemy_hp = 12
         dispatcher.utter_message(
             text=f"Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
         )
         return [
             SlotSet("combat_state", "ongoing"),
-            SlotSet("enemy_hp", 12),
+            SlotSet("enemy_hp", enemy_hp),
             SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
+            FollowupAction("action_player_choice"),
         ]
 
 
@@ -174,10 +180,12 @@ class ActionPlayerChoice(Action):
         domain: Dict[Text, Any],
     ):
         player_action = tracker.get_slot("player_action")
-        if player_action is None:
-            dispatcher.utter_message(text="Veuillez choisir une action.")
-            return []
-        return [SlotSet("player_action", player_action)]
+        # if player_action is None:
+        dispatcher.utter_message(
+            text="Veuillez choisir une action.(attaquer, utiliser un item, utiliser un sort ou fuir)"
+        )
+        # return [[SlotSet("player_action", None)]]
+        return [SlotSet("player_action", None)]
 
 
 class ActionSkillCheck(Action):
@@ -301,10 +309,8 @@ class ActionClassResponse(Action):
                         text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
                     )
             dispatcher.utter_message(
-                        text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
-                    )
-
-            
+                text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+            )
 
         elif type_de == "force":
             print(score)
@@ -391,3 +397,51 @@ class ActionHelpingPlayer(Action):
                 text="Vous vous trouvez dans la salle 4. Arrivé dans le donjon, vous tombez nez à nez avec votre chat et un dragon. Ce dernier est hypnotisant et majestueux, et son regard vous envoûte. Une confusion profonde s’empare de vous : pourquoi êtes-vous là ? Est-ce pour sauver un chat ? Protéger ce dragon ? Ou simplement fuir ? Vous devez prendre une décision."
             )
         return []
+
+
+class ActionStartGame(Action):
+    def name(self) -> Text:
+        return "action_start_game"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        dispatcher.utter_message(text="Bienvenue dans Donjons et Dragons")
+        with open("data.json") as f:
+            data = json.load(f)
+            slot_values = data["slot_values"]
+            return [SlotSet(slot, value) for slot, value in slot_values.items()]
+
+
+class ActionPrintStatuts(Action):
+    def name(self) -> Text:
+        return "action_print_statuts"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        player_hp = tracker.get_slot("player_hp")
+        player_force = tracker.get_slot("player_force")
+        player_intelligence = tracker.get_slot("player_intelligence")
+        player_agility = tracker.get_slot("player_agility")
+        player_class = tracker.get_slot("class")
+        equipement = tracker.get_slot("equipement")
+        equipement_description = tracker.get_slot("equipement_description")
+        equipement_degat = tracker.get_slot("equipement_degat")
+        dispatcher.utter_message(
+            text=f"Voici vos statistiques :\n"
+            f"- Vous avez {player_hp} points de vie\n"
+            f"- vous avez {player_force} en force\n"
+            f"- vous avez {player_intelligence} en intelligence\n"
+            f"- vous avez {player_agility} en dexterité\n"
+            f"- Vous avez {player_class} comme classe\n"
+            f"- Vous avez {equipement} comme equipement\n"
+            f"- L'equipement {equipement} vous inflige {equipement_degat} de dommages\n"
+            f"- L'equipement {equipement} vous donne {equipement_description}"
+        )

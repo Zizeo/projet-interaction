@@ -8,20 +8,12 @@ stories:
   - user: |
       coucou!
     intent: greet
-  - action: utter_welcome
+  - action: action_begin_chat
   - user: |
       Quelles classes sont disponibles?
     intent: ask_classes
   - action: utter_classes_available
-  - action: utter_which_class
-  - user: |
-      Je veux jouer un [barbare](classe)
-    intent: choose_class
-    entities:
-      - classe
-  - action: action_set_class
-  - slot_was_set:
-      - classe: barbare  
+  - action: utter_which_class 
 
 
 - story: say goodbye

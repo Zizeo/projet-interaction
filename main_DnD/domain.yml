@@ -25,7 +25,7 @@ slots:
     type: text
     mappings:
     - type: custom
-  class:
+  player_class:
     type: text
     initial_value: barbare
     mappings:
@@ -81,6 +81,24 @@ slots:
     initial_value: ended
     mappings:
     - type: custom
+  equipement1:
+    type: text
+    mappings:
+    - type: custom
+  equipement2:
+    type: text
+    mappings:
+    - type: custom
+  equipement_description:
+    type: text
+    mappings:
+    - type: custom
+  equipement_degat:
+    type: float
+    mappings:
+    - type: custom
+
+
 intents:
 - attack
 - choose_dice
@@ -99,6 +117,7 @@ intents:
 - start_story
 - etape3
 
+
 entities:
 - action_player
 - equipement
@@ -113,6 +132,7 @@ entities:
 - player_level
 - combat_state
 - type_dé
+
 actions:
 - action_combat_turn
 - action_combat_start
@@ -123,6 +143,9 @@ actions:
 - action_helping_player
 - action_class_response
 - action_quitter
+- action_start_game
+- action_print_status
+
 responses:
   utter_combat_start:
   - text: Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie.
@@ -151,8 +174,8 @@ responses:
   utter_step2:
   - text: Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas.
   utter_fouiller_garde:
-    - text: |
-            Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
+  - text: |
+      Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
   
   utter_step3:
     - text: "Vous entrez dans une vaste salle. Le plafond est haut, et au fond, un escalier mène à l’étage supérieur. Mais alors que vous vous avancez, le sol commence à trembler violemment. Une grande partie s’effondre, ne laissant que quelques plateformes éparses pour traverser."
@@ -173,7 +196,7 @@ responses:
     - type: slot
       name: current_room
       value: 1
-    text: Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer ou fuir.
+    text: Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer, lancer un sort, utiliser un objet ou fuir.
   - condition:
     - type: slot
       name: current_room
@@ -189,10 +212,12 @@ responses:
       name: current_room
       value: 4
     text: Vous avez choisi de sauver le dragon ou le chat. Combattez l'autre.
+
 forms:
   combat_form:
     required_slots:
     - combat_state
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: false

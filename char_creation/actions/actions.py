@@ -27,6 +27,7 @@ class ActionEndChat(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_end_chat")
 
         # on récupère une liste contenant toutes nos entities
         entities = tracker.latest_message['entities']
@@ -89,12 +90,14 @@ class ActionBeginChat(Action):
         # print(slots)
         slots_traduit = traduction_slots(slots)
         # print(slots_traduit)
-
-        slot_events = [SlotSet(slot, value) for slot, value in slots_traduit.items()]
-    
-        dispatcher.utter_message(text=domain["responses"].get("utter_welcome", [{}])[0].get("text", "Default response text"))
-        
-        return slot_events   
+        res = []
+        for slot, value in slots_traduit.items():
+            print("slot:",slot,", value:",value)
+            res.append(SlotSet(key=slot, value=value)) 
+        print("action_begin_chat")
+        dispatcher.utter_message(response="utter_welcome")
+        print(res)
+        return res
 
 class ActionSetClass(Action):
     def name(self) -> Text:
@@ -102,6 +105,7 @@ class ActionSetClass(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_set_class")
         # extraction de la classe choisi
         classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
 
@@ -112,7 +116,8 @@ class ActionSetClass(Action):
         else:
             # si la classe n'est pas dans celle dispo 
             dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir une classe disponible parmis celles ennoncés.")
-       
+        return []
+
 class ActionDisplayStats(Action):
     def name(self)->Text:
         return "action_display_stats"
@@ -123,30 +128,25 @@ class ActionDisplayStats(Action):
         # on récupère la valeur de l'entité classe pour laquelle on veut savoir les stats
         classe = next(tracker.get_latest_entity_values("classe"), None)
 
-        match classe:
-            case "rodeur":
-                
+        if classe == "rodeur":
                 pv = tracker.get_slot("pv_rodeur")
                 force = tracker.get_slot("force_rodeur")
                 intel = tracker.get_slot("intelligence_rodeur")
                 agilite = tracker.get_slot("agilite_rodeur")
                 dispatcher.utter_message(text="Les stats du rôdeur sont :")
-        
-            case "barbare":
+        elif classe == "barbare":
                 pv = tracker.get_slot("pv_barbare")
                 force = tracker.get_slot("force_rodeur")
                 intel = tracker.get_slot("intelligence_rodeur")
                 agilite = tracker.get_slot("agilite_rodeur")
                 dispatcher.utter_message(text="Les stats du barbare sont :")
-
-            case "occultiste":
-                
+        elif classe == "occultiste":
                 pv = tracker.get_slot("pv_rodeur")
                 force = tracker.get_slot("force_rodeur")
                 intel = tracker.get_slot("intelligence_rodeur")
                 agilite = tracker.get_slot("agilite_rodeur")
                 dispatcher.utter_message(text="Les stats de l'occultiste sont : ")
-            case _:
+        else:
                 dispatcher.utter_message(text="je ne vois pas de quelle classe vous parlez donc je ne peux pas vous afficher ses statss")
         
         dispatcher.utter_message(text=f"points de vie : {pv}")
@@ -154,4 +154,19 @@ class ActionDisplayStats(Action):
         dispatcher.utter_message(text=f"intelligence : {intel}")
         dispatcher.utter_message(text=f"agilite: {agilite}")
         
+        return []
+
+class ActionPrintChoiceEquipment(Action):
+    def name(self) -> Text:
+        return "action_print_choice_equipment"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_set_class")
+        # extraction de la classe choisi
+        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
+
+        equipements_dispo = [tracker.get_slot("equipement_1_"+classe_choisi),tracker.get_slot("equipement_1_"+classe_choisi)]
+        
+        dispatcher.utter_message(text="Vous pouvez un des équipements suivant:\n 1)"+equipements_dispo[0]+", dégats: "+tracker.get_slot("equipement_1_degat_"+classe_choisi)+"\n ou\n 2)"+equipements_dispo[1]+", dégats: "+tracker.get_slot("equipement_2_degat_"+classe_choisi))
         return []

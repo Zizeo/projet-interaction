@@ -5,7 +5,7 @@ nlu:
 - intent: ask_info_class
   examples: |
     - un [classe](barbare) ?
-    - c'est quoi un [classe] (rôdeur) ?
+    - c'est quoi un [classe] (rodeur) ?
     - En quoi consiste le [classe](occultiste) ?
 
 - synonym: classe 
@@ -13,7 +13,19 @@ nlu:
     - barbare
     - occultiste
     - rodeur
-  
+
+- intent: what_to_do
+  examples: |
+    - que faire maintenant?
+    - qu'est-ce que je dois faire?
+    - que faire à présent?
+
+- intent: ask_classes
+  examples: |
+    - quelles classes sont disponibles?
+    - il y a quelles classes?
+    - quelles classes je peux jouer?
+
 - intent: ask_suggest_class
   examples: |
     - je dois choisir quoi pour [equipement]("combattre a distance")?
@@ -26,12 +38,23 @@ nlu:
     - je prends le (rodeur)[classe]
     - j'aimerais jouer l' (occultiste)[classe]
 
+- intent: choose_equipement
+  examples: |
+    - je choisis de jouer l'équipement (1)[numero_equipement]
+    - je prends l'équipement (2)[numero_equipement]
+    - j'aimerais jouer avec l'équipement (2)[numero_equipement]
+
 - intent: ask_stats_class
   examples : |
-    - quelles sont les stats du [classe](barbare) ?
-    - il a combien de PV le [classe](rodeur) ?
+    - quelles sont les stats du [classe](barbare)?
+    - il a combien de PV le [classe](rodeur)?
     - a quelle point [classe](occultiste) est intelligent ?
-    
+
+- intent: ask_equipements
+  examples : |
+    - quels sont les équipements disponibles?
+    - quels équipements sont jouables?
+
 - intent: greet
   examples: |
     - bonjour
@@ -61,31 +84,9 @@ nlu:
     - absolument pas
     - ce n'est pas ça
 
-- intent: mood_great
-  examples: |
-    - super
-    - je me sens trop bien
-
-- intent: mood_unhappy
-  examples: |
-    - my day was horrible
-    - I am sad
-    - I don't feel very well
-    - I am disappointed
-    - super sad
-    - I'm so sad
-    - sad
-    - very sad
-    - unhappy
-    - not good
-    - not very good
-    - extremly sad
-    - so saad
-    - so sad
 
 - intent: bot_challenge
   examples: |
-    - are you a bot?
-    - are you a human?
-    - am I talking to a bot?
-    - am I talking to a human?
+    - es tu un bot?
+    - es tu un humain?
+    - je parle à un bot?
