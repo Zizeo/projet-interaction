@@ -98,7 +98,9 @@ intents:
 - spell
 - start_combat
 - use_item
+
 - start_story
+- etape3
 
 
 entities:
@@ -154,8 +156,12 @@ responses:
   utter_step2:
   - text: Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas.
   utter_fouiller_garde:
-  - text: |
-      Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
+    - text: |
+            Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
+  
+  utter_step3:
+    - text: 
+  
   utter_lost:
   - condition:
     - type: slot

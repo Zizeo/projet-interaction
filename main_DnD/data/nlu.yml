@@ -38,6 +38,24 @@ nlu:
   examples: |
     - je veux fouiller le garde
     - fouiller
+  
+- intent: etape3
+  examples: |
+    - etape3
+
+# - intent: info_choosen_action
+#   examples: |
+#     - déplacer
+#     - avancer
+#     - attaquer
+#     - combattre
+#     - utiliser un sort
+#     - jeter un sort
+#     - convaincre
+#     - persuader
+#     - s'enfuir
+#     - fuir
+
 - intent: choose_dice
   examples: |
     - faire un dé de [dexterité](type_dé)
@@ -71,7 +89,7 @@ nlu:
     - quitter
     - arrêter
     - stop
-    
+
 - intent: lost
   examples: |
     - je veux de l'aide

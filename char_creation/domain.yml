@@ -15,7 +15,7 @@ intents:
   - ask_info_classe
   - ask_suggest_class
   - choose_class
-  - ask_stats_classe
+  - ask_stats_class
   - choose_equipement
 
 entities:
@@ -281,3 +281,4 @@ actions:
   - action_end_chat
   - action_begin_chat
   - action_set_class
+  - action_display_stats 

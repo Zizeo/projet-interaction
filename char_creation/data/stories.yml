@@ -31,6 +31,9 @@ stories:
   - intent : choose_class
   - action : utter_choose_class
 
-
+- story: afficher stats classe
+  steps :
+  - intent : ask_stats_class
+  - action : action_display_stats
 
 

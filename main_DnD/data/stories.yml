@@ -15,6 +15,13 @@ stories:
       - intent: choose_dice
       - action: action_class_response
 
+  - story: etape3 
+    steps:
+    - intent: etape3
+    - action: utter_step3
+    - intent: choose_dice
+    - action: action_class_response
+
   - story: Combat basique
     steps:
       - checkpoint: ckp_start_combat
@@ -155,3 +162,4 @@ stories:
       - enemy_hp: 5
     - slot_was_set:
       - player_action: null
+
