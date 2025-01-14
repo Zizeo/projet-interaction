@@ -26,5 +26,10 @@ rules:
 - rule: Give equipments available
   steps:
     - intent: ask_equipements
-    - action: action_print_choice_equipment    
+    - action: action_print_choice_equipment 
+
+- rule: Give stats of a class
+  steps:
+  - intent : ask_stats_class
+  - action : action_display_stats
 
