@@ -55,19 +55,19 @@ class ActionCombatTurn(Action):
 
         # Action du joueur
         if player_action == "attack":
-            damage = random.randint(10, 20)
+            damage = random.randint(3, 5)
             enemy_hp -= damage
             dispatcher.utter_message(
                 text=f"Vous attaquez et infligez {damage} points de dégâts à l'ennemi. Il lui reste {enemy_hp} points de vie."
             )
         elif player_action == "use_item":
-            heal = random.randint(10, 20)
+            heal = random.randint(3, 5)
             player_hp += heal
             dispatcher.utter_message(
                 text=f"Vous utilisez une potion et récupérez {heal} points de vie. Vous avez maintenant {player_hp} points de vie."
             )
         elif player_action == "spell":
-            damage = random.randint(10, 20)
+            damage = random.randint(4, 7)
             enemy_hp -= damage
             dispatcher.utter_message(
                 text=f"Vous lancez un sort et infligez {damage} points de dégâts à l'ennemi. Il lui reste {enemy_hp} points de vie."
@@ -88,7 +88,7 @@ class ActionCombatTurn(Action):
         # Action de l'ennemi
         enemy_action = random.choices(["attack", "wait"], weights=[0.8, 0.2])[0]
         if enemy_action == "attack":
-            damage = random.randint(3, 12)
+            damage = random.randint(1, 4)
             player_hp -= damage
             dispatcher.utter_message(
                 text=f"L'ennemi attaque et inflige {damage} points de dégâts. Il vous reste {player_hp} points de vie."
@@ -104,7 +104,6 @@ class ActionCombatTurn(Action):
                 FollowupAction("action_combat_end"),
             ]
 
-        # Mise à jour des slots
         return [
             SlotSet("player_hp", player_hp),
             SlotSet("enemy_hp", enemy_hp),
@@ -129,8 +128,8 @@ class ActionCombatStart(Action):
         )
         return [
             SlotSet("combat_state", "ongoing"),
-            SlotSet("enemy_hp", 100),
-            SlotSet("player_hp", 100),
+            SlotSet("enemy_hp", 12),
+            SlotSet("player_hp", 12),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
         ]
