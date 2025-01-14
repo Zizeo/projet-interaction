@@ -129,7 +129,7 @@ class ActionCombatStart(Action):
         return [
             SlotSet("combat_state", "ongoing"),
             SlotSet("enemy_hp", 12),
-            SlotSet("player_hp", 12),
+            SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
         ]

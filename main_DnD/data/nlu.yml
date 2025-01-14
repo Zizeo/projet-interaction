@@ -13,7 +13,6 @@ nlu:
   examples: |
     - parler
     - convaincre
-
 - intent: flee
   examples: |
     - fuite
@@ -27,25 +26,10 @@ nlu:
     - commencer le combat
     - je vous défie
     - combat
-
 - intent: fouiller_garde
   examples: |
     - je veux fouiller le garde
     - fouiller
-
-# - intent: info_choosen_action
-#   examples: |
-#     - déplacer
-#     - avancer
-#     - attaquer
-#     - combattre
-#     - utiliser un sort
-#     - jeter un sort
-#     - convaincre
-#     - persuader
-#     - s'enfuir
-#     - fuir
-
 - intent: choose_dice
   examples: |
     - faire un dé de [dexterité](type_dé)
@@ -57,7 +41,6 @@ nlu:
     - Lance le dé de [force](type_dé)
     - Peux-tu faire un jet de [dexterité](type_dé) ?
     - J'ai besoin d'un dé pour [intelligence](type_dé)
-
 - intent: info_status
   examples: |
     - je veux connaître mes statistiques
@@ -75,7 +58,6 @@ nlu:
     - je veux connaître mon équipement
     - rappelle moi mon équipement
     - affiche moi mon équipement
-    
 - intent: quit
   examples: |
     - quitter
@@ -86,8 +68,7 @@ nlu:
     - je veux de l'aide
     - aide-moi
     - je suis perdu
-    - je dois faire quoi 
-
+    - je dois faire quoi
 - intent: help
   examples: |
     - que viens tu de dire

@@ -50,16 +50,16 @@ stories:
       - checkpoint: ckp_end_combat
 
 
-  - story: interactive_story_1
+  - story: interactive_story_2
     steps:
     - intent: start_combat
     - action: action_combat_start
     - slot_was_set:
       - combat_state: ongoing
     - slot_was_set:
-      - enemy_hp: 100
+      - enemy_hp: 12
     - slot_was_set:
-      - player_hp: 100
+      - player_hp: 12
     - action: combat_form
     - active_loop: combat_form
     - slot_was_set:
@@ -74,22 +74,9 @@ stories:
       - player_action: attack
     - action: action_combat_turn
     - slot_was_set:
-      - player_hp: 92
+      - player_hp: 10
     - slot_was_set:
-      - enemy_hp: 83
-    - slot_was_set:
-      - player_action: null
-    - intent: attack
-    - slot_was_set:
-      - player_action: '{intent}'
-    - action: action_set_player_action
-    - slot_was_set:
-      - player_action: attack
-    - action: action_combat_turn
-    - slot_was_set:
-      - player_hp: 87
-    - slot_was_set:
-      - enemy_hp: 70
+      - enemy_hp: 9
     - slot_was_set:
       - player_action: null
     - intent: attack
@@ -100,9 +87,22 @@ stories:
       - player_action: attack
     - action: action_combat_turn
     - slot_was_set:
-      - player_hp: 81
+      - player_hp: 8
     - slot_was_set:
-      - enemy_hp: 51
+      - enemy_hp: 6
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 8
+    - slot_was_set:
+      - enemy_hp: 1
     - slot_was_set:
       - player_action: null
 
@@ -135,3 +135,48 @@ stories:
     steps:
     - intent: help
     - action: action_helping_player
+  - story: interactive_story_1
+    steps:
+    - intent: start_combat
+    - action: action_combat_start
+    - slot_was_set:
+      - combat_state: ongoing
+    - slot_was_set:
+      - enemy_hp: 12
+    - slot_was_set:
+      - player_hp: 12
+    - slot_was_set:
+      - player_action: null
+    - slot_was_set:
+      - being_in_fight: 1
+    - action: combat_form
+    - active_loop: combat_form
+    - slot_was_set:
+      - requested_slot: null
+    - active_loop: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 12
+    - slot_was_set:
+      - enemy_hp: 9
+    - slot_was_set:
+      - player_action: null
+    - intent: attack
+    - slot_was_set:
+      - player_action: '{intent}'
+    - action: action_set_player_action
+    - slot_was_set:
+      - player_action: attack
+    - action: action_combat_turn
+    - slot_was_set:
+      - player_hp: 8
+    - slot_was_set:
+      - enemy_hp: 5
+    - slot_was_set:
+      - player_action: null
