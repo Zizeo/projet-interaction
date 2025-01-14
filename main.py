@@ -9,10 +9,7 @@ import speech_recognition as sr
 
 import threading
 
-from rasa.core.run import serve_application
-from rasa.core.agent import Agent
-
-scene = 1
+scene = -1
 classe_personnage = 2
 pv = 0
 # (numero de l'image, x, y,sizex,sizey)
@@ -22,36 +19,26 @@ list_object_scrapper = []
 text_scene = "Bonjour"
 text_utilisateur = ""
 busy = False
+speak_text = False
 
 running_principal = True
-
-agent_create_personnage = ""
-agent_scenario = ""
-
-agent_principal = ""
 
 ########## action
 
 def change_to_second(Action):
     global agent_scenario
-    global agent_principal
+    global agent_principal_port
 
-    agent_principal = agent_scenario
-
-    requests.post("http://localhost:5005/shutdown")
+    agent_principal_port = 5006
 
     return []
 
 def close_all_rasa_model():
-    global running
-    global running_principal
+   global running
+   global running_principal
 
-    running = False
-
-    requests.post("http://localhost:5005/shutdown")
-    requests.post("http://localhost:5006/shutdown")
-
-    running_principal = False
+   running = False
+   running_principal = False
 
 
 ###########
@@ -67,8 +54,8 @@ def draw_text(surface, text, font, color, x, y, max_width):
         if text_width <= max_width:
             current_line.append(word)
         else:
-            lines.append(' '.join(current_line)) 
-            current_line = [word] 
+            lines.append(' '.join(current_line))
+            current_line = [word]
 
     if current_line:
         lines.append(' '.join(current_line))
@@ -76,7 +63,7 @@ def draw_text(surface, text, font, color, x, y, max_width):
     line_height = font.size("Tg")[1]
     for i, line in enumerate(lines):
         line_surface = font.render(line, True, color)
-        surface.blit(line_surface,(x,y+i*50)) 
+        surface.blit(line_surface,(x,y+i*50))
 
 def scrape_image(query):
     search_url = f"https://opengameart.org/art-search?keys={query}"
@@ -103,33 +90,51 @@ def change_text_scene(text):
     global text_scene
     global busy
     global list_objet
+    global scene
+    global classe_personnage
     
     text_scene = text
 
-    busy = True
-    tts = gTTS(text=text_scene, lang='fr', slow=False)
+    #busy = True
+    #tts = gTTS(text=text_scene, lang='fr', slow=False)
 
-    audio_data = BytesIO()
-    tts.write_to_fp(audio_data)
-    audio_data.seek(0)
+    #audio_data = BytesIO()
+    
+    
+    #tts.write_to_fp(audio_data)
+    #audio_data.seek(0)
 
     #pygame.mixer.music.load(audio_data,"mp3")
     #pygame.mixer.music.play()
-    busy = False
+    #busy = False
+    
+    url = "http://localhost:"+str(agent_principal_port)+"/conversations/user/tracker"
 
-    #tracker = agent_principal.tracker_strore.retrieve("default")
-    #salle = tracker.get_slot("current_room")
-    #pv = tracker.get_slot("player_hp")
-    #classe = tracker.get_slot("class")
-    mort_scene_zero = 0
-    being_in_fight = 1
+    response = requests.get(url)
+    
+    if response.status_code == 200:
+        slots = response.json()['slots']
+        print(slots)
+        scene = slots["current_room"]
+        pv = slots["player_hp"]
+        classe = slots["class"]
+        mort_scene_zero = 0 #slots["mort_zero"]
+        being_in_fight = 0 #slots["being_in_fight"]
+    else:
+        scene = -1
+        pv = 12
+        classe = 1
+        mort_scene_zero = 0
+        being_in_fight = 1
 
-    #if classe == "rodeur":
-    #    classe_personnage = 0
-    #elif classe == "barbare":
-    #    classe_personnage = 1
-    #elif classe == "occultiste":
-    #    classe_personnage = 2
+    print(scene)
+
+    if classe == "rodeur":
+        classe_personnage = 0
+    elif classe == "barbare":
+        classe_personnage = 1
+    elif classe == "occultiste":
+        classe_personnage = 2
 
     list_objet = []
     list_object_scrapper = []
@@ -148,6 +153,7 @@ def change_text_scene(text):
         list_objet.append((8+classe_personnage,150,400,300,400))
 
     elif scene == 1:
+        print("here")
         if being_in_fight == 2:
             list_objet.append((4,400,200,400,400))
         elif being_in_fight == 1:
@@ -155,18 +161,59 @@ def change_text_scene(text):
 
         list_objet.append((8+classe_personnage,150,400,300,400))
 
+    elif scene == 2:
+        list_objet.append((7,350,500,100,100))
+
+        if print_papier == 1:
+             list_objet.append((6,400,700,50,50))
+
+
+        list_objet.append((8+classe_personnage,150,500,300,400))
+
+    elif scene == 3 or scene == 4 or scene == 6:
+        list_objet.append((8+classe_personnage,150,500,300,400))
+    elif scene == 5:
+        if mort_garde == 1:
+            list_objet.append((4,400,400,200,200))
+        elif mort_garde == 0:
+            list_objet.append((5,400,400,200,200))
+
+        list_objet.append((8+classe_personnage,150,500,300,400))
+
+    '''
+    with open('./personnage.json','r',encoding='utf-8') as fichier:
+        donnees = json.load(fichier)
+
+        for i,j in enumerate(donnees["equipement"]):
+            list_object_scrapper.append((j,50+i*50,200,50,50))
+   '''
 
 def change_text_utilisateur(text):
     global text_utilisateur
     global scene
     global pv
     global classe_personnage
+    global speak_text
+
+    if text == "":
+        return
 
     text_utilisateur = text
-    response = agent_principal.handle_text(text_utilisateur) #si bug passer en asynchrone
+    
+    payload = {
+    	"sender":"user",
+    	"message":text_utilisateur
+    }
+    
+    header = {
+    	"Content-Type":"application/json"
+    }
+    
+    response = requests.post("http://localhost:"+str(agent_principal_port)+"/webhooks/rest/webhook",json=payload,headers=header)
+    
+    data = response.json()[0]["text"]
 
-
-    change_text_scene(response)
+    change_text_scene(data)
 
 def listen_user():
     recognizer = sr.Recognizer()
@@ -178,9 +225,9 @@ def listen_user():
             if busy == False:
                 try:
                     audio = recognizer.listen(source, timeout=5)
-                    text = recognizer.recognize_google(audio, language="fr-FR")
-                    print(text)
-                    change_text_utilisateur(text)
+                    text_second = recognizer.recognize_google(audio, language="fr-FR")
+                    change_text_utilisateur(text_second)
+                    speak_text = True
                 except sr.UnknownValueError:
                     print("Je n'ai pas compris ce que vous avez dit.")
                 except sr.RequestError as e:
@@ -196,6 +243,7 @@ def windows():
     global list_object_scrapper
     global classe_personnage
     global pv
+    global speak_text
     
     list_salle = ["./image/dungeon.png","./image/dungeon_trap.png","./image/entree.png","./image/foret.png","./image/mine.png","./image/plaine.png","./image/taverne.png"]
     list_objet_path = ["./image/chat_joyeux.png", #0
@@ -243,7 +291,6 @@ def windows():
       background_picture_loaded.append(pygame.transform.smoothscale(image, (800, 800)))      
 
     while running:
-        clavier = False
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
@@ -251,7 +298,6 @@ def windows():
                 if input_box.collidepoint(event.pos):
                     active = not active
             elif event.type == pygame.KEYDOWN:
-                clavier = True
                 if active:
                     if event.key == pygame.K_RETURN:
                         change_text_utilisateur(text)
@@ -261,8 +307,10 @@ def windows():
                     else:
                         text += event.unicode
                         
-        if clavier == False and text != text_utilisateur:
-            text = text_utilisateur
+        
+        if speak_text == True:
+           text = text_utilisateur
+           speak_text = False
         
         screen.fill((0,0,0))
 
@@ -301,13 +349,9 @@ if __name__=="__main__":
     thread1 = threading.Thread(target=windows)
     thread1.start()
 
-    #agent_create_personnage = Agent.load("modelA")
-    agent_scenario = Agent.load("./main_DnD/models/20250110-141002-unsorted-cobblestone.tar.gz")
-
-    agent_principal = agent_scenario
-
-    #serve_application(agent_create_personnage, http_port=5005)
-    serve_application(agent_scenario,http_port=5006)
+    agent_principal_port = 5005
 
     while running_principal:
-        listen_user()
+        #listen_user()
+        pass
+
