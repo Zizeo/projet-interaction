@@ -9,6 +9,13 @@ stories:
   - intent: ask_classes
   - action: utter_classes_available
   - action: utter_which_class
+  - intent: choose_class
+    entities:
+      - classe
+  - action: action_set_class
+  - slot_was_set:
+      - classe: 
+  - action: action_print_choice_equipment
 
 - story: classical path 2
   steps:
@@ -18,6 +25,15 @@ stories:
   - action: utter_info_equipement
   - action: utter_classes_available
   - action: utter_which_class
+  - intent: choose_class
+    entities:
+      - classe
+  - action: action_set_class
+  - slot_was_set:
+      - classe: 
+  - intent: what_to_do
+  - action: utter_info_choose_equipement
+  - action: action_print_choice_equipment
 
 - story: hello-bye path
   steps:

@@ -155,3 +155,18 @@ class ActionDisplayStats(Action):
         dispatcher.utter_message(text=f"agilite: {agilite}")
         
         return []
+
+class ActionPrintChoiceEquipment(Action):
+    def name(self) -> Text:
+        return "action_print_choice_equipment"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_set_class")
+        # extraction de la classe choisi
+        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
+
+        equipements_dispo = [tracker.get_slot("equipement_1_"+classe_choisi),tracker.get_slot("equipement_1_"+classe_choisi)]
+        
+        dispatcher.utter_message(text="Vous pouvez un des équipements suivant:\n 1)"+equipements_dispo[0]+", dégats: "+tracker.get_slot("equipement_1_degat_"+classe_choisi)+"\n ou\n 2)"+equipements_dispo[1]+", dégats: "+tracker.get_slot("equipement_2_degat_"+classe_choisi))
+        return []
