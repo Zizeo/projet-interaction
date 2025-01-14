@@ -148,6 +148,7 @@ actions:
 #- action_quitter
 - action_start_game
 - action_print_status
+- action_change_room
 
 responses:
   utter_combat_start:
