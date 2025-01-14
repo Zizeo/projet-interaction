@@ -109,7 +109,6 @@ class ActionCombatTurn(Action):
             SlotSet("enemy_hp", enemy_hp),
             SlotSet("player_action", None),
             FollowupAction("action_player_choice"),
-            FollowupAction("action_player_choice"),
         ]
 
 
@@ -136,7 +135,6 @@ class ActionCombatStart(Action):
             SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
-            FollowupAction("action_player_choice"),
             FollowupAction("action_player_choice"),
         ]
 
