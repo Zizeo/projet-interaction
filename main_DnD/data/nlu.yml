@@ -45,6 +45,22 @@ nlu:
   examples: |
     - etape3
 
+- intent: etape2
+  examples: |
+    - etape2
+
+- intent: etape4
+  examples: |
+    - etape4
+
+- intent: sauver_chat
+  examples: |
+    - sauver chat
+
+- intent: sauver_dragon
+  examples: |
+    - sauver dragon
+
 # - intent: info_choosen_action
 #   examples: |
 #     - déplacer

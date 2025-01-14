@@ -1,16 +1,24 @@
 version: "3.1"
 
 stories:
+  - story: etape1
+    steps:
+      - intent: start_story
+      - action: utter_step1
+      - checkpoint: ckp_start_combat
+
   - story: etape2_fouiller
     steps:
-      - intent: speech
+      - intent: etape2
+      - action: action_change_room
       - action: utter_step2
       - intent: fouiller_garde
       - action: utter_fouiller_garde
 
   - story: etape2_casser_cadenas
     steps:
-      - intent: speech
+      - intent: etape2
+      - action: action_change_room
       - action: utter_step2
       - intent: choose_dice
       - action: action_class_response
@@ -18,11 +26,43 @@ stories:
   - story: etape3 
     steps:
     - intent: etape3
+    - action: action_change_room
     - action: utter_step3
     - intent: choose_dice
     - action: action_class_response
+
+  - story: etape4
+    steps:
+    - intent: etape4
+    - action: utter_step4
+
+  - story: etape4 sauver chat succes
+    steps:
+    - intent: sauver_chat
+    - action: utter_step4_sauver_chat
     - checkpoint: ckp_start_combat
-    - checkpoint: ckp_end_combat
+    - action: utter_step4_sauver_chat_succes
+
+  - story: etape4 sauver chat echec
+    steps:
+    - intent: sauver_chat
+    - action: utter_step4_sauver_chat
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_chat_echec
+
+  - story: etape4 sauver dragon succes
+    steps:
+    - intent: sauver_dragon
+    - action: utter_step4_sauver_dragon
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_dragon_succes
+
+  - story: etape4 sauver dragon echec
+    steps:
+    - intent: sauver_dragon
+    - action: utter_step4_sauver_dragon
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_dragon_echec
 
   - story: Combat basique
     steps:
@@ -39,14 +79,6 @@ stories:
       - action: action_set_player_action
       - action: action_combat_turn
       - active_loop: combat_form
-      - checkpoint: ckp_end_combat
-
-  - story: etape1
-    steps:
-      - intent: start_story
-      - action: utter_step1
-      - checkpoint: ckp_start_combat
-      - checkpoint: ckp_end_combat
 
   - story: interactive_story_2
     steps:
@@ -114,10 +146,10 @@ stories:
     - intent: help
     - action: action_helping_player
 
-  - story: quitter jeu
-    steps:
-    - intent: quit
-    - action: action_quitter
+ # - story: quitter jeu
+ #   steps:
+ #   - intent: quit
+ #   - action: action_quitter
 
   - story: interactive_story_1
     steps:
