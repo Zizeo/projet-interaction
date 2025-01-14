@@ -26,6 +26,20 @@ stories:
   - intent: goodbye
   - action: action_end_chat
 
+- story: choix classe par capacité 
+  steps: 
+  - intent : ask_suggest_class
+  - action : utter_ask_suggest_class
+  - intent : choose_class
+  - action : utter_choose_class
+
+- story: afficher stats classe
+  steps :
+  - intent : ask_stats_class
+  - action : action_display_stats
+
+
+
 - story: Are you a bot path
   steps:
   - intent: greet

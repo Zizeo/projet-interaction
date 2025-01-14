@@ -116,7 +116,8 @@ class ActionSetClass(Action):
         else:
             # si la classe n'est pas dans celle dispo 
             dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir une classe disponible parmis celles ennoncés.")
-       
+        return []
+
 class ActionDisplayStats(Action):
     def name(self)->Text:
         return "action_display_stats"
