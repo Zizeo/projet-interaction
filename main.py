@@ -9,7 +9,8 @@ import speech_recognition as sr
 
 import threading
 
-#from rasa.core.run import serve_application
+from rasa.core.run import serve_application
+from rasa.core.agent import Agent
 
 scene = 1
 classe_personnage = 2
@@ -30,7 +31,7 @@ agent_scenario = ""
 agent_principal = ""
 
 ########## action
-'''
+
 def change_to_second(Action):
     global agent_scenario
     global agent_principal
@@ -41,26 +42,18 @@ def change_to_second(Action):
 
     return []
 
-class ActionFinProgramme(Action):
-    def name(self) -> Text:
-        return "action_fin_programme"
+def close_all_rasa_model():
+    global running
+    global running_principal
 
-    def run(self, dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        global running
-        global running_principal
+    running = False
 
-        running = False
+    requests.post("http://localhost:5005/shutdown")
+    requests.post("http://localhost:5006/shutdown")
 
-        requests.post("http://localhost:5005/shutdown")
-        requests.post("http://localhost:5006/shutdown")
+    running_principal = False
 
-        running_principal = False
 
-        return []
-
-'''
 ###########
 
 def draw_text(surface, text, font, color, x, y, max_width):
@@ -309,13 +302,12 @@ if __name__=="__main__":
     thread1.start()
 
     #agent_create_personnage = Agent.load("modelA")
-    #agent_scenario = Agent.load("modelB")
+    agent_scenario = Agent.load("./main_DnD/models/20250110-141002-unsorted-cobblestone.tar.gz")
 
-    #agent_principal = agent_scenario
+    agent_principal = agent_scenario
 
     #serve_application(agent_create_personnage, http_port=5005)
-    #serve_application(agent_scenario,http_port=5006)
+    serve_application(agent_scenario,http_port=5006)
 
     while running_principal:
-        #listen_user()
-        change_text_scene("test")
+        listen_user()
