@@ -180,7 +180,9 @@ class ActionPlayerChoice(Action):
     ):
         player_action = tracker.get_slot("player_action")
         # if player_action is None:
-        dispatcher.utter_message(text="Veuillez choisir une action.")
+        dispatcher.utter_message(
+            text="Veuillez choisir une action.(attaquer, utiliser un item, utiliser un sort ou fuir)"
+        )
         # return [[SlotSet("player_action", None)]]
         return [SlotSet("player_action", None)]
 
