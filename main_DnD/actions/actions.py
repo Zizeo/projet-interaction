@@ -107,6 +107,7 @@ class ActionCombatTurn(Action):
             SlotSet("player_hp", player_hp),
             SlotSet("enemy_hp", enemy_hp),
             SlotSet("player_action", None),
+            FollowupAction("action_player_choice"),
         ]
 
 
@@ -131,6 +132,7 @@ class ActionCombatStart(Action):
             SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
+            FollowupAction("action_player_choice"),
         ]
 
 
@@ -174,9 +176,9 @@ class ActionPlayerChoice(Action):
         domain: Dict[Text, Any],
     ):
         player_action = tracker.get_slot("player_action")
-        if player_action is None:
-            dispatcher.utter_message(text="Veuillez choisir une action.")
-            return []
+        #if player_action is None:
+        dispatcher.utter_message(text="Veuillez choisir une action.")
+        #    return []
         return [SlotSet("player_action", player_action)]
 
 
