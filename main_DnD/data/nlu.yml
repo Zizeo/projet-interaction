@@ -76,14 +76,14 @@ nlu:
 
 - intent: choose_dice
   examples: |
-    - faire un dé de [dexterité](type_dé)
+    - faire un dé de [dextérité](type_dé)
     - faire un dé de [force](type_dé)
     - faire un dé d'[intelligence](type_dé)
-    - Lance un dé de [dexterité](type_dé)
+    - Lance un dé de [dextérité](type_dé)
     - Je veux lancer un dé de [force](type_dé)
     - Fais un jet de [intelligence](type_dé)
     - Lance le dé de [force](type_dé)
-    - Peux-tu faire un jet de [dexterité](type_dé) ?
+    - Peux-tu faire un jet de [dextérité](type_dé) ?
     - J'ai besoin d'un dé pour [intelligence](type_dé)
 - intent: info_status
   examples: |

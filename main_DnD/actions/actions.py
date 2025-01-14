@@ -151,22 +151,34 @@ class ActionCombatEnd(Action):
         domain: Dict[Text, Any],
     ):
         state = tracker.get_slot("combat_state")
+        room = tracker.get_slot("current_room")
         if state == "ongoing":
             dispatcher.utter_message(text="Le combat est toujours en cours.")
             return []
         elif state == "victory":
             dispatcher.utter_message(response="utter_victory")
-
+            if room == 1:
+               dispatcher.utter_message(response="utter_step1_success")
+            if room == 3:
+               dispatcher.utter_message(response="utter_step3_success")
+            if room == 4:
+               dispatcher.utter_message(response="utter_step4_sauver_chat_succes")
         elif state == "defeat":
             dispatcher.utter_message(response="utter_defeat")
+            if room == 1:
+               dispatcher.utter_message(response="utter_step1_fail")
+            if room == 3:
+               dispatcher.utter_message(response="utter_step3_fail")
+            if room == 4:
+               dispatcher.utter_message(response="utter_step4_sauver_chat_echec")
 
         elif state == "fled":
-            dispatcher.utter_message(text="Vous avez fuis le combat.")
+            dispatcher.utter_message(text="Vous avez fuit le combat.")
 
         else:
             dispatcher.utter_message(text="Le combat est terminé.")
 
-        return [SlotSet("combat_state", "ended"), SlotSet("being_in_fight", 0)]
+        return [SlotSet("combat_state", "ended"), SlotSet("being_in_fight", 0),FollowupAction("action_change_room")]
 
 
 class ActionPlayerChoice(Action):
@@ -275,7 +287,7 @@ class ActionClassResponse(Action):
         room = tracker.get_slot("current_room")
         score = random.randint(1, 20)
         print(type_de)
-        print(classe)
+
         if type_de == "intelligence":
             if room != 2:
                 dispatcher.utter_message(
@@ -289,6 +301,7 @@ class ActionClassResponse(Action):
                         dispatcher.utter_message(
                             text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
                         )
+                        return[FollowupAction("action_change_room")]
                     else:
                         dispatcher.utter_message(
                             text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ?"
@@ -303,6 +316,7 @@ class ActionClassResponse(Action):
                         dispatcher.utter_message(
                             text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
                         )
+                        return[FollowupAction("action_change_room")]
         elif type_de == "dexterité":
             if room != 3:
                 dispatcher.utter_message(
@@ -360,12 +374,12 @@ class ActionClassResponse(Action):
                         return [SlotSet("enemy_hp", enemy_hp - 3)]
                     else:
                         dispatcher.utter_message(
-                            text="Toute cette aventure vous a fatigué..."
+                            text="Vous n'avez pas frappé assez fort..."
                         )
                 elif classe in ["rodeur", "occultiste"]:
                     if score < 17:
                         dispatcher.utter_message(
-                            text="Toute cette aventure vous a fatigué..."
+                            text="Vous n'avez pas frappé assez fort..."
                         )
                     else:
                         dispatcher.utter_message(

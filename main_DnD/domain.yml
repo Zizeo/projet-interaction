@@ -184,7 +184,7 @@ responses:
   utter_step3:
     - text: "Vous entrez dans une vaste salle. Le plafond est haut, et au fond, un escalier mène à l’étage supérieur. Mais alors que vous vous avancez, le sol commence à trembler violemment. Une grande partie s’effondre, ne laissant que quelques plateformes éparses pour traverser."
   
-  utter_step3_succes:
+  utter_step3_success:
     - text: "Vous pouvez enfin pousser la porte de la tour du donjon."
 
   utter_step3_fail:
