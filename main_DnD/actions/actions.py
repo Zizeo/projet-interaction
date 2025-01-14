@@ -128,7 +128,7 @@ class ActionCombatStart(Action):
         return [
             SlotSet("combat_state", "ongoing"),
             SlotSet("enemy_hp", 12),
-            SlotSet("player_hp", 12),
+            SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
         ]
@@ -349,10 +349,8 @@ class ActionHelpingPlayer(Action):
         domain: Dict[Text, Any],
     ):
         room = tracker.get_slot("current_room")
-        print(room)
         if room == 0.0:
             classe = tracker.get_slot("class")
-            print(classe)
             if classe == "rodeur":
                 dispatcher.utter_message(
                     text="Vous vous trouvez dans la salle 0. Vous êtes un maître de la nature, armé de votre arc et de votre sens de l'orientation. Vous commencez dans la forêt enchantée de “Lórien”. Votre chat, habituellement à vos côtés, est introuvable. Déterminé, vous quittez la forêt pour le chercher."
@@ -366,7 +364,6 @@ class ActionHelpingPlayer(Action):
                     text="Vous vous trouvez dans la salle 0. Puissant et impétueux, votre force brute vous mène souvent au succès. Vous commencez dans une taverne bruyante et enfumée, entouré de rires gras et de chopes de bière. Alors que vous festoyez, un homme entre en trombe et vous informe que votre chat a été vu près d’une tour. Sans attendre, vous saisissez votre arme et partez. "
                 )
         elif room == 1.0:
-            print("1")
             dispatcher.utter_message(
                 text="Vous vous trouvez dans la salle 1. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d'une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l'entrée, un garde imposant vous barre le passage. Vous avez le choix de le combattre, de tenter la diplomatie ou de fuir. "
             )
@@ -393,5 +390,4 @@ class ActionHelpingPlayer(Action):
             dispatcher.utter_message(
                 text="Vous vous trouvez dans la salle 4. Arrivé dans le donjon, vous tombez nez à nez avec votre chat et un dragon. Ce dernier est hypnotisant et majestueux, et son regard vous envoûte. Une confusion profonde s’empare de vous : pourquoi êtes-vous là ? Est-ce pour sauver un chat ? Protéger ce dragon ? Ou simplement fuir ? Vous devez prendre une décision."
             )
-        print("fin")
         return []
