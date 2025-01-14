@@ -3,9 +3,8 @@ version: "3.1"
 rules:
 - rule: Set initial slots on session start
   steps:
-    - action: action_session_start
+    - intent: greet
     - action: action_begin_chat
-    - action: utter_welcome
 
 - rule: display description of a class when user ask it
   steps:

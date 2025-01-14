@@ -23,7 +23,8 @@ nlu:
 - intent: choose_class
   examples: |
     - je choisis de jouer le (barbare)[classe]
-    - je prends le (rôdeur)[class]
+    - je prends le (rodeur)[classe]
+    - j'aimerais jouer l' (occultiste)[classe]
 
 - intent: ask_stats_class
   examples : |
@@ -32,68 +33,37 @@ nlu:
     
 - intent: greet
   examples: |
-    - hey
-    - hello
-    - hi
-    - hello there
-    - good morning
-    - good evening
-    - moin
-    - hey there
-    - let's go
-    - hey dude
-    - goodmorning
-    - goodevening
-    - good afternoon
+    - bonjour
+    - coucou
+    - yo
+    - salut
 
 - intent: goodbye
   examples: |
-    - cu
-    - good by
-    - cee you later
-    - good night
-    - bye
-    - goodbye
-    - have a nice day
-    - see you around
-    - bye bye
-    - see you later
+    - adieu
+    - a plus
+    - j'ai fini
+    - au revoir
 
 - intent: affirm
   examples: |
-    - yes
-    - y
-    - indeed
-    - of course
-    - that sounds good
-    - correct
+    - oui
+    - c'est ça
+    - tout à fait
+    - exactement
+    - c'est exact
 
 - intent: deny
   examples: |
-    - no
-    - n
-    - never
-    - I don't think so
-    - don't like that
-    - no way
-    - not really
+    - non
+    - pas du tout
+    - absolument pas
+    - ce n'est pas ça
 
 - intent: mood_great
   examples: |
-    - perfect
-    - great
-    - amazing
-    - feeling like a king
-    - wonderful
-    - I am feeling very good
-    - I am great
-    - I am amazing
-    - I am going to save the world
-    - super stoked
-    - extremely good
-    - so so perfect
-    - so good
-    - so perfect
+    - super
+    - je me sens trop bien
 
 - intent: mood_unhappy
   examples: |
