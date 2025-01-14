@@ -120,8 +120,3 @@ stories:
     steps:
     - intent: quit
     - action: action_quitter
-
-  - story: quitter jeu
-    steps:
-    - intent: quit
-    - action: action_quitter
