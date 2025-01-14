@@ -33,7 +33,6 @@ from rasa_sdk.events import SlotSet
 
 import random
 
-from ... import main
 
 class ActionCombatTurn(Action):
     def name(self) -> str:
@@ -124,12 +123,14 @@ class ActionCombatStart(Action):
     ):
         player_hp = tracker.get_slot("player_hp")
         enemy_hp = tracker.get_slot("enemy_hp")
+        if enemy_hp <= 0:
+            enemy_hp = 12
         dispatcher.utter_message(
             text=f"Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
         )
         return [
             SlotSet("combat_state", "ongoing"),
-            SlotSet("enemy_hp", 12),
+            SlotSet("enemy_hp", enemy_hp),
             SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
@@ -176,10 +177,10 @@ class ActionPlayerChoice(Action):
         domain: Dict[Text, Any],
     ):
         player_action = tracker.get_slot("player_action")
-        if player_action is None:
-            dispatcher.utter_message(text="Veuillez choisir une action.")
-            return []
-        return [SlotSet("player_action", player_action)]
+        # if player_action is None:
+        dispatcher.utter_message(text="Veuillez choisir une action.")
+        # return [[SlotSet("player_action", None)]]
+        return [SlotSet("player_action", None)]
 
 
 class ActionSkillCheck(Action):
