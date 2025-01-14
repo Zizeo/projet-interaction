@@ -84,7 +84,7 @@ slots:
   equipement1:
     type: text
     mappings:
-     - type: custom
+    - type: custom
   equipement2:
     type: text
     mappings:
@@ -134,6 +134,7 @@ actions:
 - action_helping_player
 - action_class_response
 - action_quitter
+- action_start_game
 
 responses:
   utter_combat_start:
