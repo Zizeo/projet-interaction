@@ -162,9 +162,6 @@ responses:
     - text: |
             Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
   
-  utter_step3:
-    - text: 
-  
   utter_lost:
     - condition:
       - type: slot
