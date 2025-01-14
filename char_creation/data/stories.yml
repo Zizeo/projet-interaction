@@ -2,6 +2,21 @@ version: "3.1"
 
 stories:
 
+- story: classical path
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: ask_classes
+  - action: utter_classes_available
+  - action: utter_which_class
+  - intent: choose_class
+    entities:
+      - classe
+  - action: action_set_class
+  - slot_was_set:
+      - classe:   
+
+
 - story: choisir classe 1
   steps: 
   - intent : ask_info_classe
@@ -15,5 +30,7 @@ stories:
   - action : utter_ask_suggest_class
   - intent : choose_class
   - action : utter_choose_class
+
+
 
 
