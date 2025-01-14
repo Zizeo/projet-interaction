@@ -245,6 +245,19 @@ class ValidateCombatForm(FormValidationAction):
         else:
             return {"combat_state": None}
 
+class ActionChangeRoom(FormValidationAction):
+    def name(self) -> str:
+        return "action_change_room"
+
+    def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        room = tracker.get_slot("current_room")
+        print("room", room)
+        return [SlotSet("current_room", room+1)]
 
 class ActionClassResponse(Action):
     def name(self) -> Text:
@@ -257,11 +270,12 @@ class ActionClassResponse(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         # Récupérer les valeurs des slots
-        classe = tracker.get_slot("class")
+        classe = tracker.get_slot("player_class")
         type_de = next(tracker.get_latest_entity_values("type_dé"), None)
         room = tracker.get_slot("current_room")
         score = random.randint(1, 20)
         print(type_de)
+        print(classe)
         if type_de == "intelligence":
             if room != 2:
                 dispatcher.utter_message(
@@ -280,6 +294,7 @@ class ActionClassResponse(Action):
                             text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ?"
                         )
                 elif classe in ["barbare", "rodeur"]:
+                    print(score)
                     if score < 17:
                         dispatcher.utter_message(
                             text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ? "
@@ -305,6 +320,9 @@ class ActionClassResponse(Action):
                         dispatcher.utter_message(
                             text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 2 points de vie."
                         )
+                        dispatcher.utter_message(
+                    text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+                )
                         hp = tracker.get_slot("player_hp")
                         return [SlotSet("player_hp", hp - 2)]
                 elif classe in ["barbare", "occultiste"]:
@@ -312,6 +330,9 @@ class ActionClassResponse(Action):
                         dispatcher.utter_message(
                             text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 3 points de vie."
                         )
+                        dispatcher.utter_message(
+                    text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+                )
                         hp = tracker.get_slot("player_hp")
                         return [SlotSet("player_hp", hp - 3)]
                     else:
