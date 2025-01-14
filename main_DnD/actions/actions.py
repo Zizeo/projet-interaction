@@ -33,6 +33,7 @@ from rasa_sdk.events import SlotSet
 
 import random
 
+from ... import main
 
 class ActionCombatTurn(Action):
     def name(self) -> str:
@@ -364,5 +365,4 @@ class ActionHelpingPlayer(Action):
             dispatcher.utter_message(text="Vous vous trouvez dans la salle 4. Arrivé dans le donjon, vous tombez nez à nez avec votre chat et un dragon. Ce dernier est hypnotisant et majestueux, et son regard vous envoûte. Une confusion profonde s’empare de vous : pourquoi êtes-vous là ? Est-ce pour sauver un chat ? Protéger ce dragon ? Ou simplement fuir ? Vous devez prendre une décision.")
         print("fin")
         return []
-        
         

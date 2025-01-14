@@ -81,6 +81,7 @@ nlu:
     - quitter
     - arrêter
     - stop
+    
 - intent: lost
   examples: |
     - je veux de l'aide

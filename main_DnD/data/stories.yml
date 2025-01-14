@@ -104,3 +104,8 @@ stories:
     steps:
     - intent: help
     - action: action_helping_player
+
+  - story: quitter jeu
+    steps:
+    - intent: quit
+    - action: action_quitter

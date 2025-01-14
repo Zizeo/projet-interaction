@@ -123,6 +123,7 @@ actions:
   - action_validate_combat_form
   - action_helping_player
   - action_class_response
+  - action_quitter
 
 
 responses:
@@ -159,6 +160,10 @@ responses:
   utter_fouiller_garde:
     - text: |
             Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
+  
+  utter_step3:
+    - text: 
+  
   utter_lost:
     - condition:
       - type: slot
