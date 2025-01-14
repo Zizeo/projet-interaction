@@ -21,6 +21,8 @@ stories:
     - action: utter_step3
     - intent: choose_dice
     - action: action_class_response
+    - checkpoint: ckp_start_combat
+    - checkpoint: ckp_end_combat
 
   - story: Combat basique
     steps:

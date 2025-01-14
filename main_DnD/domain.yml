@@ -25,7 +25,7 @@ slots:
     type: text
     mappings:
     - type: custom
-  class:
+  player_class:
     type: text
     initial_value: barbare
     mappings:
@@ -89,6 +89,14 @@ slots:
     type: text
     mappings:
     - type: custom
+  equipement_description:
+    type: text
+    mappings:
+    - type: custom
+  equipement_degat:
+    type: float
+    mappings:
+    - type: custom
 
 
 intents:
@@ -124,6 +132,7 @@ entities:
 - player_level
 - combat_state
 - type_dé
+
 actions:
 - action_combat_turn
 - action_combat_start
@@ -135,6 +144,7 @@ actions:
 - action_class_response
 - action_quitter
 - action_start_game
+- action_print_status
 
 responses:
   utter_combat_start:
@@ -168,8 +178,14 @@ responses:
       Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
   
   utter_step3:
-  - text: Vous entrez dans une vaste salle. Le plafond est haut, et au fond, un escalier mène à l’étage supérieur. Mais alors que vous vous avancez, le sol commence à trembler violemment. Une grande partie s’effondre, ne laissant que quelques plateformes éparses pour traverser.
+    - text: "Vous entrez dans une vaste salle. Le plafond est haut, et au fond, un escalier mène à l’étage supérieur. Mais alors que vous vous avancez, le sol commence à trembler violemment. Une grande partie s’effondre, ne laissant que quelques plateformes éparses pour traverser."
   
+  utter_step3_succes:
+    - text: "Vous pouvez enfin pousser la porte de la tour du donjon."
+
+  utter_step3_fail:
+    - text: "Oh non! Le garde vous a battu. Vous ne retrouverez pas votre chat."
+
   utter_lost:
   - condition:
     - type: slot

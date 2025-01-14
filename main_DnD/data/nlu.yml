@@ -19,6 +19,7 @@ nlu:
   examples: |
     - parler
     - convaincre
+
 - intent: flee
   examples: |
     - fuite
@@ -28,6 +29,7 @@ nlu:
   examples: |
     - utiliser un objet
     - utiliser un item
+    - utiliser une potion
 
 - intent: start_combat
   examples: |
@@ -102,3 +104,10 @@ nlu:
     - répète
     - je n'ai pas compris
     - redis
+
+
+- intent: info_personnage
+  examples: |
+    - je veux voir mes stats
+    - rappelle moi mes stats
+    - affiche moi mes stats

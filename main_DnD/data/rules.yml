@@ -10,6 +10,11 @@ rules:
   #     - intent: player_action
   #     - action: action_set_player_action
   #     - action: action_combat_turn
+  - rule: info personnage
+    steps:
+      - intent: info_personnage
+      - action: action_print_status
+
 
   - rule: Fin du combat
     condition:
