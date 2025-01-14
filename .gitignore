@@ -27,6 +27,7 @@ share/python-wheels/
 MANIFEST
 *.tar.gz
 **/.rasa/
+*.db
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -154,6 +155,6 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-char_creation/.rasa
-main_DnD/.rasa
+char_creation/.rasa/
+main_DnD/.rasa/
 

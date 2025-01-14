@@ -33,6 +33,7 @@ from rasa_sdk.events import SlotSet
 
 import random
 
+
 class ActionCombatTurn(Action):
     def name(self) -> str:
         return "action_combat_turn"
@@ -123,12 +124,14 @@ class ActionCombatStart(Action):
     ):
         player_hp = tracker.get_slot("player_hp")
         enemy_hp = tracker.get_slot("enemy_hp")
+        if enemy_hp <= 0:
+            enemy_hp = 12
         dispatcher.utter_message(
             text=f"Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie."
         )
         return [
             SlotSet("combat_state", "ongoing"),
-            SlotSet("enemy_hp", 12),
+            SlotSet("enemy_hp", enemy_hp),
             SlotSet("player_hp", player_hp),
             SlotSet("player_action", None),
             SlotSet("being_in_fight", 1),
@@ -176,10 +179,10 @@ class ActionPlayerChoice(Action):
         domain: Dict[Text, Any],
     ):
         player_action = tracker.get_slot("player_action")
-        #if player_action is None:
+        # if player_action is None:
         dispatcher.utter_message(text="Veuillez choisir une action.")
-        #    return []
-        return [SlotSet("player_action", player_action)]
+        # return [[SlotSet("player_action", None)]]
+        return [SlotSet("player_action", None)]
 
 
 class ActionSkillCheck(Action):
@@ -303,10 +306,8 @@ class ActionClassResponse(Action):
                         text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
                     )
             dispatcher.utter_message(
-                        text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
-                    )
-
-            
+                text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+            )
 
         elif type_de == "force":
             print(score)

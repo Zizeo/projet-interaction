@@ -81,6 +81,16 @@ slots:
     initial_value: ended
     mappings:
     - type: custom
+    equipement1:
+      type: text
+      mappings:
+      - type: custom
+    equipement2:
+      type: text
+      mappings:
+      - type: custom
+
+
 intents:
 - attack
 - choose_dice
@@ -98,6 +108,7 @@ intents:
 - use_item
 - start_story
 - etape3
+
 
 entities:
 - action_player
@@ -123,6 +134,7 @@ actions:
 - action_helping_player
 - action_class_response
 - action_quitter
+
 responses:
   utter_combat_start:
   - text: Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie.
@@ -183,10 +195,12 @@ responses:
       name: current_room
       value: 4
     text: Vous avez choisi de sauver le dragon ou le chat. Combattez l'autre.
+
 forms:
   combat_form:
     required_slots:
     - combat_state
+
 session_config:
   session_expiration_time: 60
   carry_over_slots_to_new_session: false
