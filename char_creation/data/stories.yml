@@ -69,7 +69,6 @@ stories:
   - action: action_set_class
   - action : utter_choose_class
 
-
 - story: Are you a bot path
   steps:
   - intent: greet
