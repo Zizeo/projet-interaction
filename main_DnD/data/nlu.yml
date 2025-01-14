@@ -1,14 +1,20 @@
 version: "3.1"
 nlu:
+- intent: start_story
+  examples: |
+    - commencer
+
 - intent: attack
   examples: |
     - attaque
     - attaquer
+
 - intent: spell
   examples: |
     - lancer un sort
     - lancer une incantation
     - incanter
+
 - intent: speech
   examples: |
     - parler
@@ -18,10 +24,12 @@ nlu:
   examples: |
     - fuite
     - fuir
+
 - intent: use_item
   examples: |
     - utiliser un objet
     - utiliser un item
+
 - intent: start_combat
   examples: |
     - commencer le combat

@@ -98,6 +98,7 @@ intents:
 - help
 - lost
 - fouiller_garde
+- start_story
 
 entities:
   - action_player
@@ -147,15 +148,15 @@ responses:
 
   utter_step1:
     - text: |
-            "Bonjour, aventurier, et bienvenue dans la quête intitulée : Le Choix Impossible. Vous allez incarner un héros confronté à des décisions critiques, des épreuves intenses et des énigmes mortelles. Votre but ? Retrouver votre chat disparu, qui semble être retenu en otage au sommet d'une tour, protégé par un dragon. Préparez-vous, le chemin ne sera pas sans embûches. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage."
+            Bonjour, aventurier, et bienvenue dans la quête intitulée : Le Choix Impossible. Vous allez incarner un héros confronté à des décisions critiques, des épreuves intenses et des énigmes mortelles. Votre but ? Retrouver votre chat disparu, qui semble être retenu en otage au sommet d'une tour, protégé par un dragon. Préparez-vous, le chemin ne sera pas sans embûches. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage.
   
   utter_step1_fail:
-    - text: "Oh non ! le garde vous a battu. vous ne retrouverez pas votre chat."
+    - text: Oh non ! le garde vous a battu. vous ne retrouverez pas votre chat.
   utter_step1_success:
-    - text: "Bravo! Vous avez vaincu le garde. Vous pouvez maintenant accéder à la porte du donjon."
+    - text: Bravo! Vous avez vaincu le garde. Vous pouvez maintenant accéder à la porte du donjon.
 
   utter_step2:
-    - text: "Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas."
+    - text: Devant vous se dresse une lourde porte ornée de sculptures mystérieuses et enlacée de lianes. Vous remarquez cependant qu’il vous est impossible d'escalader la tour avec les lianes. Vous remarquez un cadenas complexe comportant quatre boules de couleur. Pour avancer, vous devez déverrouiller ce cadenas.
 
   utter_fouiller_garde:
     - text: |
