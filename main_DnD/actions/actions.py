@@ -13,6 +13,7 @@ from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormValidationAction
 from rasa_sdk.events import FollowupAction
+import json
 # git
 #
 # class ActionHelloWorld(Action):
@@ -180,7 +181,9 @@ class ActionPlayerChoice(Action):
     ):
         player_action = tracker.get_slot("player_action")
         # if player_action is None:
-        dispatcher.utter_message(text="Veuillez choisir une action.")
+        dispatcher.utter_message(
+            text="Veuillez choisir une action.(attaquer, utiliser un item, utiliser un sort ou fuir)"
+        )
         # return [[SlotSet("player_action", None)]]
         return [SlotSet("player_action", None)]
 
@@ -394,3 +397,20 @@ class ActionHelpingPlayer(Action):
                 text="Vous vous trouvez dans la salle 4. Arrivé dans le donjon, vous tombez nez à nez avec votre chat et un dragon. Ce dernier est hypnotisant et majestueux, et son regard vous envoûte. Une confusion profonde s’empare de vous : pourquoi êtes-vous là ? Est-ce pour sauver un chat ? Protéger ce dragon ? Ou simplement fuir ? Vous devez prendre une décision."
             )
         return []
+
+
+class ActionStartGame(Action):
+    def name(self) -> Text:
+        return "action_start_game"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        dispatcher.utter_message(text="Bienvenue dans Donjons et Dragons")
+        with open("data.json") as f:
+            data = json.load(f)
+            slot_values = data["slot_values"]
+            return [SlotSet(slot, value) for slot, value in slot_values.items()]

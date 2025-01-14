@@ -81,14 +81,14 @@ slots:
     initial_value: ended
     mappings:
     - type: custom
-    equipement1:
-      type: text
-      mappings:
-      - type: custom
-    equipement2:
-      type: text
-      mappings:
-      - type: custom
+  equipement1:
+    type: text
+    mappings:
+    - type: custom
+  equipement2:
+    type: text
+    mappings:
+    - type: custom
 
 
 intents:
@@ -134,6 +134,7 @@ actions:
 - action_helping_player
 - action_class_response
 - action_quitter
+- action_start_game
 
 responses:
   utter_combat_start:
@@ -179,7 +180,7 @@ responses:
     - type: slot
       name: current_room
       value: 1
-    text: Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer ou fuir.
+    text: Bah vous êtes en plein combat avec un garde. Battez vous jusqu'à la fin du combat. Pour rappel vous pouvez attaquer, lancer un sort, utiliser un objet ou fuir.
   - condition:
     - type: slot
       name: current_room
