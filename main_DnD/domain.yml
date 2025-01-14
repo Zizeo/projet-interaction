@@ -189,7 +189,30 @@ responses:
 
   utter_step3_fail:
     - text: "Oh non! Le garde vous a battu. Vous ne retrouverez pas votre chat."
+  utter_step4:
+    - text: |
+            "Arrivé dans le donjon, vous tombez nez à nez avec votre chat et un dragon. Ce dernier est hypnotisant et majestueux, et son regard vous envoûte. Une confusion profonde s’empare de vous : pourquoi êtes-vous là ? Est-ce pour sauver un chat ? Protéger ce dragon ? Ou simplement fuir ? Vous devez prendre une décision."
 
+  utter_step4_fuite:
+    - text: "Pris de panique, vous tournez les talons et quittez le donjon en courant. Ce n’est qu’une fois rentré chez vous que vous réalisez que vous avez abandonné votre chat aux griffes du dragon."
+
+  utter_step4_sauver_chat:
+    - text: "Vous retrouvez vos esprits et vous dirigez vers le dragon pour affronter la bête."
+
+  utter_step4_sauver_chat_succes:
+    - text: "Vous terrassez le dragon et sauvez votre chat. Rassuré, vous rentrez chez vous en bonne compagnie, fier de votre exploit."
+
+  utter_step4_sauver_chat_echec:
+    - text: "Le dragon vous terrasse. Votre aventure s’achève tragiquement."
+
+  utter_step4_sauver_dragon:
+    - text: "Envoûté par son aura, vous succombez à son charme et vous retrouvez à vous battre contre votre propre chat."
+
+  utter_step4_sauver_dragon_succes:
+    - text: "Vous battez votre chat, mais l’envoûtement cesse aussitôt. Avant que vous ne puissiez comprendre ce qui vient de se passer, le dragon vous immole de ses flammes. Votre aventure s’achève dans la cendre."
+
+  utter_step4_sauver_dragon_echec:
+    - text: "Le chat vous déjoue, et l’envoûtement prend fin. Confus, vous n’avez pas le temps de réagir avant que le dragon ne vous immole."
   utter_lost:
   - condition:
     - type: slot
