@@ -74,8 +74,6 @@ stories:
   - intent : ask_stats_class
   - action : action_display_stats
 
-
-
 - story: Are you a bot path
   steps:
   - intent: greet
