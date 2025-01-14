@@ -3,6 +3,9 @@ slots:
   being_in_fight:
     type: float
     initial_value: 0
+    #0: vient d'arriver dans une salle
+    #1: vient d'effectuer un combat
+    #2: vient d'effectuer un jet de dé
     mappings:
     - type: custom
   current_room:
@@ -92,7 +95,8 @@ intents:
 - speech
 - spell
 - start_combat
-- use_item
+- use_item- start_story
+
 entities:
 - action_player
 - equipement
@@ -116,6 +120,7 @@ actions:
 - action_validate_combat_form
 - action_helping_player
 - action_class_response
+  - action_quitter
 responses:
   utter_combat_start:
   - text: Le combat commence ! Vous avez {player_hp} points de vie. L'ennemi a {enemy_hp} points de vie.
