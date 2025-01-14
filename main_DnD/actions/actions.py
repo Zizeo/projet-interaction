@@ -414,3 +414,34 @@ class ActionStartGame(Action):
             data = json.load(f)
             slot_values = data["slot_values"]
             return [SlotSet(slot, value) for slot, value in slot_values.items()]
+
+
+class ActionPrintStatuts(Action):
+    def name(self) -> Text:
+        return "action_print_statuts"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        player_hp = tracker.get_slot("player_hp")
+        player_force = tracker.get_slot("player_force")
+        player_intelligence = tracker.get_slot("player_intelligence")
+        player_agility = tracker.get_slot("player_agility")
+        player_class = tracker.get_slot("class")
+        equipement = tracker.get_slot("equipement")
+        equipement_description = tracker.get_slot("equipement_description")
+        equipement_degat = tracker.get_slot("equipement_degat")
+        dispatcher.utter_message(
+            text=f"Voici vos statistiques :\n"
+            f"- Vous avez {player_hp} points de vie\n"
+            f"- vous avez {player_force} en force\n"
+            f"- vous avez {player_intelligence} en intelligence\n"
+            f"- vous avez {player_agility} en dexterité\n"
+            f"- Vous avez {player_class} comme classe\n"
+            f"- Vous avez {equipement} comme equipement\n"
+            f"- L'equipement {equipement} vous inflige {equipement_degat} de dommages\n"
+            f"- L'equipement {equipement} vous donne {equipement_description}"
+        )

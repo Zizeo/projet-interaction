@@ -25,7 +25,7 @@ slots:
     type: text
     mappings:
     - type: custom
-  class:
+  player_class:
     type: text
     initial_value: barbare
     mappings:
@@ -89,6 +89,14 @@ slots:
     type: text
     mappings:
     - type: custom
+  equipement_description:
+    type: text
+    mappings:
+    - type: custom
+  equipement_degat:
+    type: float
+    mappings:
+    - type: custom
 
 
 intents:
@@ -124,6 +132,7 @@ entities:
 - player_level
 - combat_state
 - type_dé
+
 actions:
 - action_combat_turn
 - action_combat_start
@@ -135,6 +144,7 @@ actions:
 - action_class_response
 - action_quitter
 - action_start_game
+- action_print_status
 
 responses:
   utter_combat_start:

@@ -104,3 +104,10 @@ nlu:
     - répète
     - je n'ai pas compris
     - redis
+
+
+- intent: info_personnage
+  examples: |
+    - je veux voir mes stats
+    - rappelle moi mes stats
+    - affiche moi mes stats
