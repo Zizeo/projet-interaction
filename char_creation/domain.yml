@@ -32,8 +32,6 @@ responses:
   - text: "Bonjour Aventurier ! Vous êtes sur le point de commencer une aventure dans le monde magique et dangereux de Donjons et Dragons ! Cependant avant de pouvoir commencer votre aventure vous allez devoir choisir votre classe et l'équipement associé à votre classe. Et alors vous serez fin prêt pour l’aventure."
   utter_ask_info_class:
   - text: "Je serai ravi de vous renseigner sur cette classe"
-  utter_info_equipement:
-  - text: "Les équipements dépendent de la classe que vous choisirez."
   utter_ask_suggest_class:
   - text: "Je vous recommande de choisir cette classe"
   utter_info_choose_equipement:
@@ -41,7 +39,7 @@ responses:
   utter_ask_creationPerso_form_class:
   - text: ""
   utter_choose_class :
-  - text : "Très bien on part sur ça" 
+  - text : "Très bien on part sur la classe {classe}!" 
   utter_classes_available:
   - text: "Vous pouvez jouer les classes suivantes: {classe_barbare}, {classe_rodeur} et {classe_occultiste}"
   utter_which_class:

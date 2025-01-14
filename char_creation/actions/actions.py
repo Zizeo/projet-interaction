@@ -107,7 +107,7 @@ class ActionSetClass(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_set_class")
         # extraction de la classe choisi
-        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
+        classe_choisi = tracker.get_latest_entity_values("classe")
 
         classes_dispo = [tracker.get_slot("classe_barbare"), tracker.get_slot("classe_rodeur"), tracker.get_slot("classe_occultiste")]
 
@@ -165,8 +165,20 @@ class ActionPrintChoiceEquipment(Action):
         print("action_set_class")
         # extraction de la classe choisi
         classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
-
-        equipements_dispo = [tracker.get_slot("equipement_1_"+classe_choisi),tracker.get_slot("equipement_1_"+classe_choisi)]
+        message = ""
+        if classe_choisi == None:
+            message = "Les équipements dépendent de la classe que vous choisirez. Il vous faut choisir une classe!\n"
+        else:
+            equipement1 = tracker.get_slot("equipement_1_"+classe_choisi)
+            equipement2 = tracker.get_slot("equipement_2_"+classe_choisi)
+            equipement1_degat = tracker.get_slot("equipement_1_degat_"+classe_choisi)
+            equipement2_degat =   tracker.get_slot("equipement_2_degat_"+classe_choisi)
+            if classe_choisi == "occultiste":  
+                equipement1_description = tracker.get_slot("equipement_1_description_occultiste")
+                equipement2_description = tracker.get_slot("equipement_2_description_occultiste")   
+                message = "Vous pouvez un des équipements suivant:\n 1)"+equipement1+", dégats: "+equipement1_degat+ ", description: "+equipement1_description+"\n ou\n 2)"+equipement2+", dégats: "+equipement2_degat+ ", description: "+equipement2_description
+            else:
+                message = "Vous pouvez un des équipements suivant:\n 1)"+equipement1+", dégats: "+equipement1_degat+"\n ou\n 2)"+equipement2+", dégats: "+equipement2_degat
         
-        dispatcher.utter_message(text="Vous pouvez un des équipements suivant:\n 1)"+equipements_dispo[0]+", dégats: "+tracker.get_slot("equipement_1_degat_"+classe_choisi)+"\n ou\n 2)"+equipements_dispo[1]+", dégats: "+tracker.get_slot("equipement_2_degat_"+classe_choisi))
+        dispatcher.utter_message(text=message)
         return []

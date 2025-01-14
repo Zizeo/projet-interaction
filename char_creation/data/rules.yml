@@ -6,6 +6,12 @@ rules:
     - intent: greet
     - action: action_begin_chat
 
+- rule: Set classe choosed
+  steps:
+    - intent: choose_class
+    - action: action_set_class
+    - action: utter_choose_class 
+
 - rule: Save slots of the personna
   steps:
     - intent: goodbye
@@ -16,4 +22,9 @@ rules:
     - intent: ask_classes
     - action: utter_classes_available
     - action: utter_which_class
+
+- rule: Give equipments available
+  steps:
+    - intent: ask_equipements
+    - action: action_print_choice_equipment    
 

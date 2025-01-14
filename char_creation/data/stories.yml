@@ -10,30 +10,49 @@ stories:
   - action: utter_classes_available
   - action: utter_which_class
   - intent: choose_class
-    entities:
-      - classe
   - action: action_set_class
   - slot_was_set:
       - classe: 
+  - action: utter_choose_class 
+  - intent: ask_equipements
   - action: action_print_choice_equipment
+  - intent: choose_equipement  
 
 - story: classical path 2
   steps:
   - intent: greet
   - action: action_begin_chat
   - intent: ask_equipements
-  - action: utter_info_equipement
+  - action: action_print_choice_equipment
+  - intent: ask_classes
   - action: utter_classes_available
   - action: utter_which_class
   - intent: choose_class
-    entities:
-      - classe
+  - action: action_set_class
+  - slot_was_set:
+      - classe:
+  - action: utter_choose_class
+  - intent: ask_equipements 
+  - action: action_print_choice_equipment
+  - intent: choose_equipement  
+
+- story: classical path 2
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: ask_equipements
+  - action: action_print_choice_equipment
+  - intent: affirm
+  - action: utter_classes_available
+  - action: utter_which_class
+  - intent: choose_class
   - action: action_set_class
   - slot_was_set:
       - classe: 
-  - intent: what_to_do
-  - action: utter_info_choose_equipement
+  - action: utter_choose_class
+  - intent: ask_equipements 
   - action: action_print_choice_equipment
+  - intent: choose_equipement
 
 - story: hello-bye path
   steps:
@@ -47,6 +66,7 @@ stories:
   - intent : ask_suggest_class
   - action : utter_ask_suggest_class
   - intent : choose_class
+  - action: action_set_class
   - action : utter_choose_class
 
 - story: afficher stats classe

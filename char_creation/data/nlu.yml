@@ -8,7 +8,7 @@ nlu:
     - c'est quoi un [classe] (rodeur) ?
     - En quoi consiste le [classe](occultiste) ?
 
-- synonym: classe 
+- lookup: classe
   examples: |
     - barbare
     - occultiste
@@ -37,6 +37,7 @@ nlu:
     - je choisis de jouer le (barbare)[classe]
     - je prends le (rodeur)[classe]
     - j'aimerais jouer l' (occultiste)[classe]
+    - je veux jouer un (barbare)[classe]
 
 - intent: choose_equipement
   examples: |
@@ -76,6 +77,7 @@ nlu:
     - tout à fait
     - exactement
     - c'est exact
+    - ok
 
 - intent: deny
   examples: |
