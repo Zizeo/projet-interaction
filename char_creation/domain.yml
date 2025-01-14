@@ -26,6 +26,8 @@ entities:
   - equipement
   - equipement_degat
   - equipement_description
+  - equipement_1
+  - equipement_2
 
 responses:
   utter_welcome:
@@ -270,7 +272,8 @@ forms:
   creationPerso_form:
     required_slots:
       - classe
-      - equipement
+      - equipement_1
+      - equipement_2
 
 actions:
   - action_end_chat

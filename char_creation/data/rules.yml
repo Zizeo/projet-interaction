@@ -33,3 +33,8 @@ rules:
   - intent : ask_stats_class
   - action : action_display_stats
 
+
+# - rule: creer le perso avec un formulaire 
+#   steps:
+#   - intent: greet
+#   - action: action_form_perso

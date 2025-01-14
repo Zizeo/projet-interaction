@@ -82,3 +82,9 @@ nlu:
   examples: |
     - 1
     - 2
+# - intent: choose_equipement_test
+#   examples : |
+#     - je veux un [couteau](equipement_1)
+#     - je choisie une [dague](equipement_2)
+#     - [arbalète](equipement_1)
+#     - [épée courte](equipement_2)
