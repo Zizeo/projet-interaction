@@ -92,6 +92,25 @@ class ActionBeginChat(Action):
 
         slot_events = [SlotSet(slot, value) for slot, value in slots_traduit.items()]
 
+        print(domain["responses"].get("utter_welcome", [{}])[0].get("text", "Default response text"))
         dispatcher.utter_message(text="Les slots ont été mis à jour")
         
         return slot_events   
+
+class ActionSetClass(Action):
+    def name(self) -> Text:
+        return "action_set_class"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        # extraction de la classe choisi
+        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
+
+        classes_dispo = [tracker.get_slot("classe_barbare"), tracker.get_slot("classe_rodeur"), tracker.get_slot("classe_occultiste")]
+
+        if classe_choisi in classes_dispo:
+            return [SlotSet("classe", classe_choisi)]
+        else:
+            # si la classe n'est pas dans celle dispo 
+            dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir une classe disponible parmis celles ennoncés.")
+        return []
