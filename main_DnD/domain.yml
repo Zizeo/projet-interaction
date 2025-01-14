@@ -81,6 +81,14 @@ slots:
     initial_value: ended
     mappings:
     - type: custom
+    equipement1:
+      type: text
+      mappings:
+      - type: custom
+    equipement2:
+      type: text
+      mappings:
+      - type: custom
 
 
 intents:
@@ -98,7 +106,6 @@ intents:
 - spell
 - start_combat
 - use_item
-
 - start_story
 - etape3
 
