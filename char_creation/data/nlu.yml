@@ -14,6 +14,12 @@ nlu:
     - occultiste
     - rodeur
 
+- intent: what_to_do
+  examples: |
+    - que faire maintenant?
+    - qu'est-ce que je dois faire?
+    - que faire à présent?
+
 - intent: ask_classes
   examples: |
     - quelles classes sont disponibles?
@@ -32,12 +38,23 @@ nlu:
     - je prends le (rodeur)[classe]
     - j'aimerais jouer l' (occultiste)[classe]
 
+- intent: choose_equipement
+  examples: |
+    - je choisis de jouer l'équipement (1)[numero_equipement]
+    - je prends l'équipement (2)[numero_equipement]
+    - j'aimerais jouer avec l'équipement (2)[numero_equipement]
+
 - intent: ask_stats_class
   examples : |
     - quelles sont les stats du [classe](barbare)?
     - il a combien de PV le [classe](rodeur)?
     - a quelle point [classe](occultiste) est intelligent ?
-    
+
+- intent: ask_equipements
+  examples : |
+    - quels sont les équipements disponibles?
+    - quels équipements sont jouables?
+
 - intent: greet
   examples: |
     - bonjour

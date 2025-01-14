@@ -8,16 +8,15 @@ intents:
   - goodbye
   - affirm
   - deny
-  - mood_great
-  - mood_unhappy
   - bot_challenge
-  - welcome
   - ask_classes
   - ask_info_class
   - ask_suggest_class
   - choose_class
   - ask_stats_class
+  - ask_equipements
   - choose_equipement
+  - what_to_do
 
 entities:
   - classe 
@@ -37,6 +36,8 @@ responses:
   - text: "Les équipements dépendent de la classe que vous choisirez."
   utter_ask_suggest_class:
   - text: "Je vous recommande de choisir cette classe"
+  utter_info_choose_equipement:
+  - text: "Il vous faut choisir un équipement!"
   utter_ask_creationPerso_form_class:
   - text: ""
   utter_choose_class :
@@ -278,3 +279,4 @@ actions:
   - action_begin_chat
   - action_set_class
   - action_display_stats 
+  - action_print_choice_equipment
