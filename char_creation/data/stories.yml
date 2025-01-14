@@ -9,20 +9,22 @@ stories:
   - intent: ask_classes
   - action: utter_classes_available
   - action: utter_which_class
-  - intent: choose_class
-    entities:
-      - classe
-  - action: action_set_class
-  - slot_was_set:
-      - classe:   
 
+- story: classical path 2
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: ask_equipements
+  - action: utter_info_equipement
+  - action: utter_classes_available
+  - action: utter_which_class
 
-- story: choisir classe 1
-  steps: 
-  - intent : ask_info_classe
-  - action : utter_ask_info_classe
-  - intent : choose_class
-  - action : utter_choose_class
+- story: hello-bye path
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: goodbye
+  - action: action_end_chat
 
 - story: choix classe par capacité 
   steps: 
@@ -37,3 +39,10 @@ stories:
   - action : action_display_stats
 
 
+
+- story: Are you a bot path
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: bot_challenge
+  - action: utter_iamabot

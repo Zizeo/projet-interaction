@@ -12,7 +12,8 @@ intents:
   - mood_unhappy
   - bot_challenge
   - welcome
-  - ask_info_classe
+  - ask_classes
+  - ask_info_class
   - ask_suggest_class
   - choose_class
   - ask_stats_class
@@ -29,9 +30,11 @@ entities:
 
 responses:
   utter_welcome:
-  - text: "Bonjour Aventurier ! Vous êtes sur le point de commencer une aventure dans le monde magique et dangereux de Donjons et Dragons ! Cependant avant de pouvoir commencer votre aventure vous allez devoir choisir votre classe et votre équipement. Et alors vous serez fin prêt pour l’aventure."
-  utter_ask_info_classe:
+  - text: "Bonjour Aventurier ! Vous êtes sur le point de commencer une aventure dans le monde magique et dangereux de Donjons et Dragons ! Cependant avant de pouvoir commencer votre aventure vous allez devoir choisir votre classe et l'équipement associé à votre classe. Et alors vous serez fin prêt pour l’aventure."
+  utter_ask_info_class:
   - text: "Je serai ravi de vous renseigner sur cette classe"
+  utter_info_equipement:
+  - text: "Les équipements dépendent de la classe que vous choisirez."
   utter_ask_suggest_class:
   - text: "Je vous recommande de choisir cette classe"
   utter_ask_creationPerso_form_class:
@@ -42,19 +45,12 @@ responses:
   - text: "Vous pouvez jouer les classes suivantes: {classe_barbare}, {classe_rodeur} et {classe_occultiste}"
   utter_which_class:
   - text: "Alors aventurier, quelle classe vous convient?"
-  utter_greet:
-  - text: "Hey! How are you?"
-  utter_cheer_up:
-  - text: "Here is something to cheer you up:"
-    image: "https://i.imgur.com/nGF1K8f.jpg"
   utter_did_that_help:
-  - text: "Did that help you?"
-  utter_happy:
-  - text: "Great, carry on!"
+  - text: "Est-ce que cela vous a aidé?"
   utter_goodbye:
-  - text: "Bye"
+  - text: "A la prochaine"
   utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
+  - text: "Je suis un chatbot, désolé..."
 
 slots:
   classe:

@@ -27,6 +27,7 @@ class ActionEndChat(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_end_chat")
 
         # on récupère une liste contenant toutes nos entities
         entities = tracker.latest_message['entities']
@@ -89,12 +90,14 @@ class ActionBeginChat(Action):
         # print(slots)
         slots_traduit = traduction_slots(slots)
         # print(slots_traduit)
-
-        slot_events = [SlotSet(slot, value) for slot, value in slots_traduit.items()]
-    
-        dispatcher.utter_message(text=domain["responses"].get("utter_welcome", [{}])[0].get("text", "Default response text"))
-        
-        return slot_events   
+        res = []
+        for slot, value in slots_traduit.items():
+            print("slot:",slot,", value:",value)
+            res.append(SlotSet(key=slot, value=value)) 
+        print("action_begin_chat")
+        dispatcher.utter_message(response="utter_welcome")
+        print(res)
+        return res
 
 class ActionSetClass(Action):
     def name(self) -> Text:
@@ -102,6 +105,7 @@ class ActionSetClass(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_set_class")
         # extraction de la classe choisi
         classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
 
@@ -112,7 +116,8 @@ class ActionSetClass(Action):
         else:
             # si la classe n'est pas dans celle dispo 
             dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir une classe disponible parmis celles ennoncés.")
-       
+        return []
+
 class ActionDisplayStats(Action):
     def name(self)->Text:
         return "action_display_stats"
