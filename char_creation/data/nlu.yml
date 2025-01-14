@@ -1,75 +1,59 @@
 version: "3.1"
-
 nlu:
-
 - intent: ask_info_class
   examples: |
     - un [classe](barbare) ?
     - c'est quoi un [classe] (rodeur) ?
     - En quoi consiste le [classe](occultiste) ?
-
-- lookup: classe
-  examples: |
-    - barbare
-    - occultiste
-    - rodeur
-
 - intent: what_to_do
   examples: |
     - que faire maintenant?
     - qu'est-ce que je dois faire?
     - que faire à présent?
-
 - intent: ask_classes
   examples: |
     - quelles classes sont disponibles?
     - il y a quelles classes?
     - quelles classes je peux jouer?
-
 - intent: ask_suggest_class
   examples: |
-    - je dois choisir quoi pour [equipement]("combattre a distance")?
-    - quelle classe utilise [equipement]("des sorts")?
-    - j'aimerais jouer avec [equipement]("une hache")
-
+    - je dois choisir quoi pour ["combattre a distance"](equipement)?
+    - quelle classe utilise ["des sorts"](equipement)?
+    - j'aimerais jouer avec ["une hache"](equipement)
 - intent: choose_class
   examples: |
-    - je choisis de jouer le (barbare)[classe]
-    - je prends le (rodeur)[classe]
-    - j'aimerais jouer l' (occultiste)[classe]
-    - je veux jouer un (barbare)[classe]
-
+    - je choisis de jouer le [barbare](classe)
+    - je prends le [rodeur](classe)
+    - j'aimerais jouer l' [occultiste](classe)
+    - je veux jouer un [barbare](classe)
+    - je veux jouer [occultiste](classe)
 - intent: choose_equipement
   examples: |
-    - je choisis de jouer l'équipement (1)[numero_equipement]
-    - je prends l'équipement (2)[numero_equipement]
-    - j'aimerais jouer avec l'équipement (2)[numero_equipement]
-
+    - je choisis de jouer l'équipement [1](numero_equipement)
+    - je prends l'équipement [2](numero_equipement)
+    - j'aimerais jouer avec l'équipement [2](numero_equipement)
 - intent: ask_stats_class
-  examples : |
+  examples: |
     - quelles sont les stats du [classe](barbare)?
     - il a combien de PV le [classe](rodeur)?
     - a quelle point [classe](occultiste) est intelligent ?
-
 - intent: ask_equipements
-  examples : |
+  examples: |
     - quels sont les équipements disponibles?
     - quels équipements sont jouables?
-
+    - quelle equipement ?
 - intent: greet
   examples: |
     - bonjour
     - coucou
     - yo
     - salut
-
 - intent: goodbye
   examples: |
     - adieu
     - a plus
     - j'ai fini
     - au revoir
-
 - intent: affirm
   examples: |
     - oui
@@ -78,17 +62,23 @@ nlu:
     - exactement
     - c'est exact
     - ok
-
 - intent: deny
   examples: |
     - non
     - pas du tout
     - absolument pas
     - ce n'est pas ça
-
-
 - intent: bot_challenge
   examples: |
     - es tu un bot?
     - es tu un humain?
     - je parle à un bot?
+- lookup: classe
+  examples: |
+    - barbare
+    - occultiste
+    - rodeur
+- lookup: numero_equipement
+  examples: |
+    - 1
+    - 2

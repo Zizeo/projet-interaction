@@ -82,3 +82,4 @@ stories:
   - action: action_begin_chat
   - intent: bot_challenge
   - action: utter_iamabot
+

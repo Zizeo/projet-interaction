@@ -93,22 +93,22 @@ class ActionBeginChat(Action):
         res = []
         for slot, value in slots_traduit.items():
             print("slot:",slot,", value:",value)
-            res.append(SlotSet(key=slot, value=value)) 
+            res.append(SlotSet(key=slot, value=value))
         print("action_begin_chat")
         dispatcher.utter_message(response="utter_welcome")
-        print(res)
         return res
 
 class ActionSetClass(Action):
     def name(self) -> Text:
         return "action_set_class"
+    
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_set_class")
         # extraction de la classe choisi
-        classe_choisi = tracker.get_latest_entity_values("classe")
-
+        classe_choisi = tracker.get_slot("classe")
+        print(classe_choisi)
         classes_dispo = [tracker.get_slot("classe_barbare"), tracker.get_slot("classe_rodeur"), tracker.get_slot("classe_occultiste")]
 
         if classe_choisi in classes_dispo:
@@ -164,21 +164,27 @@ class ActionPrintChoiceEquipment(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_set_class")
         # extraction de la classe choisi
-        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
+        classe_choisi = tracker.get_slot("classe")
         message = ""
         if classe_choisi == None:
             message = "Les équipements dépendent de la classe que vous choisirez. Il vous faut choisir une classe!\n"
         else:
-            equipement1 = tracker.get_slot("equipement_1_"+classe_choisi)
-            equipement2 = tracker.get_slot("equipement_2_"+classe_choisi)
-            equipement1_degat = tracker.get_slot("equipement_1_degat_"+classe_choisi)
-            equipement2_degat =   tracker.get_slot("equipement_2_degat_"+classe_choisi)
+            equipement1 = tracker.get_slot("equipement_1_"+str(classe_choisi))
+            print(equipement1)
+            equipement2 = tracker.get_slot("equipement_2_"+str(classe_choisi))
+            print(equipement2)
+            equipement1_degat = tracker.get_slot("equipement_1_degat_"+str(classe_choisi))
+            print(equipement1_degat)
+            equipement2_degat =   tracker.get_slot("equipement_2_degat_"+str(classe_choisi))
+            print(equipement2_degat)
             if classe_choisi == "occultiste":  
                 equipement1_description = tracker.get_slot("equipement_1_description_occultiste")
-                equipement2_description = tracker.get_slot("equipement_2_description_occultiste")   
-                message = "Vous pouvez un des équipements suivant:\n 1)"+equipement1+", dégats: "+equipement1_degat+ ", description: "+equipement1_description+"\n ou\n 2)"+equipement2+", dégats: "+equipement2_degat+ ", description: "+equipement2_description
+                print(equipement1_description)
+                equipement2_description = tracker.get_slot("equipement_2_description_occultiste")  
+                print(equipement2_description) 
+                message = "Vous pouvez un des équipements suivant:\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+ ", description: "+str(equipement1_description)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)+ ", description: "+str(equipement2_description)
             else:
-                message = "Vous pouvez un des équipements suivant:\n 1)"+equipement1+", dégats: "+equipement1_degat+"\n ou\n 2)"+equipement2+", dégats: "+equipement2_degat
+                message = "Vous pouvez un des équipements suivant:\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)
         
         dispatcher.utter_message(text=message)
         return []
