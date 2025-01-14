@@ -21,16 +21,13 @@ stories:
       - action: utter_step2
       - intent: choose_dice
       - action: action_class_response
-  - story: scénario
+
+  - story: etape3 
     steps:
-    - intent: speech
-    - action: utter_step1
-    - action: utter_player_choice_fight
-    - intent: start_combat
-    - action: utter_combat_start
+    - intent: etape3
+    - action: utter_step3
     - intent: choose_dice
     - action: action_class_response
-    - action: utter_victory
 
   - story: Combat basique
     steps:
@@ -120,3 +117,4 @@ stories:
     steps:
     - intent: quit
     - action: action_quitter
+

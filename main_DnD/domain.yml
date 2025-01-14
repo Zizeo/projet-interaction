@@ -98,6 +98,7 @@ intents:
 - help
 - lost
 - fouiller_garde
+- etape3
 
 entities:
   - action_player
@@ -162,8 +163,14 @@ responses:
             Vous retournez fouiller le garde abattu. Vous trouvez un papier portant le code : vert, rouge, bleu, jaune. Vous l’entrez, et le cadenas.
   
   utter_step3:
-    - text: 
+    - text: "Vous entrez dans une vaste salle. Le plafond est haut, et au fond, un escalier mène à l’étage supérieur. Mais alors que vous vous avancez, le sol commence à trembler violemment. Une grande partie s’effondre, ne laissant que quelques plateformes éparses pour traverser."
   
+  utter_step3_fail:
+    - text: "Oh non! Le garde vous a battu. Vous ne retrouverez pas votre chat."
+
+  utter_step3_success:
+    - text: "Vous pouvez enfin pousser la porte de la tour du donjon."
+
   utter_lost:
     - condition:
       - type: slot

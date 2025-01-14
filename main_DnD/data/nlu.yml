@@ -32,6 +32,10 @@ nlu:
   examples: |
     - je veux fouiller le garde
     - fouiller
+  
+- intent: etape3
+  examples: |
+    - etape3
 
 # - intent: info_choosen_action
 #   examples: |
@@ -81,7 +85,7 @@ nlu:
     - quitter
     - arrêter
     - stop
-    
+
 - intent: lost
   examples: |
     - je veux de l'aide

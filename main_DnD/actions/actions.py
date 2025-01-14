@@ -33,8 +33,6 @@ from rasa_sdk.events import SlotSet
 
 import random
 
-from ... import main
-
 class ActionCombatTurn(Action):
     def name(self) -> str:
         return "action_combat_turn"
@@ -302,6 +300,11 @@ class ActionClassResponse(Action):
                     dispatcher.utter_message(
                         text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
                     )
+            dispatcher.utter_message(
+                        text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+                    )
+
+            
 
         elif type_de == "force":
             print(score)
