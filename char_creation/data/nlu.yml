@@ -18,6 +18,7 @@ nlu:
     - y'a quoi comme classes ?
     - quelles  sont les classes disponibles?
     - quelles classes sont dispo?
+    - et les classes?
 - intent: ask_suggest_class
   examples: |
     - je dois choisir quoi pour ["combattre a distance"](equipement)?
@@ -49,6 +50,7 @@ nlu:
     - quels équipements sont jouables?
     - quels equipements ?
     - y'a quoi comme equipements ?
+    - et les equipements ?
 - intent: greet
   examples: |
     - bonjour

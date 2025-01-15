@@ -45,6 +45,8 @@ class ActionEndChat(Action):
         response = ""
         # on regarde si tout les slots sont remplis
         if entity_classe == "" or entity_classe == None:
+            dispatcher.utter_message(text="Il faut choisir une classe!")
+            dispatcher.utter_message(response="utter_classes_available")
             response = "utter_which_class"
             print("pas de classe")
             dispatcher.utter_message(response=response)
@@ -77,7 +79,6 @@ class ActionEndChat(Action):
                 # print(f"Fichier créé à {chemin}!")
         except Exception as e:
             print("Une erreur est apparu: " + str(e))
-            
         return [SlotSet(key="fin_discussion", value="1")]    
 
 
@@ -89,7 +90,7 @@ class ActionBeginChat(Action):
     def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+        # print(tracker.get_slot("fin_discussion"))
         slots = creation_slots_persos()
         # print(slots)
         slots_traduit = traduction_slots(slots)
