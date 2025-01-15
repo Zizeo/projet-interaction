@@ -165,35 +165,48 @@ class ActionDisplayStats(Action):
             tracker: Tracker,
             domain : Dict[Text,Any]) -> List[Dict[Text, Any]]:
         # on récupère la valeur de l'entité classe pour laquelle on veut savoir les stats
-        classe = next(tracker.get_latest_entity_values("classe"), None)
 
-        if classe == "rodeur":
-                pv = tracker.get_slot("pv_rodeur")
-                force = tracker.get_slot("force_rodeur")
-                intel = tracker.get_slot("intelligence_rodeur")
-                agilite = tracker.get_slot("agilite_rodeur")
-                dispatcher.utter_message(text="Les stats du rôdeur sont :")
-        elif classe == "barbare":
-                pv = tracker.get_slot("pv_barbare")
-                force = tracker.get_slot("force_rodeur")
-                intel = tracker.get_slot("intelligence_rodeur")
-                agilite = tracker.get_slot("agilite_rodeur")
-                dispatcher.utter_message(text="Les stats du barbare sont :")
-        elif classe == "occultiste":
-                pv = tracker.get_slot("pv_rodeur")
-                force = tracker.get_slot("force_rodeur")
-                intel = tracker.get_slot("intelligence_rodeur")
-                agilite = tracker.get_slot("agilite_rodeur")
-                dispatcher.utter_message(text="Les stats de l'occultiste sont : ")
+        classe = next(tracker.get_latest_entity_values("classe"), None)
+        if classe == None :
+            pass
         else:
-                dispatcher.utter_message(text="je ne vois pas de quelle classe vous parlez donc je ne peux pas vous afficher ses statss")
-        
-        dispatcher.utter_message(text=f"points de vie : {pv}")
-        dispatcher.utter_message(text=f"force : {force}")
-        dispatcher.utter_message(text=f"intelligence : {intel}")
-        dispatcher.utter_message(text=f"agilite: {agilite}")
+
+            pv = "pv_"+tracker.get_latest_entity_values("classe")
+            force = "force_"+tracker.get_latest_entity_values("classe")
+            agilite = "agilite_"+tracker.get_latest_entity_values("classe")
+            intel = "intelligence_"+tracker.get_latest_entity_values("classe")
+
+            dispatcher.utter_message(text=f"Les stats du {classe} sont :")
+
+            dispatcher.utter_message(text=f"points de vie : {pv}")
+            dispatcher.utter_message(text=f"force : {force}")
+            dispatcher.utter_message(text=f"intelligence : {intel}")
+            dispatcher.utter_message(text=f"agilite: {agilite}")
         
         return []
+
+        # if classe == "rodeur":
+        #         pv = tracker.get_slot("pv_rodeur")
+        #         force = tracker.get_slot("force_rodeur")
+        #         intel = tracker.get_slot("intelligence_rodeur")
+        #         agilite = tracker.get_slot("agilite_rodeur")
+        #         dispatcher.utter_message(text="Les stats du rôdeur sont :")
+        # elif classe == "barbare":
+        #         pv = tracker.get_slot("pv_barbare")
+        #         force = tracker.get_slot("force_barbare")
+        #         intel = tracker.get_slot("intelligence_barbare")
+        #         agilite = tracker.get_slot("agilite_barbare")
+        #         dispatcher.utter_message(text="Les stats du barbare sont :")
+        # elif classe == "occultiste":
+        #         pv = tracker.get_slot("pv_occultiste")
+        #         force = tracker.get_slot("force_occultiste")
+        #         intel = tracker.get_slot("intelligence_occultiste")
+        #         agilite = tracker.get_slot("agilite_occultiste")
+        #         dispatcher.utter_message(text="Les stats de l'occultiste sont : ")
+        # else:
+        #         dispatcher.utter_message(text="je ne vois pas de quelle classe vous parlez donc je ne peux pas vous afficher ses statss")
+        
+       
 
 class ActionPrintChoiceEquipment(Action):
     def name(self) -> Text:
