@@ -5,7 +5,7 @@ stories:
   - story: Combat basique
     steps:
       - user: |
-          combat
+          commencer le combat
         intent: start_combat
       - action: action_combat_start
       - action: combat_form
@@ -17,3 +17,70 @@ stories:
       - action: action_combat_turn
       - active_loop: combat_form
 
+  - story: etape1
+    steps:
+      - user: |
+          commencer
+        intent: start_story
+      - action: utter_step1
+      - checkpoint: ckp_start_combat
+      - action: 
+
+  - story: etape2_fouiller
+    steps:
+      - user: |
+          etape2
+        intent: etape2
+      - action: utter_step2
+      - user: |
+          fouiller le garde
+        intent: fouiller_garde
+      - action: utter_fouiller_garde
+      - action: action_change_room
+
+  - story: etape2_casser_cadenas
+    steps:
+      - user: |
+          etape2
+        intent: etape2
+      - action: utter_step2
+      - user: |
+          lance un dé de force
+        intent: choose_dice
+      - action: action_class_response
+
+  - story: etape4 sauver chat succes
+    steps:
+    - user: |
+        sauver le chat
+      intent: sauver_chat
+    - action: utter_step4_sauver_chat
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_chat_succes
+
+  - story: etape4 sauver dragon succes
+    steps:
+    - user: |
+        sauver le dragon
+      intent: sauver_dragon
+    - action: utter_step4_sauver_dragon
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_dragon_succes
+
+  - story: etape4 sauver chat echec
+    steps:
+    - user: |
+        sauver le chat
+      intent: sauver_chat
+    - action: utter_step4_sauver_chat
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_chat_echec
+
+  - story: etape4 sauver dragon echec
+    steps:
+    - user: |
+        sauver le dragon
+      intent: sauver_dragon
+    - action: utter_step4_sauver_dragon
+    - checkpoint: ckp_start_combat
+    - action: utter_step4_sauver_dragon_echec

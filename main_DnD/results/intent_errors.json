@@ -1,0 +1,50 @@
+[
+  {
+    "text": "etape2",
+    "intent": "etape2",
+    "intent_prediction": {
+      "name": "etape3",
+      "confidence": 0.9266079664230347
+    }
+  },
+  {
+    "text": "etape4",
+    "intent": "etape4",
+    "intent_prediction": {
+      "name": "etape3",
+      "confidence": 0.9266079664230347
+    }
+  },
+  {
+    "text": "sauver chat",
+    "intent": "sauver_chat",
+    "intent_prediction": {
+      "name": "attack",
+      "confidence": 0.3314615488052368
+    }
+  },
+  {
+    "text": "sauver dragon",
+    "intent": "sauver_dragon",
+    "intent_prediction": {
+      "name": "spell",
+      "confidence": 0.43972787261009216
+    }
+  },
+  {
+    "text": "rappelle moi mes stats",
+    "intent": "info_status",
+    "intent_prediction": {
+      "name": "info_personnage",
+      "confidence": 0.8198744654655457
+    }
+  },
+  {
+    "text": "affiche moi mes stats",
+    "intent": "info_status",
+    "intent_prediction": {
+      "name": "info_personnage",
+      "confidence": 0.7697919607162476
+    }
+  }
+]
