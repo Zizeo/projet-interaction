@@ -9,6 +9,8 @@ from rasa_sdk.events import SlotSet, FollowupAction
 import json
 import os
 from .DnD_api import creation_slots_persos, traduction_slots
+# from rasa_sdk.forms import FormAction # a supprimer , ne fonctionne que sous rasa 2
+
 
 # This is a simple example for a custom action which utters "Hello World!"
 # class ActionHelloWorld(Action):
@@ -224,3 +226,55 @@ class ActionPrintChoiceEquipment(Action):
         
         dispatcher.utter_message(text=message)
         return []
+
+# class Action_form_perso(FormAction):
+     
+#     def name(self)->str:
+#         return "action_form_perso"
+     
+#     @staticmethod
+#     def required_slots(tracker: Tracker)->list:
+#         return["classe","equipement_1","equipement_2"] # slots qui vont être retournés 
+     
+#     def request_next_slot(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> None:
+#         current_slot = self.get_missing_slots(tracker)
+
+#         if current_slot == "classe":
+#             dispatcher.utter_message(text="Quelle classe choisissez-vous ?")
+#         elif current_slot == "equipement1":
+#             dispatcher.utter_message(text="choisissez votre première arme")
+#         elif current_slot == "equipement2":
+#             dispatcher.utter_message(text="choisissez votre deuxième arme")
+#     def validate_classe(self,value:str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict )-> dict:
+#         classe = next(tracker.get_latest_entity_values("classe"), None)
+
+#         # Si l'entité existe, l'utiliser pour remplir le slot
+#         if classe:
+#             return {"classe": classe}
+#         else: 
+#         # Si la valeur fournie n'est pas valide, demander une nouvelle valeur
+#             dispatcher.utter_message(text="La classe que vous avez choisie n'existe pas")
+#             return {"classe": None}
+#     def validate_equipement_1(self, value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+#         # Récupérer les entités dans le tracker
+#         equipement_1 = next(tracker.get_latest_entity_values("equipement_1"), None)
+        
+#         # Si l'entité existe, l'utiliser pour remplir le slot
+#         if equipement_1:
+#             return {"equipement_1": equipement_1}
+#         else:
+#             # Si la valeur fournie n'est pas valide, demander une nouvelle valeur
+#             dispatcher.utter_message(text="je n'ai pas compris votre choix ")
+#             return {"equipement_1": None}
+        
+#     def validate_equipement_2(self, value: str, dispatcher: CollectingDispatcher, tracker: Tracker, domain: dict) -> dict:
+#         # Récupérer les entités dans le tracker
+#         equipement_2 = next(tracker.get_latest_entity_values("equipement_2"), None)
+        
+#         # Si l'entité existe, l'utiliser pour remplir le slot
+#         if equipement_2:
+#             return {"equipement_1": equipement_2}
+#         else:
+#             # Si la valeur fournie n'est pas valide, demander une nouvelle valeur
+#             dispatcher.utter_message(text="je n'ai pas compris votre choix ")
+#             return {"equipement_2": None}
