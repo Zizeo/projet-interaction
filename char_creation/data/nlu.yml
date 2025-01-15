@@ -11,6 +11,7 @@ nlu:
     - que faire maintenant?
     - qu'est-ce que je dois faire?
     - que faire à présent?
+    - je dois faire quoi?
 - intent: ask_classes
   examples: |
     - quelles classes sont disponibles?
@@ -43,6 +44,7 @@ nlu:
     - quelles sont les stats du [classe](barbare)?
     - il a combien de PV le [classe](rodeur)?
     - a quelle point [classe](occultiste) est intelligent ?
+    - c'est quoi les stats d'un [classe](occultiste)?
 - intent: ask_equipements
   examples: |
     - quels sont les équipements disponibles?

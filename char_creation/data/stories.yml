@@ -13,7 +13,6 @@ stories:
   - action: action_set_class
   - slot_was_set:
       - classe: 
-  - action: utter_choose_class 
   - intent: ask_equipements
   - action: action_print_choice_equipment
   - intent: choose_equipement
@@ -37,7 +36,6 @@ stories:
   - action: action_set_class
   - slot_was_set:
       - classe:
-  - action: utter_choose_class
   - intent: ask_equipements 
   - action: action_print_choice_equipment
   - intent: choose_equipement
@@ -61,7 +59,6 @@ stories:
   - action: action_set_class
   - slot_was_set:
       - classe: 
-  - action: utter_choose_class
   - intent: ask_equipements 
   - action: action_print_choice_equipment
   - intent: choose_equipement
@@ -86,7 +83,6 @@ stories:
   - action : utter_ask_suggest_class
   - intent : choose_class
   - action: action_set_class
-  - action : utter_choose_class
 
 - story: Are you a bot path
   steps:

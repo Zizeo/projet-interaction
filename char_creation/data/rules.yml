@@ -10,7 +10,6 @@ rules:
   steps:
     - intent: choose_class
     - action: action_set_class
-    - action: utter_choose_class 
 
 - rule: Set equipement choosed
   steps:
