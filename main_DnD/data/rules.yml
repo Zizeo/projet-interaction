@@ -10,6 +10,7 @@ rules:
   #     - intent: player_action
   #     - action: action_set_player_action
   #     - action: action_combat_turn
+  
   - rule: info personnage
     steps:
       - intent: info_personnage
