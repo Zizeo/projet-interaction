@@ -351,8 +351,7 @@ forms:
   creationPerso_form:
     required_slots:
       - classe
-      - equipement_1
-      - equipement_2
+      - equipement
 
 actions:
   - action_end_chat
