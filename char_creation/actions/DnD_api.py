@@ -261,12 +261,11 @@ def traduction_slots(slots):
   for slot_name, slot_value in slots.items():
     # si les valeurs ne sont pas des chiffres (pv et dégât) ni ne correspondent à une classe (déjà traduite)
     if not str(slot_value).isdigit() and "classe" not in slot_name and "description" not in slot_name:
-      # print(slot_value)
       # alors on traduit la valeur du slot
-      slot_value = translator.translate(slot_value, src='en', dest='fr')
+      slot_value_traduite = translator.translate(slot_value, src='en', dest='fr').text
+      slots[slot_name] = slot_value_traduite
+      print("name:",slot_name,"value: ",slot_value)
       # print(translation.text)
   # # génère automatiquement le JSON de "data"
   # data = [{"name": slot_name, "value": slot_value} for slot_name, slot_value in slots.items()]
   return slots
-
-

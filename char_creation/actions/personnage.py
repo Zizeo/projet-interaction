@@ -1,7 +1,7 @@
 class Personnage:
     def __init__(self, classe,pv,equipements):
         if(classe.lower() == "ranger"):
-            self.classe = "rôdeur"
+            self.classe = "rodeur"
             self.force = 10
             self.intelligence = 12
             self.agilite = 18

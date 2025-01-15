@@ -5,8 +5,9 @@
 from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, FollowupAction
 import json
+import os
 from .DnD_api import creation_slots_persos, traduction_slots
 
 # This is a simple example for a custom action which utters "Hello World!"
@@ -29,29 +30,28 @@ class ActionEndChat(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_end_chat")
 
-        # on récupère une liste contenant toutes nos entities
-        entities = tracker.latest_message['entities']
+        # on récupère tout les lsots
+        entity_classe = tracker.get_slot("classe")
+        entity_pv = tracker.get_slot("pv")
+        entity_force = tracker.get_slot("force")
+        entity_intelligence = tracker.get_slot("intelligence")
+        entity_agilite = tracker.get_slot("agilite")
+        entity_equipement = tracker.get_slot("equipement")
+        entity_equipement_degat = tracker.get_slot("equipement_degat")
+        entity_equipement_description = tracker.get_slot("equipement_description")
 
-        # on récupère les entities voulu pour créer notre perso
-        for e in entities:
-            if e['entity'] == "classe":
-                entity_classe = e['value']
-            elif e['entity'] == "pv":
-                entity_pv = e['value']
-            elif e['entity'] == "force":
-                entity_force = e['value']
-            elif e['entity'] == "intelligence":
-                entity_intelligence = e['value']
-            elif e['entity'] == "agilite":
-                entity_agilite = e['value']
-            elif e['entity'] == "equipement":
-                entity_equipement= e['value']
-            elif e['entity'] == "equipement_degat":
-                entity_equipement_degat = e['value']
-            elif e['entity'] == "equipement_description":
-                entity_equipement_description = e['value']    
-
-
+        response = ""
+        # on regarde si tout les slots sont remplis
+        if entity_classe == "" or entity_classe == None:
+            response = "utter_which_class"
+            print("pas de classe")
+            dispatcher.utter_message(response=response)
+            return []
+        elif entity_equipement == "" or entity_equipement == None:  
+            print("pas déquipement")  
+            response = "action_print_choice_equipment"
+            return [FollowupAction(response)]
+        # si tout les slots sont remplis
         # on met toutes les infos dans un JSON
         slot_values = {
             "classe": entity_classe,
@@ -63,18 +63,20 @@ class ActionEndChat(Action):
             "equipement_degat": entity_equipement_degat,
             "equipement_description": entity_equipement_description
         }
+        print(slot_values.items())
         json_string = json.dumps(slot_values, indent=4)
         chemin = "output/personnage.json"
-
         try:
+            #on s'assure que le chemin existe
+            os.makedirs(os.path.dirname(chemin), exist_ok=True)
+            #on ecrit les info dans le fichier créé
             with open(chemin, "w") as json_file:
                 json_file.write(json_string)
-            
-            dispatcher.utter_message(text=f"Fichier créé à {chemin}!")
+                # print(f"Fichier créé à {chemin}!")
         except Exception as e:
-            dispatcher.utter_message(text=f"Une erreur est apparu: {str(e)}")
-
-        return []    
+            print("Une erreur est apparu: " + str(e))
+            
+        return [SlotSet(key="fin_discussion", value="1")]    
 
 
 class ActionBeginChat(Action):
@@ -110,12 +112,46 @@ class ActionSetClass(Action):
         classe_choisi = tracker.get_slot("classe")
         print(classe_choisi)
         classes_dispo = [tracker.get_slot("classe_barbare"), tracker.get_slot("classe_rodeur"), tracker.get_slot("classe_occultiste")]
-
+        res = []
         if classe_choisi in classes_dispo:
-            return [SlotSet("classe", classe_choisi)]
+            force = "force_"+tracker.get_slot("classe")
+            agilite = "agilite_"+tracker.get_slot("classe")
+            intelligence = "intelligence_"+tracker.get_slot("classe")
+            pv = "pv_"+tracker.get_slot("classe")
+            res.append(SlotSet(key="force", value=tracker.get_slot(force)))
+            res.append(SlotSet(key="agilite", value=tracker.get_slot(agilite)))
+            res.append(SlotSet(key="intelligence", value=tracker.get_slot(intelligence)))
+            res.append(SlotSet(key="pv", value=tracker.get_slot(pv)))
+            return res
         else:
             # si la classe n'est pas dans celle dispo 
             dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir une classe disponible parmis celles ennoncés.")
+        return res
+
+class ActionSetEquipement(Action):
+    def name(self) -> Text:
+        return "action_set_equipement"
+    
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_set_equipement")
+        # extraction de la classe choisi
+        equipement_choisi = tracker.get_slot("numero_equipement")
+        print(equipement_choisi)
+        if equipement_choisi == "1" or equipement_choisi == "2":
+            res = []
+            nom_equipement = "equipement_"+equipement_choisi+"_nom_"+tracker.get_slot("classe")
+            equipement_degat = "equipement_"+equipement_choisi+"_degat_"+tracker.get_slot("classe")
+            equipement_description = "equipement_"+equipement_choisi+"_description_"+tracker.get_slot("classe")
+            res.append(SlotSet(key="equipement", value=tracker.get_slot(nom_equipement)))
+            res.append(SlotSet(key="equipement_degat", value=tracker.get_slot(equipement_degat)))
+            res.append(SlotSet(key="equipement_description", value=tracker.get_slot(equipement_description)))
+            return res
+        else:
+            # si la classe n'est pas dans celle dispo 
+            dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir un équipement disponible parmis ceux ennoncés.")
+         
         return []
 
 class ActionDisplayStats(Action):
@@ -169,9 +205,9 @@ class ActionPrintChoiceEquipment(Action):
         if classe_choisi == None:
             message = "Les équipements dépendent de la classe que vous choisirez. Il vous faut choisir une classe!\n"
         else:
-            equipement1 = tracker.get_slot("equipement_1_"+str(classe_choisi))
+            equipement1 = tracker.get_slot("equipement_1_nom_"+str(classe_choisi))
             print(equipement1)
-            equipement2 = tracker.get_slot("equipement_2_"+str(classe_choisi))
+            equipement2 = tracker.get_slot("equipement_2_nom_"+str(classe_choisi))
             print(equipement2)
             equipement1_degat = tracker.get_slot("equipement_1_degat_"+str(classe_choisi))
             print(equipement1_degat)
@@ -182,9 +218,9 @@ class ActionPrintChoiceEquipment(Action):
                 print(equipement1_description)
                 equipement2_description = tracker.get_slot("equipement_2_description_occultiste")  
                 print(equipement2_description) 
-                message = "Vous pouvez un des équipements suivant:\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+ ", description: "+str(equipement1_description)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)+ ", description: "+str(equipement2_description)
+                message = "Vous pouvez choisir un des équipements suivant (1 ou 2):\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+ ", description: "+str(equipement1_description)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)+ ", description: "+str(equipement2_description)
             else:
-                message = "Vous pouvez un des équipements suivant:\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)
+                message = "Vous pouvez choisir un des équipements suivant (1 ou 2):\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)
         
         dispatcher.utter_message(text=message)
         return []

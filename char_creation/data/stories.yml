@@ -16,7 +16,13 @@ stories:
   - action: utter_choose_class 
   - intent: ask_equipements
   - action: action_print_choice_equipment
-  - intent: choose_equipement  
+  - intent: choose_equipement
+  - action: action_set_equipement
+  - slot_was_set:
+      - equipement:
+  - action: utter_choose_equipement 
+  - intent: goodbye
+  - action: action_end_chat     
 
 - story: classical path 2
   steps:
@@ -34,9 +40,15 @@ stories:
   - action: utter_choose_class
   - intent: ask_equipements 
   - action: action_print_choice_equipment
-  - intent: choose_equipement  
+  - intent: choose_equipement
+  - action: action_set_equipement
+  - slot_was_set:
+      - equipement:
+  - action: utter_choose_equipement 
+  - intent: goodbye
+  - action: action_end_chat   
 
-- story: classical path 2
+- story: classical path 3
   steps:
   - intent: greet
   - action: action_begin_chat
@@ -53,6 +65,13 @@ stories:
   - intent: ask_equipements 
   - action: action_print_choice_equipment
   - intent: choose_equipement
+  - action: action_set_equipement
+  - slot_was_set:
+      - equipement:
+  - action: utter_choose_equipement 
+  - intent: affirm
+  - intent: goodbye
+  - action: action_end_chat
 
 - story: hello-bye path
   steps:

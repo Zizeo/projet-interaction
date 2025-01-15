@@ -12,6 +12,12 @@ rules:
     - action: action_set_class
     - action: utter_choose_class 
 
+- rule: Set equipement choosed
+  steps:
+    - intent: choose_equipement
+    - action: action_set_equipement
+    - action: utter_choose_equipement
+
 - rule: Save slots of the personna
   steps:
     - intent: goodbye

@@ -20,12 +20,7 @@ intents:
 
 entities:
   - classe 
-  - force
-  - intelligence 
-  - pv
-  - equipement
-  - equipement_degat
-  - equipement_description
+  - numero_equipement
 
 responses:
   utter_welcome:
@@ -39,7 +34,9 @@ responses:
   utter_ask_creationPerso_form_class:
   - text: ""
   utter_choose_class :
-  - text : "Très bien on part sur la classe {classe}!" 
+  - text : "Très bien on part sur la classe: {classe}!" 
+  utter_choose_equipement :
+  - text : "Très bien on part sur l'équipement: {equipement}!" 
   utter_classes_available:
   - text: "Vous pouvez jouer les classes suivantes: {classe_barbare}, {classe_rodeur} et {classe_occultiste}"
   utter_which_class:
@@ -52,16 +49,72 @@ responses:
   - text: "Je suis un chatbot, désolé..."
 
 slots:
+  fin_discussion:
+    type: text
+    initial_value: "0"
+    influence_conversation: false
+    mappings:
+      - type: custom
+
+  numero_equipement:
+    type: text
+    mappings:
+    - type: from_entity
+      entity: numero_equipement 
+
+  equipement_degat:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+    - type: custom
+
+  equipement_description:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+    - type: custom
+
+  agilite:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+    - type: custom 
+
+  force:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+    - type: custom 
+
+  intelligence:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+    - type: custom
+
+  pv:
+    type: text
+    initial_value: null
+    influence_conversation: false
+    mappings:
+    - type: custom
+
   classe:
     type: text
     mappings:
     - type: from_entity
       entity: classe 
+
   equipement: 
-    type: any
+    type: text
     mappings:
-    - type: from_entity 
-      entity: equipement
+    - type: custom
+
   classe_barbare:
     type: text
     initial_value: null
@@ -251,6 +304,34 @@ slots:
     mappings:
     - type: custom
 
+  equipement_1_description_rodeur:
+    type: text
+    initial_value: ""
+    influence_conversation: false
+    mappings:
+    - type: custom
+
+  equipement_2_description_rodeur:
+    type: text
+    initial_value: ""
+    influence_conversation: false
+    mappings:
+    - type: custom  
+
+  equipement_1_description_barbare:
+    type: text
+    initial_value: ""
+    influence_conversation: false
+    mappings:
+    - type: custom
+
+  equipement_2_description_barbare:
+    type: text
+    initial_value: ""
+    influence_conversation: false
+    mappings:
+    - type: custom  
+
   equipement_1_description_occultiste:
     type: text
     initial_value: null
@@ -276,5 +357,6 @@ actions:
   - action_end_chat
   - action_begin_chat
   - action_set_class
+  - action_set_equipement
   - action_display_stats 
   - action_print_choice_equipment

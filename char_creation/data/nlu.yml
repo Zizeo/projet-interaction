@@ -15,6 +15,9 @@ nlu:
     - quelles classes sont disponibles?
     - il y a quelles classes?
     - quelles classes je peux jouer?
+    - y'a quoi comme classes ?
+    - quelles  sont les classes disponibles?
+    - quelles classes sont dispo?
 - intent: ask_suggest_class
   examples: |
     - je dois choisir quoi pour ["combattre a distance"](equipement)?
@@ -32,6 +35,7 @@ nlu:
     - je choisis de jouer l'équipement [1](numero_equipement)
     - je prends l'équipement [2](numero_equipement)
     - j'aimerais jouer avec l'équipement [2](numero_equipement)
+    - je choisis le [1](numero_equipement)
 - intent: ask_stats_class
   examples: |
     - quelles sont les stats du [classe](barbare)?
@@ -40,8 +44,11 @@ nlu:
 - intent: ask_equipements
   examples: |
     - quels sont les équipements disponibles?
+    - quels équipements sont disponibles?
+    - quels équipements sont dispo?
     - quels équipements sont jouables?
-    - quelle equipement ?
+    - quels equipements ?
+    - y'a quoi comme equipements ?
 - intent: greet
   examples: |
     - bonjour
