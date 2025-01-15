@@ -2,9 +2,10 @@ version: "3.1"
 nlu:
 - intent: ask_info_class
   examples: |
-    - un [classe](barbare) ?
-    - c'est quoi un [classe] (rodeur) ?
-    - En quoi consiste le [classe](occultiste) ?
+    - un [barbare](classe) ?
+    - c'est quoi un [rodeur] (classe) ?
+    - En quoi consiste le [occultiste](classe) ?
+    - il fait quoi le [rodeur](classe)?
 - intent: what_to_do
   examples: |
     - que faire maintenant?

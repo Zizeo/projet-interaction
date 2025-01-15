@@ -360,3 +360,4 @@ actions:
   - action_set_equipement
   - action_display_stats 
   - action_print_choice_equipment
+  - action_description_classe

@@ -227,6 +227,26 @@ class ActionPrintChoiceEquipment(Action):
         
         dispatcher.utter_message(text=message)
         return []
+class ActionDescriptionClasse(Action):
+    def name(self) -> Text:
+        return "action_description_classe"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_description_classe")
+        # extraction de la classe choisi
+        classe_choisi = tracker.get_slot("classe")
+        message = ""
+        if classe_choisi == None:
+            message = "Je ne vois pas de quelle classe vous parler donc je ne peux pas vous renseigner\n"
+        elif classe_choisi == tracker.get_slot("classe_barbare"):
+            message = "Le barbare est un combattant qui se bat avec des armes de guerre \n"
+        elif classe_choisi == tracker.get_slot("classe_rodeur"):
+            message ="Le rôdeur est un archer furtif qui ne manque jamais ses cibles \n"
+        elif classe_choisi == tracker.get_slot("classe_occultiste"):
+            message ="L'occultiste est quelqu'un qui a fait un pacte avec une créature d'outre-tombe en échange de pouvoirs surnaturel \n"
+        dispatcher.utter_message(text=message)
+        return []
 
 # class Action_form_perso(FormAction):
      
