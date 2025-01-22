@@ -2,14 +2,16 @@ version: "3.1"
 nlu:
 - intent: ask_info_class
   examples: |
-    - un [classe](barbare) ?
-    - c'est quoi un [classe] (rodeur) ?
-    - En quoi consiste le [classe](occultiste) ?
+    - un [barbare](classe) ?
+    - c'est quoi un [rodeur] (classe) ?
+    - En quoi consiste le [occultiste](classe) ?
+    - il fait quoi le [rodeur](classe)?
 - intent: what_to_do
   examples: |
     - que faire maintenant?
     - qu'est-ce que je dois faire?
     - que faire à présent?
+    - je dois faire quoi?
 - intent: ask_classes
   examples: |
     - quelles classes sont disponibles?
@@ -18,6 +20,7 @@ nlu:
     - y'a quoi comme classes ?
     - quelles  sont les classes disponibles?
     - quelles classes sont dispo?
+    - et les classes?
 - intent: ask_suggest_class
   examples: |
     - je dois choisir quoi pour ["combattre a distance"](equipement)?
@@ -41,6 +44,7 @@ nlu:
     - quelles sont les stats du [classe](barbare)?
     - il a combien de PV le [classe](rodeur)?
     - a quelle point [classe](occultiste) est intelligent ?
+    - c'est quoi les stats d'un [classe](occultiste)?
 - intent: ask_equipements
   examples: |
     - quels sont les équipements disponibles?
@@ -49,6 +53,7 @@ nlu:
     - quels équipements sont jouables?
     - quels equipements ?
     - y'a quoi comme equipements ?
+    - et les equipements ?
 - intent: greet
   examples: |
     - bonjour

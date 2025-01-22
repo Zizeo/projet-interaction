@@ -10,7 +10,6 @@ rules:
   steps:
     - intent: choose_class
     - action: action_set_class
-    - action: utter_choose_class 
 
 - rule: Set equipement choosed
   steps:
@@ -39,6 +38,10 @@ rules:
   - intent : ask_stats_class
   - action : action_display_stats
 
+- rule: Give the description of a class 
+  steps:
+  - intent : ask_info_class
+  - action : action_description_classe
 
 # - rule: creer le perso avec un formulaire 
 #   steps:

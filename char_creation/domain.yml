@@ -107,8 +107,7 @@ slots:
   classe:
     type: text
     mappings:
-    - type: from_entity
-      entity: classe 
+    - type: custom
 
   equipement: 
     type: text
@@ -360,3 +359,4 @@ actions:
   - action_set_equipement
   - action_display_stats 
   - action_print_choice_equipment
+  - action_description_classe

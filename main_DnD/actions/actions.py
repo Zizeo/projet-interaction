@@ -158,19 +158,19 @@ class ActionCombatEnd(Action):
         elif state == "victory":
             dispatcher.utter_message(response="utter_victory")
             if room == 1:
-               dispatcher.utter_message(response="utter_step1_success")
+                dispatcher.utter_message(response="utter_step1_success")
             if room == 3:
-               dispatcher.utter_message(response="utter_step3_success")
+                dispatcher.utter_message(response="utter_step3_success")
             if room == 4:
-               dispatcher.utter_message(response="utter_step4_sauver_chat_succes")
+                dispatcher.utter_message(response="utter_step4_sauver_chat_succes")
         elif state == "defeat":
             dispatcher.utter_message(response="utter_defeat")
             if room == 1:
-               dispatcher.utter_message(response="utter_step1_fail")
+                dispatcher.utter_message(response="utter_step1_fail")
             if room == 3:
-               dispatcher.utter_message(response="utter_step3_fail")
+                dispatcher.utter_message(response="utter_step3_fail")
             if room == 4:
-               dispatcher.utter_message(response="utter_step4_sauver_chat_echec")
+                dispatcher.utter_message(response="utter_step4_sauver_chat_echec")
 
         elif state == "fled":
             dispatcher.utter_message(text="Vous avez fuit le combat.")
@@ -178,7 +178,11 @@ class ActionCombatEnd(Action):
         else:
             dispatcher.utter_message(text="Le combat est terminé.")
 
-        return [SlotSet("combat_state", "ended"), SlotSet("being_in_fight", 0),FollowupAction("action_change_room")]
+        return [
+            SlotSet("combat_state", "ended"),
+            SlotSet("being_in_fight", 0),
+            FollowupAction("action_change_room"),
+        ]
 
 
 class ActionPlayerChoice(Action):
@@ -257,6 +261,7 @@ class ValidateCombatForm(FormValidationAction):
         else:
             return {"combat_state": None}
 
+
 class ActionChangeRoom(FormValidationAction):
     def name(self) -> str:
         return "action_change_room"
@@ -269,7 +274,8 @@ class ActionChangeRoom(FormValidationAction):
     ):
         room = tracker.get_slot("current_room")
         print("room", room)
-        return [SlotSet("current_room", room+1)]
+        return [SlotSet("current_room", room + 1)]
+
 
 class ActionClassResponse(Action):
     def name(self) -> Text:
@@ -301,7 +307,7 @@ class ActionClassResponse(Action):
                         dispatcher.utter_message(
                             text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
                         )
-                        return[FollowupAction("action_change_room")]
+                        return [FollowupAction("action_change_room")]
                     else:
                         dispatcher.utter_message(
                             text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ?"
@@ -316,7 +322,7 @@ class ActionClassResponse(Action):
                         dispatcher.utter_message(
                             text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
                         )
-                        return[FollowupAction("action_change_room")]
+                        return [FollowupAction("action_change_room")]
         elif type_de == "dexterité":
             if room != 3:
                 dispatcher.utter_message(
@@ -335,8 +341,8 @@ class ActionClassResponse(Action):
                             text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 2 points de vie."
                         )
                         dispatcher.utter_message(
-                    text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
-                )
+                            text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+                        )
                         hp = tracker.get_slot("player_hp")
                         return [SlotSet("player_hp", hp - 2)]
                 elif classe in ["barbare", "occultiste"]:
@@ -345,8 +351,8 @@ class ActionClassResponse(Action):
                             text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 3 points de vie."
                         )
                         dispatcher.utter_message(
-                    text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
-                )
+                            text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
+                        )
                         hp = tracker.get_slot("player_hp")
                         return [SlotSet("player_hp", hp - 3)]
                     else:

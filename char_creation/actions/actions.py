@@ -46,12 +46,15 @@ class ActionEndChat(Action):
         response = ""
         # on regarde si tout les slots sont remplis
         if entity_classe == "" or entity_classe == None:
+            dispatcher.utter_message(text="Il faut choisir une classe!")
+            dispatcher.utter_message(response="utter_classes_available")
             response = "utter_which_class"
             print("pas de classe")
             dispatcher.utter_message(response=response)
             return []
         elif entity_equipement == "" or entity_equipement == None:  
-            print("pas déquipement")  
+            print("pas déquipement")
+            dispatcher.utter_message(text="Il faut choisir un equipement "+tracker.get_slot("classe")+"!")  
             response = "action_print_choice_equipment"
             return [FollowupAction(response)]
         # si tout les slots sont remplis
@@ -78,7 +81,7 @@ class ActionEndChat(Action):
                 # print(f"Fichier créé à {chemin}!")
         except Exception as e:
             print("Une erreur est apparu: " + str(e))
-            
+        dispatcher.utter_message(response="utter_goodbye")    
         return [SlotSet(key="fin_discussion", value="1")]    
 
 
@@ -90,7 +93,7 @@ class ActionBeginChat(Action):
     async def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-
+        # print(tracker.get_slot("fin_discussion"))
         slots = creation_slots_persos()
         # print(slots)
         slots_traduit = await traduction_slots(slots)
@@ -112,19 +115,22 @@ class ActionSetClass(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_set_class")
         # extraction de la classe choisi
-        classe_choisi = tracker.get_slot("classe")
+        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
         print(classe_choisi)
         classes_dispo = [tracker.get_slot("classe_barbare"), tracker.get_slot("classe_rodeur"), tracker.get_slot("classe_occultiste")]
         res = []
-        if classe_choisi in classes_dispo:
-            force = "force_"+tracker.get_slot("classe")
-            agilite = "agilite_"+tracker.get_slot("classe")
-            intelligence = "intelligence_"+tracker.get_slot("classe")
-            pv = "pv_"+tracker.get_slot("classe")
+        if classe_choisi in classes_dispo and classe_choisi!=None:
+            classe = "classe_"+classe_choisi
+            force = "force_"+classe_choisi
+            agilite = "agilite_"+classe_choisi
+            intelligence = "intelligence_"+classe_choisi
+            pv = "pv_"+classe_choisi
+            res.append(SlotSet(key="classe", value=tracker.get_slot(classe)))
             res.append(SlotSet(key="force", value=tracker.get_slot(force)))
             res.append(SlotSet(key="agilite", value=tracker.get_slot(agilite)))
             res.append(SlotSet(key="intelligence", value=tracker.get_slot(intelligence)))
             res.append(SlotSet(key="pv", value=tracker.get_slot(pv)))
+            dispatcher.utter_message(text="Très bien "+classe_choisi+"! Il te faut maintenant choisir un équipement!")
             return res
         else:
             # si la classe n'est pas dans celle dispo 
@@ -150,6 +156,7 @@ class ActionSetEquipement(Action):
             res.append(SlotSet(key="equipement", value=tracker.get_slot(nom_equipement)))
             res.append(SlotSet(key="equipement_degat", value=tracker.get_slot(equipement_degat)))
             res.append(SlotSet(key="equipement_description", value=tracker.get_slot(equipement_description)))
+            dispatcher.utter_message(text="Tout est bon pour moi!")
             return res
         else:
             # si la classe n'est pas dans celle dispo 
@@ -165,33 +172,23 @@ class ActionDisplayStats(Action):
             tracker: Tracker,
             domain : Dict[Text,Any]) -> List[Dict[Text, Any]]:
         # on récupère la valeur de l'entité classe pour laquelle on veut savoir les stats
-        classe = next(tracker.get_latest_entity_values("classe"), None)
 
-        if classe == "rodeur":
-                pv = tracker.get_slot("pv_rodeur")
-                force = tracker.get_slot("force_rodeur")
-                intel = tracker.get_slot("intelligence_rodeur")
-                agilite = tracker.get_slot("agilite_rodeur")
-                dispatcher.utter_message(text="Les stats du rôdeur sont :")
-        elif classe == "barbare":
-                pv = tracker.get_slot("pv_barbare")
-                force = tracker.get_slot("force_rodeur")
-                intel = tracker.get_slot("intelligence_rodeur")
-                agilite = tracker.get_slot("agilite_rodeur")
-                dispatcher.utter_message(text="Les stats du barbare sont :")
-        elif classe == "occultiste":
-                pv = tracker.get_slot("pv_rodeur")
-                force = tracker.get_slot("force_rodeur")
-                intel = tracker.get_slot("intelligence_rodeur")
-                agilite = tracker.get_slot("agilite_rodeur")
-                dispatcher.utter_message(text="Les stats de l'occultiste sont : ")
+        classe = next(tracker.get_latest_entity_values("classe"), None)
+        if classe == None :
+            pass
         else:
-                dispatcher.utter_message(text="je ne vois pas de quelle classe vous parlez donc je ne peux pas vous afficher ses statss")
-        
-        dispatcher.utter_message(text=f"points de vie : {pv}")
-        dispatcher.utter_message(text=f"force : {force}")
-        dispatcher.utter_message(text=f"intelligence : {intel}")
-        dispatcher.utter_message(text=f"agilite: {agilite}")
+
+            pv = "pv_"+tracker.get_latest_entity_values("classe")
+            force = "force_"+tracker.get_latest_entity_values("classe")
+            agilite = "agilite_"+tracker.get_latest_entity_values("classe")
+            intel = "intelligence_"+tracker.get_latest_entity_values("classe")
+
+            dispatcher.utter_message(text=f"Les stats du {classe} sont :")
+
+            dispatcher.utter_message(text=f"points de vie : {pv}")
+            dispatcher.utter_message(text=f"force : {force}")
+            dispatcher.utter_message(text=f"intelligence : {intel}")
+            dispatcher.utter_message(text=f"agilite: {agilite}")
         
         return []
 
@@ -225,6 +222,28 @@ class ActionPrintChoiceEquipment(Action):
             else:
                 message = "Vous pouvez choisir un des équipements suivant (1 ou 2):\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)
         
+        dispatcher.utter_message(text=message)
+        return []
+    
+class ActionDescriptionClasse(Action):
+    def name(self) -> Text:
+        return "action_description_classe"
+    def run(self, dispatcher: CollectingDispatcher,
+            tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        print("action_description_classe")
+        # extraction de la classe choisi
+        classe_choisi = next(tracker.get_latest_entity_values("classe"), None)
+        print(classe_choisi)
+        message = ""
+        if classe_choisi == None:
+            message = "Je ne vois pas de quelle classe vous parler donc je ne peux pas vous renseigner\n"
+        elif classe_choisi == tracker.get_slot("classe_barbare"):
+            message = "Le barbare est un combattant qui se bat avec des armes de guerre \n"
+        elif classe_choisi == tracker.get_slot("classe_rodeur"):
+            message ="Le rôdeur est un archer furtif qui ne manque jamais ses cibles \n"
+        elif classe_choisi == tracker.get_slot("classe_occultiste"):
+            message ="L'occultiste est quelqu'un qui a fait un pacte avec une créature d'outre-tombe en échange de pouvoirs surnaturel \n"
         dispatcher.utter_message(text=message)
         return []
 
