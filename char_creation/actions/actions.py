@@ -8,6 +8,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet, FollowupAction
 import json
 import os
+import asyncio
 from .DnD_api import creation_slots_persos, traduction_slots
 # from rasa_sdk.forms import FormAction # a supprimer , ne fonctionne que sous rasa 2
 
@@ -86,13 +87,13 @@ class ActionBeginChat(Action):
     def name(self) -> Text:
         return "action_begin_chat"
 
-    def run(self, dispatcher: CollectingDispatcher,
+    async def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
 
         slots = creation_slots_persos()
         # print(slots)
-        slots_traduit = traduction_slots(slots)
+        slots_traduit = await traduction_slots(slots)
         # print(slots_traduit)
         res = []
         for slot, value in slots_traduit.items():

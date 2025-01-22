@@ -1,0 +1,10 @@
+{
+    "classe": "barbare",
+    "pv": 12,
+    "force": 18,
+    "intelligence": 10,
+    "agilite": 12,
+    "equipement": "Hache \u00e0 main",
+    "equipement_degat": "6",
+    "equipement_description": ""
+}
