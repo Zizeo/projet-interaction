@@ -461,9 +461,9 @@ if __name__=="__main__":
 
     agent_principal_port = 5005
 
-    #change_to_second()
+    change_to_second()
 
     while running_principal:
-        listen_user()
+        #listen_user()
         pass
 
