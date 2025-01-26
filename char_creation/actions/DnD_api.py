@@ -4,6 +4,7 @@ import random
 from .personnage import Personnage
 from .arme import Arme
 from googletrans import Translator
+import asyncio
 
 # url de l'api de dnd
 url = "https://www.dnd5eapi.co"
@@ -253,7 +254,7 @@ def creation_slots_persos():
   }
   return slot_values
 
-def traduction_slots(slots):
+async def traduction_slots(slots):
   # initialisation du traducteur
   translator = Translator()
   # print("Original:", slots)
@@ -262,7 +263,8 @@ def traduction_slots(slots):
     # si les valeurs ne sont pas des chiffres (pv et dégât) ni ne correspondent à une classe (déjà traduite)
     if not str(slot_value).isdigit() and "classe" not in slot_name and "description" not in slot_name:
       # alors on traduit la valeur du slot
-      slot_value_traduite = translator.translate(slot_value, src='en', dest='fr').text
+      slot_value_traduite = await translator.translate(slot_value, src='en', dest='fr')
+      slot_value_traduite = slot_value_traduite.text
       slots[slot_name] = slot_value_traduite
       print("name:",slot_name,"value: ",slot_value)
       # print(translation.text)
