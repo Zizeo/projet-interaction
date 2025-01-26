@@ -1,0 +1,103 @@
+[
+  {
+    "text": "c'est quoi un [rodeur] (classe) ?",
+    "entities": [],
+    "predicted_entities": [
+      {
+        "entity": "occultiste",
+        "start": 24,
+        "end": 30,
+        "confidence_entity": 0.3746827244758606,
+        "value": "classe",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "je dois choisir quoi pour \"combattre a distance\"?",
+    "entities": [
+      {
+        "start": 26,
+        "end": 48,
+        "value": "\"combattre a distance\"",
+        "entity": "equipement"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "quelle classe utilise \"des sorts\"?",
+    "entities": [
+      {
+        "start": 22,
+        "end": 33,
+        "value": "\"des sorts\"",
+        "entity": "equipement"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "j'aimerais jouer avec \"une hache\"",
+    "entities": [
+      {
+        "start": 22,
+        "end": 33,
+        "value": "\"une hache\"",
+        "entity": "equipement"
+      }
+    ],
+    "predicted_entities": []
+  },
+  {
+    "text": "quelles sont les stats du classe?",
+    "entities": [
+      {
+        "start": 26,
+        "end": 32,
+        "value": "classe",
+        "entity": "barbare"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "occultiste",
+        "start": 26,
+        "end": 32,
+        "confidence_entity": 0.37659958004951477,
+        "value": "classe",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  },
+  {
+    "text": "il a combien de PV le classe?",
+    "entities": [
+      {
+        "start": 22,
+        "end": 28,
+        "value": "classe",
+        "entity": "rodeur"
+      }
+    ],
+    "predicted_entities": [
+      {
+        "entity": "occultiste",
+        "start": 22,
+        "end": 28,
+        "confidence_entity": 0.3621184229850769,
+        "value": "classe",
+        "extractor": "DIETClassifier",
+        "processors": [
+          "EntitySynonymMapper"
+        ]
+      }
+    ]
+  }
+]

@@ -14,14 +14,64 @@ stories:
     intent: ask_classes
   - action: utter_classes_available
   - action: utter_which_class 
+  - user: |
+      Je veux jouer un barbare! 
+    intent: choose_class
+  - action: action_set_class 
+  - user: |
+      Y'a quoi comme équipements?
+    intent: ask_equipements
+  - action: action_print_choice_equipment
+  - user: |
+      Je veux le 1
+    intent: choose_equipement
+  - action: action_set_equipement
+  - action: utter_choose_equipement 
+  - user: |
+      adieu
+    intent: goodbye
+  - action: action_end_chat  
 
-
-- story: say goodbye
+- story: classical path 3
   steps:
   - user: |
-      adieu!
+      bonjour
+    intent: greet
+  - action: action_begin_chat
+  - user: |
+      quels équipements est dispo? 
+    intent: ask_equipements
+  - action: action_print_choice_equipment
+  - user: |
+      ok
+    intent: affirm
+  - action: utter_classes_available
+  - action: utter_which_class
+  - user: |
+      je veux jouer un occultiste
+    intent: choose_class
+  - action: action_set_class
+  - slot_was_set:
+      - classe: 
+  - user: |
+      y'a quoi comme équipements?
+    intent: ask_equipements 
+  - action: action_print_choice_equipment
+  - user: |
+      je choisi le 1
+    intent: choose_equipement
+  - action: action_set_equipement
+  - slot_was_set:
+      - equipement:
+  - action: utter_choose_equipement 
+  - user: |
+      ok
+    intent: affirm
+  - user: |
+      adieu
     intent: goodbye
-  - action: utter_goodbye
+  - action: action_end_chat     
+
 
 - story: bot challenge
   steps:

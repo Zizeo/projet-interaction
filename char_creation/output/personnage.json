@@ -1,10 +1,10 @@
 {
-    "classe": "barbare",
-    "pv": 12,
-    "force": 18,
-    "intelligence": 10,
+    "classe": "occultiste",
+    "pv": 8,
+    "force": 10,
+    "intelligence": 18,
     "agilite": 12,
-    "equipement": "Hache \u00e0 main",
-    "equipement_degat": "6",
-    "equipement_description": ""
+    "equipement": "Pulv\u00e9risation",
+    "equipement_degat": "12",
+    "equipement_description": "Vous \u00e9tendez votre main et projetez une bouff\u00e9e de gaz nocif de votre paume!"
 }

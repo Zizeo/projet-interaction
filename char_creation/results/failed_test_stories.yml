@@ -1,0 +1,41 @@
+version: "3.1"
+stories:
+- story: classical path 1 (.\tests\test_stories.yml)
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: ask_classes
+  - action: utter_classes_available
+  - action: utter_which_class
+  - intent: choose_class  # predicted: choose_class: Je veux jouer un [barbare](classe)!
+  - action: action_set_class
+  - intent: ask_equipements
+  - action: action_print_choice_equipment
+  - intent: choose_equipement  # predicted: choose_equipement: Je veux le [1](numero_equipement)
+  - action: action_set_equipement
+  - action: utter_choose_equipement
+  - intent: goodbye
+  - action: action_end_chat
+- story: classical path 3 (.\tests\test_stories.yml)
+  steps:
+  - intent: greet
+  - action: action_begin_chat
+  - intent: ask_equipements
+  - action: action_print_choice_equipment
+  - intent: affirm
+  - action: utter_classes_available
+  - action: utter_which_class
+  - intent: choose_class  # predicted: choose_class: je veux jouer un [occultiste](classe)
+  - action: action_set_class
+  - slot_was_set:
+    - classe: null
+  - intent: ask_equipements
+  - action: action_print_choice_equipment
+  - intent: choose_equipement  # predicted: choose_equipement: je choisi le [1](numero_equipement)
+  - action: action_set_equipement
+  - slot_was_set:
+    - equipement: null
+  - action: utter_choose_equipement
+  - intent: affirm
+  - intent: goodbye
+  - action: action_end_chat
