@@ -4,6 +4,12 @@ nlu:
   examples: |
     - commencer
 
+- intent: confirm
+  examples: |
+    - oui
+    - ouais
+    - yes
+
 - intent: attack
   examples: |
     - attaque
@@ -43,15 +49,15 @@ nlu:
   
 - intent: etape3
   examples: |
-    - etape3
+    - je rentre dans le donjon
 
 - intent: etape2
   examples: |
-    - etape2
+    - je m'avance vers la porte
 
 - intent: etape4
   examples: |
-    - etape4
+    - je vais retourver mon chat!
 
 - intent: sauver_chat
   examples: |
@@ -121,9 +127,8 @@ nlu:
     - je n'ai pas compris
     - redis
 
-
-- intent: info_personnage
-  examples: |
-    - je veux voir mes stats
-    - rappelle moi mes stats
-    - affiche moi mes stats
+#- intent: info_personnage
+#  examples: |
+#    - je veux voir mes stats
+#    - rappelle moi mes stats
+#    - affiche moi mes stats

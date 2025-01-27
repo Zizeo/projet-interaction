@@ -2,74 +2,74 @@ version: "3.1"
 stories:
 - story: etape2_fouiller (./tests/test_stories.yml)
   steps:
-  - intent: etape2  # predicted: etape3: etape2
-  - action: utter_step2  # predicted: action_default_fallback
+  - intent: etape2  # predicted: quit: etape2
+  - action: utter_step2
   - intent: fouiller_garde
   - action: utter_fouiller_garde
-  - action: action_change_room  # predicted: action_listen
+  - action: action_change_room
 - story: etape2_casser_cadenas (./tests/test_stories.yml)
   steps:
-  - intent: etape2
-  - action: utter_step2  # predicted: action_default_fallback
+  - intent: etape2  # predicted: quit: etape2
+  - action: utter_step2
   - intent: choose_dice  # predicted: choose_dice: lance un dé de [force](type_dé)
   - action: action_class_response
 - story: etape4 sauver dragon echec > etape4 sauver dragon succes (./tests/test_stories.yml)
   steps:
-  - intent: sauver_dragon  # predicted: spell: sauver le dragon
-  - action: utter_step4_sauver_dragon  # predicted: action_default_fallback
-  - action: utter_step4_sauver_dragon_succes  # predicted: action_listen
+  - intent: sauver_dragon
+  - action: utter_step4_sauver_dragon
+  - action: utter_step4_sauver_dragon_succes  # predicted: action_default_fallback
 - story: etape1 > etape4 sauver dragon succes (./tests/test_stories.yml)
   steps:
   - intent: start_story
-  - action: utter_step1
-  - action: utter_step4_sauver_dragon_succes  # predicted: action_listen
+  - action: utter_step1  # predicted: utter_step0
+  - action: utter_step4_sauver_dragon_succes  # predicted: action_default_fallback
 - story: etape4 sauver chat succes > etape4 sauver dragon succes (./tests/test_stories.yml)
   steps:
-  - intent: sauver_chat  # predicted: nlu_fallback: sauver le chat
-  - action: utter_step4_sauver_chat  # predicted: action_default_fallback
-  - action: utter_step4_sauver_dragon_succes  # predicted: action_listen
+  - intent: sauver_chat
+  - action: utter_step4_sauver_chat
+  - action: utter_step4_sauver_dragon_succes  # predicted: action_default_fallback
 - story: etape4 sauver dragon echec > etape4 sauver chat succes (./tests/test_stories.yml)
   steps:
-  - intent: sauver_dragon  # predicted: spell: sauver le dragon
-  - action: utter_step4_sauver_dragon  # predicted: action_default_fallback
-  - action: utter_step4_sauver_chat_succes  # predicted: action_listen
+  - intent: sauver_dragon
+  - action: utter_step4_sauver_dragon
+  - action: utter_step4_sauver_chat_succes  # predicted: action_default_fallback
 - story: etape1 > etape4 sauver chat succes (./tests/test_stories.yml)
   steps:
   - intent: start_story
-  - action: utter_step1
-  - action: utter_step4_sauver_chat_succes  # predicted: action_listen
+  - action: utter_step1  # predicted: utter_step0
+  - action: utter_step4_sauver_chat_succes  # predicted: action_default_fallback
 - story: etape4 sauver chat succes (./tests/test_stories.yml)
   steps:
-  - intent: sauver_chat  # predicted: nlu_fallback: sauver le chat
-  - action: utter_step4_sauver_chat  # predicted: action_default_fallback
-  - action: utter_step4_sauver_chat_succes  # predicted: action_listen
+  - intent: sauver_chat
+  - action: utter_step4_sauver_chat
+  - action: utter_step4_sauver_chat_succes  # predicted: action_default_fallback
 - story: etape4 sauver dragon echec (./tests/test_stories.yml)
   steps:
-  - intent: sauver_dragon  # predicted: spell: sauver le dragon
-  - action: utter_step4_sauver_dragon  # predicted: action_default_fallback
-  - action: utter_step4_sauver_dragon_echec  # predicted: action_listen
+  - intent: sauver_dragon
+  - action: utter_step4_sauver_dragon
+  - action: utter_step4_sauver_dragon_echec  # predicted: action_default_fallback
 - story: etape1 > etape4 sauver dragon echec (./tests/test_stories.yml)
   steps:
   - intent: start_story
-  - action: utter_step1
-  - action: utter_step4_sauver_dragon_echec  # predicted: action_listen
+  - action: utter_step1  # predicted: utter_step0
+  - action: utter_step4_sauver_dragon_echec  # predicted: action_default_fallback
 - story: etape4 sauver chat succes > etape4 sauver dragon echec (./tests/test_stories.yml)
   steps:
-  - intent: sauver_chat  # predicted: nlu_fallback: sauver le chat
-  - action: utter_step4_sauver_chat  # predicted: action_default_fallback
-  - action: utter_step4_sauver_dragon_echec  # predicted: action_listen
+  - intent: sauver_chat
+  - action: utter_step4_sauver_chat
+  - action: utter_step4_sauver_dragon_echec  # predicted: action_default_fallback
 - story: etape4 sauver dragon echec > etape4 sauver chat echec (./tests/test_stories.yml)
   steps:
-  - intent: sauver_dragon  # predicted: spell: sauver le dragon
-  - action: utter_step4_sauver_dragon  # predicted: action_default_fallback
-  - action: utter_step4_sauver_chat_echec  # predicted: action_listen
+  - intent: sauver_dragon
+  - action: utter_step4_sauver_dragon
+  - action: utter_step4_sauver_chat_echec  # predicted: action_default_fallback
 - story: etape1 > etape4 sauver chat echec (./tests/test_stories.yml)
   steps:
   - intent: start_story
-  - action: utter_step1
-  - action: utter_step4_sauver_chat_echec  # predicted: action_listen
+  - action: utter_step1  # predicted: utter_step0
+  - action: utter_step4_sauver_chat_echec  # predicted: action_default_fallback
 - story: etape4 sauver chat succes > etape4 sauver chat echec (./tests/test_stories.yml)
   steps:
-  - intent: sauver_chat  # predicted: nlu_fallback: sauver le chat
-  - action: utter_step4_sauver_chat  # predicted: action_default_fallback
-  - action: utter_step4_sauver_chat_echec  # predicted: action_listen
+  - intent: sauver_chat
+  - action: utter_step4_sauver_chat
+  - action: utter_step4_sauver_chat_echec  # predicted: action_default_fallback

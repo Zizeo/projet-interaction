@@ -1,21 +1,33 @@
 {
-  "start_combat": {
+  "action_listen": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 18
+  },
+  "sauver_chat": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4
+  },
+  "utter_step4_sauver_dragon": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4
+  },
+  "action_combat_start": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
     "support": 1
   },
-  "None": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
+  "attack": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
     "support": 1
-  },
-  "utter_step4_sauver_dragon_succes": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
-    "support": 3
   },
   "utter_fouiller_garde": {
     "precision": 1.0,
@@ -23,29 +35,23 @@
     "f1-score": 1.0,
     "support": 1
   },
-  "utter_step4_sauver_chat": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
-    "support": 4
+  "action_set_player_action": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1
   },
-  "utter_step4_sauver_dragon": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
-    "support": 4
-  },
-  "utter_step4_sauver_dragon_echec": {
+  "utter_step4_sauver_chat_echec": {
     "precision": 0.0,
     "recall": 0.0,
     "f1-score": 0.0,
     "support": 3
   },
-  "etape2": {
+  "action_player_choice": {
     "precision": 1.0,
-    "recall": 0.5,
-    "f1-score": 0.6666666666666666,
-    "support": 2
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1
   },
   "action_class_response": {
     "precision": 1.0,
@@ -59,71 +65,29 @@
     "f1-score": 1.0,
     "support": 1
   },
-  "action_combat_start": {
+  "utter_step2": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
-    "support": 1
+    "support": 2
   },
-  "combat_form": {
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1-score": 1.0,
-    "support": 1
-  },
-  "action_listen": {
-    "precision": 0.5806451612903226,
-    "recall": 1.0,
-    "f1-score": 0.7346938775510204,
-    "support": 18
-  },
-  "utter_step4_sauver_chat_echec": {
+  "utter_step4_sauver_dragon_echec": {
     "precision": 0.0,
     "recall": 0.0,
     "f1-score": 0.0,
     "support": 3
   },
-  "start_story": {
+  "start_combat": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
-    "support": 4
+    "support": 1
   },
-  "sauver_dragon": {
+  "etape2": {
     "precision": 0.0,
     "recall": 0.0,
     "f1-score": 0.0,
-    "support": 4
-  },
-  "attack": {
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1-score": 1.0,
-    "support": 1
-  },
-  "action_player_choice": {
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1-score": 1.0,
-    "support": 1
-  },
-  "utter_step1": {
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1-score": 1.0,
-    "support": 4
-  },
-  "choose_dice": {
-    "precision": 1.0,
-    "recall": 1.0,
-    "f1-score": 1.0,
-    "support": 1
-  },
-  "utter_step4_sauver_chat_succes": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
-    "support": 3
+    "support": 2
   },
   "fouiller_garde": {
     "precision": 1.0,
@@ -131,49 +95,85 @@
     "f1-score": 1.0,
     "support": 1
   },
-  "utter_step2": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
-    "support": 2
+  "start_story": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4
   },
-  "action_set_player_action": {
+  "utter_step4_sauver_chat": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4
+  },
+  "action_change_room": {
     "precision": 1.0,
     "recall": 1.0,
     "f1-score": 1.0,
     "support": 1
   },
-  "sauver_chat": {
-    "precision": 0.0,
-    "recall": 0.0,
-    "f1-score": 0.0,
-    "support": 4
-  },
-  "action_change_room": {
+  "None": {
     "precision": 0.0,
     "recall": 0.0,
     "f1-score": 0.0,
     "support": 1
   },
+  "choose_dice": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1
+  },
+  "sauver_dragon": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 4
+  },
+  "utter_step4_sauver_chat_succes": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 3
+  },
+  "combat_form": {
+    "precision": 1.0,
+    "recall": 1.0,
+    "f1-score": 1.0,
+    "support": 1
+  },
+  "utter_step1": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 4
+  },
+  "utter_step4_sauver_dragon_succes": {
+    "precision": 0.0,
+    "recall": 0.0,
+    "f1-score": 0.0,
+    "support": 3
+  },
   "micro avg": {
-    "precision": 0.7450980392156863,
-    "recall": 0.5352112676056338,
-    "f1-score": 0.6229508196721312,
+    "precision": 1.0,
+    "recall": 0.7323943661971831,
+    "f1-score": 0.8455284552845529,
     "support": 71
   },
   "macro avg": {
-    "precision": 0.5607940446650124,
-    "recall": 0.5576923076923077,
-    "f1-score": 0.553898482469911,
+    "precision": 0.7307692307692307,
+    "recall": 0.7307692307692307,
+    "f1-score": 0.7307692307692307,
     "support": 71
   },
   "weighted avg": {
-    "precision": 0.4429804634257156,
-    "recall": 0.5352112676056338,
-    "f1-score": 0.4726453961866437,
+    "precision": 0.7323943661971831,
+    "recall": 0.7323943661971831,
+    "f1-score": 0.7323943661971831,
     "support": 71
   },
-  "accuracy": 0.5352112676056338,
+  "accuracy": 0.7323943661971831,
   "conversation_accuracy": {
     "accuracy": 0.06666666666666667,
     "correct": 1,

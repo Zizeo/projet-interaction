@@ -119,7 +119,8 @@ intents:
 - etape2
 - etape4
 - sauver_dragon
-- sauver_chat 
+- sauver_chat
+- confirm
 
 entities:
 - action_player
@@ -168,9 +169,14 @@ responses:
           - vous avez {player_force} en force
           - vous avez {player_intelligence} en intelligence
           - vous avez {player_agility} en dexterité"
+  utter_step0:
+  - text: |
+      Bonjour, aventurier, et bienvenue dans la quête intitulée : Le Choix Impossible. Vous allez incarner un héros confronté à des décisions critiques, des épreuves intenses et des énigmes mortelles. Votre but ? Retrouver votre chat disparu, qui semble être retenu en otage au sommet d'une tour, protégé par un dragon. Préparez-vous, le chemin ne sera pas sans embûches. Etes-vous prêt à commencer votre quête?
+
   utter_step1:
   - text: |
-      Bonjour, aventurier, et bienvenue dans la quête intitulée : Le Choix Impossible. Vous allez incarner un héros confronté à des décisions critiques, des épreuves intenses et des énigmes mortelles. Votre but ? Retrouver votre chat disparu, qui semble être retenu en otage au sommet d'une tour, protégé par un dragon. Préparez-vous, le chemin ne sera pas sans embûches. Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage.
+      Vous arrivez dans une vaste plaine. Devant vous, un chemin mène à un imposant donjon. En levant les yeux, vous apercevez votre chat, sa petite silhouette se détache près d’une fenêtre. Mais horreur… une queue de dragon se balance nonchalamment à ses côtés. Près de l’entrée, un garde imposant vous barre le passage.
+
   utter_step1_fail:
   - text: Oh non ! le garde vous a battu. vous ne retrouverez pas votre chat.
   utter_step1_success:

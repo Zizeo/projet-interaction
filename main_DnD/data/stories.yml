@@ -1,12 +1,17 @@
 version: "3.1"
 
 stories:
-  - story: etape1
+  - story: commencer jeu
     steps:
       - intent: start_story
+      - action: utter_step0
+
+  - story: etape1
+    steps:
+      - intent: confirm
+      - action: action_change_room
       - action: utter_step1
       - checkpoint: ckp_start_combat
-      - action: utter_step1_success
 
   - story: etape2_fouiller
     steps:
@@ -89,6 +94,11 @@ stories:
     steps:
     - intent: help
     - action: action_helping_player
+
+  - story: ask_status
+    steps:
+    - intent: info_status
+    - action: action_print_status
 
   - story: interactive_story_1
     steps:
