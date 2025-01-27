@@ -36,6 +36,16 @@ import random
 
 
 class ActionCombatTurn(Action):
+    """
+    Action pour gérer un tour de combat.
+
+    Cette action lit les slots `player_hp`, `enemy_hp`, `player_action` et `combat_state`.
+    En fonction de la valeur de `player_action`, elle met à jour les slots `player_hp` et `enemy_hp`.
+    Si la valeur de `combat_state` est "started", elle met cette valeur à "ongoing".
+    Si le combat est terminé (i.e. si l'un des deux personnages a 0 point de vie ou moins), elle met la valeur de `combat_state` à "ended".
+    simplifié pour terminer dans les temps.
+    """
+
     def name(self) -> str:
         return "action_combat_turn"
 
@@ -114,6 +124,14 @@ class ActionCombatTurn(Action):
 
 
 class ActionCombatStart(Action):
+    """
+    Démarre le combat.
+
+    Fait choisir au joueur ce qu'il fait au premier tour.
+    assigne les points de vie aux personnages.
+    Met à jour le slot `combat_state` à "started".
+    """
+
     def name(self) -> str:
         return "action_combat_start"
 
@@ -141,6 +159,13 @@ class ActionCombatStart(Action):
 
 
 class ActionCombatEnd(Action):
+    """
+    Action pour terminer le combat.
+
+    Selon l'état du combat, renvoie un message de victoire, défaite ou fuite.
+    Met à jour le slot `combat_state` à "ended".
+    """
+
     def name(self) -> str:
         return "action_combat_end"
 
@@ -186,6 +211,11 @@ class ActionCombatEnd(Action):
 
 
 class ActionPlayerChoice(Action):
+    """
+    Demande au joueur ce qu'il fait pendant le combat.
+    Vide le slot player_action pour enlever l'action du tour precedent.
+    """
+
     def name(self) -> str:
         return "action_player_choice"
 
@@ -204,7 +234,40 @@ class ActionPlayerChoice(Action):
         return [SlotSet("player_action", None)]
 
 
+class ActionSetPlayerAction(Action):
+    """
+    Enregistre l'action du joueur pendant le combat.
+    Met à jour le slot player_action avec l'action du joueur en checkant le dernier message de l'utilisateur.
+    Se place après ActionPlayerChoice.
+    """
+
+    def name(self) -> str:
+        return "action_set_player_action"
+
+    async def run(
+        self,
+        dispatcher: CollectingDispatcher,
+        tracker: Tracker,
+        domain: Dict[Text, Any],
+    ):
+        # Récupérer l'intent capturé
+        player_intent = tracker.latest_message["intent"]["name"]
+        print(player_intent)
+        # Définir le slot `player_action` en fonction de l'intent
+        return [SlotSet("player_action", player_intent)]
+
+
 class ActionSkillCheck(Action):
+    """
+    Vérifie si le joueur a réussi son test de compétence.
+    Demande le score de compétence actuel et le compare au score aléatoire du dé.
+    Si le score du dé est supérieur au score de compétence, le test est réussi.
+    Sinon, le test est échoué.
+    Met à jour le slot skill_check_result avec le résultat du test.
+
+    N'a pas été utilisé par manque de temps.
+    """
+
     def name(self) -> str:
         return "action_skill_check"
 
@@ -228,24 +291,15 @@ class ActionSkillCheck(Action):
         ]
 
 
-class ActionSetPlayerAction(Action):
-    def name(self) -> str:
-        return "action_set_player_action"
-
-    async def run(
-        self,
-        dispatcher: CollectingDispatcher,
-        tracker: Tracker,
-        domain: Dict[Text, Any],
-    ):
-        # Récupérer l'intent capturé
-        player_intent = tracker.latest_message["intent"]["name"]
-        print(player_intent)
-        # Définir le slot `player_action` en fonction de l'intent
-        return [SlotSet("player_action", player_intent)]
-
-
 class ValidateCombatForm(FormValidationAction):
+    """
+    Valide le formulaire pour le combat.
+    Vérifie si le combat est terminé.
+    Si oui, met le slot "combat_state" à "ended".
+    Sinon, laisse le slot "combat_state" à None.
+    Permet du boucler sur le combat un nombre indéfinie de fois.
+    """
+
     def name(self) -> str:
         return "validate_combat_form"
 
@@ -263,6 +317,16 @@ class ValidateCombatForm(FormValidationAction):
 
 
 class ActionChangeRoom(FormValidationAction):
+    """
+    Action pour changer de salle.
+
+    Récupère la salle actuelle via le slot "current_room" et l'incrémente de 1.
+    Met à jour le slot "current_room" pour passer à la salle suivante.
+    N'a pas d'effet de bord.
+
+    N'a pas été utilisé par manque de temps.
+    """
+
     def name(self) -> str:
         return "action_change_room"
 
@@ -280,6 +344,13 @@ class ActionChangeRoom(FormValidationAction):
 
 
 class ActionClassResponse(Action):
+    """
+    Action qui renvoie une réponse en fonction de la classe de personnage que le joueur a choisi.
+
+    Récupère la classe du joueur via le slot "player_class" et l'utilise pour choisir une réponse appropriée.
+    Utilise la fonction "class_response" pour générer une réponse en fonction de la classe du joueur.
+    """
+
     def name(self) -> Text:
         return "action_class_response"
 
@@ -290,10 +361,18 @@ class ActionClassResponse(Action):
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
         # Récupère les slots et entités nécessaires pour la logique.
-        classe = tracker.get_slot("player_class")  # Classe du joueur (occultiste, barbare, etc.).
-        type_de = next(tracker.get_latest_entity_values("type_dé"), None)  # Type de compétence (intelligence, force, etc.).
-        room = tracker.get_slot("current_room")  # Salle actuelle où se trouve le joueur.
-        score = random.randint(1, 20)  # Génère un score aléatoire pour simuler un jet de dé.
+        classe = tracker.get_slot(
+            "player_class"
+        )  # Classe du joueur (occultiste, barbare, etc.).
+        type_de = next(
+            tracker.get_latest_entity_values("type_dé"), None
+        )  # Type de compétence (intelligence, force, etc.).
+        room = tracker.get_slot(
+            "current_room"
+        )  # Salle actuelle où se trouve le joueur.
+        score = random.randint(
+            1, 20
+        )  # Génère un score aléatoire pour simuler un jet de dé.
 
         # Vérifie si le type de compétence est "intelligence".
         if type_de == "intelligence":
@@ -417,8 +496,12 @@ class ActionClassResponse(Action):
         return []  # Retourne une liste vide par défaut.
 
 
-
 class ActionHelpingPlayer(Action):
+    """
+    Cette classe permet de fournir des informations supplémentaires au joueur
+    en fonction de sa classe et de la salle dans laquelle il se trouve.
+    """
+
     def name(self) -> Text:
         return "action_helping_player"
 
@@ -474,6 +557,13 @@ class ActionHelpingPlayer(Action):
 
 
 class ActionStartGame(Action):
+    """
+    Action pour lancer le jeu.
+
+    Cette action est appelée lorsque l'utilisateur tape "commencer" ou "lancer".
+    Elle envoie un message de bienvenue et met à jour le slot "current_room" pour indiquer que le joueur est dans la salle 1.
+    """
+
     def name(self) -> Text:
         return "action_start_game"
 
@@ -491,6 +581,10 @@ class ActionStartGame(Action):
 
 
 class ActionPrintStatuts(Action):
+    """
+    Action qui envoie le statut actuel du joueur (PV, equipement, etc.).
+    """
+
     def name(self) -> Text:
         return "action_print_statuts"
 
