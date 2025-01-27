@@ -184,10 +184,10 @@ class ActionDisplayStats(Action):
             pass
         else:
 
-            pv = "pv_"+classe
-            force = "force_"+classe
-            agilite = "agilite_"+classe
-            intel = "intelligence_"+classe
+            pv = tracker.get_slot("pv_"+classe)
+            force = tracker.get_slot("force_"+classe)
+            agilite = tracker.get_slot("agilite_"+classe)
+            intel = tracker.get_slot("intelligence_"+classe)
 
             dispatcher.utter_message(text=f"Les stats du {classe} sont :")
 
