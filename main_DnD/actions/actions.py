@@ -272,8 +272,10 @@ class ActionChangeRoom(FormValidationAction):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ):
+        # Récupère la salle actuelle via le slot "current_room".
         room = tracker.get_slot("current_room")
-        print("room", room)
+
+        # Met à jour le slot "current_room" pour passer à la salle suivante en incrémentant sa valeur de 1.
         return [SlotSet("current_room", room + 1)]
 
 
@@ -287,56 +289,63 @@ class ActionClassResponse(Action):
         tracker: Tracker,
         domain: Dict[Text, Any],
     ) -> List[Dict[Text, Any]]:
-        # Récupérer les valeurs des slots
-        classe = tracker.get_slot("player_class")
-        type_de = next(tracker.get_latest_entity_values("type_dé"), None)
-        room = tracker.get_slot("current_room")
-        score = random.randint(1, 20)
-        print(type_de)
+        # Récupère les slots et entités nécessaires pour la logique.
+        classe = tracker.get_slot("player_class")  # Classe du joueur (occultiste, barbare, etc.).
+        type_de = next(tracker.get_latest_entity_values("type_dé"), None)  # Type de compétence (intelligence, force, etc.).
+        room = tracker.get_slot("current_room")  # Salle actuelle où se trouve le joueur.
+        score = random.randint(1, 20)  # Génère un score aléatoire pour simuler un jet de dé.
 
+        # Vérifie si le type de compétence est "intelligence".
         if type_de == "intelligence":
             if room != 2:
+                # Si la salle n'est pas la salle 2, avertir que cette compétence n'est pas utile ici.
                 dispatcher.utter_message(
                     text="Utiliser votre intelligence ici ne vous aidera pas."
                 )
             else:
-                print(score)
-                # Vérifier les conditions
+                # Gestion des conditions selon la classe du joueur.
                 if classe == "occultiste":
                     if score > 10:
+                        # Succès : l'occultiste crochette le cadenas et passe la porte.
                         dispatcher.utter_message(
                             text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
                         )
                         return [FollowupAction("action_change_room")]
                     else:
+                        # Échec : l'occultiste n'arrive pas à crocheter le cadenas.
                         dispatcher.utter_message(
                             text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ?"
                         )
                 elif classe in ["barbare", "rodeur"]:
-                    print(score)
                     if score < 17:
+                        # Échec : le barbare ou rodeur échoue au jet.
                         dispatcher.utter_message(
                             text="Vous n’arrivez pas à crocheter le cadenas, quel dommage! avez vous une autre idée ? "
                         )
                     else:
+                        # Succès : crochetage réussi.
                         dispatcher.utter_message(
                             text="Vous avez réussi votre jet. Vous crochetez le cadenas et passez la porte."
                         )
                         return [FollowupAction("action_change_room")]
+
+        # Vérifie si le type de compétence est "dexterité".
         elif type_de == "dexterité":
             if room != 3:
+                # Si la salle n'est pas la salle 3, avertir que cette compétence n'est pas utile ici.
                 dispatcher.utter_message(
                     text="Utiliser votre dextérité ici ne vous aidera pas."
                 )
             else:
-                print(score)
-                # Vérifier les conditions
+                # Gestion des conditions selon la classe.
                 if classe == "rodeur":
                     if score > 10:
+                        # Succès : le rodeur traverse les plateformes avec agilité.
                         dispatcher.utter_message(
                             text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
                         )
                     else:
+                        # Échec : chute et perte de points de vie.
                         dispatcher.utter_message(
                             text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 2 points de vie."
                         )
@@ -347,6 +356,7 @@ class ActionClassResponse(Action):
                         return [SlotSet("player_hp", hp - 2)]
                 elif classe in ["barbare", "occultiste"]:
                     if score < 17:
+                        # Échec : perte de 3 points de vie.
                         dispatcher.utter_message(
                             text="Vous tentez de passer les plateformes, mais vous trebuchez et vous tordez la cheville. Vous perdez 3 points de vie."
                         )
@@ -356,6 +366,7 @@ class ActionClassResponse(Action):
                         hp = tracker.get_slot("player_hp")
                         return [SlotSet("player_hp", hp - 3)]
                     else:
+                        # Succès : le joueur atteint les escaliers.
                         dispatcher.utter_message(
                             text="Quel abilité ! Vous avez réussi votre jet. Vous sautez de plateforme en plateforme et atteignez les escaliers."
                         )
@@ -363,31 +374,36 @@ class ActionClassResponse(Action):
                     text="Essoufflé, vous atteignez le sommet des escaliers. Mais devant la porte de la tour, un autre garde se dresse, prêt à vous barrer la route. Vous sentez la fatigue peser sur vos épaules, mais vous ne pouvez pas abandonner maintenant."
                 )
 
+        # Vérifie si le type de compétence est "force".
         elif type_de == "force":
             if room == 2:
+                # Si la salle est la salle 2, avertir que cette compétence n'est pas utile ici.
                 dispatcher.utter_message(
                     text="Utiliser votre force ici ne vous aidera pas."
                 )
             else:
-                print(score)
-                # Vérifier les conditions
+                # Gestion des conditions selon la classe.
                 if classe == "barbare":
                     if score > 10:
+                        # Succès : inflige des dégâts supplémentaires.
                         dispatcher.utter_message(
                             text="Grace à votre force vous infligez 3 dégats de plus."
                         )
                         enemy_hp = tracker.get_slot("enemy_hp")
                         return [SlotSet("enemy_hp", enemy_hp - 3)]
                     else:
+                        # Échec : pas assez de force.
                         dispatcher.utter_message(
                             text="Vous n'avez pas frappé assez fort..."
                         )
                 elif classe in ["rodeur", "occultiste"]:
                     if score < 17:
+                        # Échec : pas assez de force.
                         dispatcher.utter_message(
                             text="Vous n'avez pas frappé assez fort..."
                         )
                     else:
+                        # Succès : inflige des dégâts supplémentaires.
                         dispatcher.utter_message(
                             text="Grace à votre force vous infligez 2 dégats de plus."
                         )
@@ -395,9 +411,11 @@ class ActionClassResponse(Action):
                         return [SlotSet("enemy_hp", enemy_hp - 2)]
 
         else:
+            # Cas où le type de compétence est inconnu.
             dispatcher.utter_message(text="Je ne connais pas cette compétence.")
 
-        return []
+        return []  # Retourne une liste vide par défaut.
+
 
 
 class ActionHelpingPlayer(Action):
