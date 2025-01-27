@@ -29,7 +29,6 @@ equipements = []
 
 slot_values = []
 
-# ??
 payload = {}
 headers = {
   'Accept': 'application/json'
@@ -257,7 +256,6 @@ def creation_slots_persos():
 async def traduction_slots(slots):
   # initialisation du traducteur
   translator = Translator()
-  # print("Original:", slots)
   # pour chaque valeur de slots dans le tableau de slots
   for slot_name, slot_value in slots.items():
     # si les valeurs ne sont pas des chiffres (pv et dégât) ni ne correspondent à une classe (déjà traduite)
@@ -268,6 +266,4 @@ async def traduction_slots(slots):
       slots[slot_name] = slot_value_traduite
       print("name:",slot_name,"value: ",slot_value)
       # print(translation.text)
-  # # génère automatiquement le JSON de "data"
-  # data = [{"name": slot_name, "value": slot_value} for slot_name, slot_value in slots.items()]
   return slots

@@ -12,17 +12,6 @@ import asyncio
 from .DnD_api import creation_slots_persos, traduction_slots
 # from rasa_sdk.forms import FormAction # a supprimer , ne fonctionne que sous rasa 2
 
-
-# This is a simple example for a custom action which utters "Hello World!"
-# class ActionHelloWorld(Action):
-#     def name(self) -> Text:
-#         return "action_hello_world"
-#     def run(self, dispatcher: CollectingDispatcher,
-#             tracker: Tracker,
-#             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-#         dispatcher.utter_message(text="Hello World!")
-#         return []
-
 class ActionEndChat(Action):
 
     def name(self) -> Text:
@@ -33,7 +22,7 @@ class ActionEndChat(Action):
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_end_chat")
 
-        # on récupère tout les lsots
+        # on récupère tout les slots qui dépendent des choix de l'utilisateur
         entity_classe = tracker.get_slot("classe")
         entity_pv = tracker.get_slot("pv")
         entity_force = tracker.get_slot("force")
@@ -46,13 +35,18 @@ class ActionEndChat(Action):
         response = ""
         # on regarde si tout les slots sont remplis
         if entity_classe == "" or entity_classe == None:
+            # si l'utilisateur n'a pas fait de choix de classe
+            # on lui indique d'en choisir une
             dispatcher.utter_message(text="Il faut choisir une classe!")
             dispatcher.utter_message(response="utter_classes_available")
             response = "utter_which_class"
             print("pas de classe")
             dispatcher.utter_message(response=response)
             return []
-        elif entity_equipement == "" or entity_equipement == None:  
+        elif entity_equipement == "" or entity_equipement == None: 
+            # si l'utilisateur n'a pas choisi d'équipement mais qu'il a une classe
+            # on lui demande de choisir un équipement parmi ceux dispo
+            # pour ce faire on lance l'action action_print_choice_equipement    
             print("pas déquipement")
             dispatcher.utter_message(text="Il faut choisir un equipement "+tracker.get_slot("classe")+"!")  
             response = "action_print_choice_equipment"
@@ -93,16 +87,20 @@ class ActionBeginChat(Action):
     async def run(self, dispatcher: CollectingDispatcher,
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-        # print(tracker.get_slot("fin_discussion"))
+        # on lance la fonction de DnD_api.py qui permet de récupérer les info de l'API
         slots = creation_slots_persos()
         # print(slots)
+        # on appelle la fonction qui traduit les slots et nous les renvoies dans un fichier JSON
+        # avec la key qui correspond au nom du slot dans Rasa et la value qui correspond à la valeur du slot obtenue de l'API traduite
         slots_traduit = await traduction_slots(slots)
         # print(slots_traduit)
         res = []
+        # on set tous les slots récupérés
         for slot, value in slots_traduit.items():
             print("slot:",slot,", value:",value)
             res.append(SlotSet(key=slot, value=value))
-        print("action_begin_chat")
+        # print("action_begin_chat")
+        # on réponds à l'utilisateur avec un message de bienvenue expliquant le but du chatbot
         dispatcher.utter_message(response="utter_welcome")
         return res
 
@@ -119,17 +117,21 @@ class ActionSetClass(Action):
         print(classe_choisi)
         classes_dispo = [tracker.get_slot("classe_barbare"), tracker.get_slot("classe_rodeur"), tracker.get_slot("classe_occultiste")]
         res = []
+        # si la classe choisi est dans les classe disponible extraite de l'API
         if classe_choisi in classes_dispo and classe_choisi!=None:
+            # on récupère les valeur de la classe
             classe = "classe_"+classe_choisi
             force = "force_"+classe_choisi
             agilite = "agilite_"+classe_choisi
             intelligence = "intelligence_"+classe_choisi
             pv = "pv_"+classe_choisi
+            # on set les slots qui dépendent de la classe choisi par l'utilisateur
             res.append(SlotSet(key="classe", value=tracker.get_slot(classe)))
             res.append(SlotSet(key="force", value=tracker.get_slot(force)))
             res.append(SlotSet(key="agilite", value=tracker.get_slot(agilite)))
             res.append(SlotSet(key="intelligence", value=tracker.get_slot(intelligence)))
             res.append(SlotSet(key="pv", value=tracker.get_slot(pv)))
+            # on répond à l'utilisateur en lui indiquant de choisir un équipement 
             dispatcher.utter_message(text="Très bien "+classe_choisi+"! Il te faut maintenant choisir un équipement!")
             return res
         else:
@@ -145,21 +147,24 @@ class ActionSetEquipement(Action):
             tracker: Tracker,
             domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
         print("action_set_equipement")
-        # extraction de la classe choisi
+        # extraction du numéro d'équipement choisi par l'utilisateur
         equipement_choisi = tracker.get_slot("numero_equipement")
         print(equipement_choisi)
+        # si le numéro d'equipement correspond bien à ceux disponible
         if equipement_choisi == "1" or equipement_choisi == "2":
             res = []
+            # on récupère les slot dépendant de l'équipement choisi
             nom_equipement = "equipement_"+equipement_choisi+"_nom_"+tracker.get_slot("classe")
             equipement_degat = "equipement_"+equipement_choisi+"_degat_"+tracker.get_slot("classe")
             equipement_description = "equipement_"+equipement_choisi+"_description_"+tracker.get_slot("classe")
+            # on set les slots dépendant du choix de l'utilisateur et regardant l'équipement
             res.append(SlotSet(key="equipement", value=tracker.get_slot(nom_equipement)))
             res.append(SlotSet(key="equipement_degat", value=tracker.get_slot(equipement_degat)))
             res.append(SlotSet(key="equipement_description", value=tracker.get_slot(equipement_description)))
             dispatcher.utter_message(text="Tout est bon pour moi!")
             return res
         else:
-            # si la classe n'est pas dans celle dispo 
+            # si le numéro d'quipement n'est pas dans ceux dispo 
             dispatcher.utter_message(text="Je n'ai pas compris, veuillez choisir un équipement disponible parmis ceux ennoncés.")
          
         return []
@@ -202,9 +207,12 @@ class ActionPrintChoiceEquipment(Action):
         # extraction de la classe choisi
         classe_choisi = tracker.get_slot("classe")
         message = ""
+        # si l'utilisateur n'a pas choisi de classe
         if classe_choisi == None:
+            # on demande à l'utilisateur d'en choisir
             message = "Les équipements dépendent de la classe que vous choisirez. Il vous faut choisir une classe!\n"
         else:
+            # sinon on récupère les infos des équipements dispo pour la classe
             equipement1 = tracker.get_slot("equipement_1_nom_"+str(classe_choisi))
             print(equipement1)
             equipement2 = tracker.get_slot("equipement_2_nom_"+str(classe_choisi))
@@ -213,13 +221,17 @@ class ActionPrintChoiceEquipment(Action):
             print(equipement1_degat)
             equipement2_degat =   tracker.get_slot("equipement_2_degat_"+str(classe_choisi))
             print(equipement2_degat)
-            if classe_choisi == "occultiste":  
+            # si l'utilisateur a choisi de jouer un occultiste
+            if classe_choisi == "occultiste": 
+                # il y a une description alors on la récupère
                 equipement1_description = tracker.get_slot("equipement_1_description_occultiste")
                 print(equipement1_description)
                 equipement2_description = tracker.get_slot("equipement_2_description_occultiste")  
                 print(equipement2_description) 
+                # on affiche tout les slots dépendant des équipements dispo
                 message = "Vous pouvez choisir un des équipements suivant (1 ou 2):\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+ ", description: "+str(equipement1_description)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)+ ", description: "+str(equipement2_description)
             else:
+                # on affiche tout les slots dépendant des équipements dispo
                 message = "Vous pouvez choisir un des équipements suivant (1 ou 2):\n 1)"+str(equipement1)+", dégats: "+str(equipement1_degat)+"\n ou\n 2)"+str(equipement2)+", dégats: "+str(equipement2_degat)
         
         dispatcher.utter_message(text=message)
