@@ -179,14 +179,15 @@ class ActionDisplayStats(Action):
         # on récupère la valeur de l'entité classe pour laquelle on veut savoir les stats
 
         classe = next(tracker.get_latest_entity_values("classe"), None)
+        print("classe demandé:",classe)
         if classe == None :
             pass
         else:
 
-            pv = "pv_"+tracker.get_latest_entity_values("classe")
-            force = "force_"+tracker.get_latest_entity_values("classe")
-            agilite = "agilite_"+tracker.get_latest_entity_values("classe")
-            intel = "intelligence_"+tracker.get_latest_entity_values("classe")
+            pv = "pv_"+classe
+            force = "force_"+classe
+            agilite = "agilite_"+classe
+            intel = "intelligence_"+classe
 
             dispatcher.utter_message(text=f"Les stats du {classe} sont :")
 
